@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Dawati design tokens — verbatim from DESIGN_SYSTEM.md.
+   Do NOT invent new gold hexes. Add new tokens in @theme block.
+   ============================================================ */
+
+@theme {
+  /* Cosmic ground */
+  --color-bg-0: #050714;
+  --color-bg-1: #0a0e27;
+  --color-bg-2: #15082a;
+
+  /* Gold scale */
+  --color-gold-hi:   #fff8d8;
+  --color-gold-1:    #ffe7a3;
+  --color-gold-2:    #f4d06b;
+  --color-gold-3:    #d4a93a;
+  --color-gold-4:    #b88a1e;
+  --color-gold-5:    #8a6817;
+  --color-gold-deep: #4a2c0a;
+
+  /* Rose-gold accent */
+  --color-rose-1: #f4c8a8;
+  --color-rose-2: #d99878;
+
+  /* Ink (text on white glass — always pure black) */
+  --color-ink:      #000000;
+  --color-ink-mute: #3a3a3a;
+  --color-gold-text: #8a6817;
+
+  /* Ink on cosmos (outside the glass) */
+  --color-ink-light: #ebd9b0;
+  --color-ink-dim:   #6a72a0;
+
+  /* Semantic */
+  --color-success: #2da640;
+  --color-success-dark: #1e6e2a;
+  --color-danger:  #c72e48;
+  --color-danger-dark: #7a1830;
+
+  /* Fonts (loaded via next/font in layout.tsx) */
+  --font-display:    var(--font-aref-ruqaa);   /* Aref Ruqaa — calligraphic display */
+  --font-body:       var(--font-amiri);        /* Amiri — Quranic body */
+  --font-ui:         var(--font-reem-kufi);    /* Reem Kufi — Arabic UI */
+  --font-latin:      var(--font-inter);        /* Inter — Latin labels */
+}
+
+/* ============================================================
+   Global reset + RTL base
+   ============================================================ */
+
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+  background: var(--color-bg-0);
+  color: var(--color-ink-light);
+}
+
+body {
+  font-family: var(--font-ui), sans-serif;
+  min-height: 100dvh;
+  overscroll-behavior-y: contain;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* RTL is set on <html> via the layout; no need to flip Tailwind utilities manually. */
+
+/* ============================================================
+   Reusable utility: gold shimmer text
+   ============================================================ */
+
+@utility text-gold-shim {
+  background: linear-gradient(90deg, #8a6817 0%, #b88a1e 25%, #f4d06b 50%, #b88a1e 75%, #8a6817 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+@utility text-gold-grad {
+  background: linear-gradient(180deg, #fff8d8 0%, #f4d06b 35%, #d4a93a 70%, #8a6817 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 50%; }
+  100% { background-position: -200% 50%; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes halo-pulse {
+  0%, 100% { transform: scale(1);    opacity: 0.9; }
+  50%      { transform: scale(1.08); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ============================================================
+   Focus rings — visible by default, gold not blue
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-2);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   Selection — gold tint
+   ============================================================ */
+
+::selection {
+  background: rgba(244, 208, 107, 0.35);
+  color: var(--color-gold-deep);
+}

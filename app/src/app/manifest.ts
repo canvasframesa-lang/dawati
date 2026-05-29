@@ -1,0 +1,21 @@
+import type { MetadataRoute } from 'next';
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: 'دعوتي · بطاقات دعوة إلكترونية فاخرة',
+    short_name: 'دعوتي',
+    description: 'صمّم دعوتك في دقائق وأرسلها على واتساب',
+    lang: 'ar-SA',
+    dir: 'rtl',
+    start_url: '/',
+    display: 'standalone',
+    background_color: '#020207',
+    theme_color: '#070914',
+    icons: [
+      { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+      { src: '/icons/icon-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+    ],
+    categories: ['lifestyle', 'social', 'productivity'],
+  };
+}
