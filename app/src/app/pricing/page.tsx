@@ -133,7 +133,7 @@ export default function PricingPage() {
               {a.availableFor.map((t, i) => (
                 <span key={t}>
                   {i > 0 && '، '}
-                  {t === 'mumayzaza' ? 'المميّزة' : t === 'fakhira' ? 'الفاخرة' : 'الملكية'}
+                  {t === 'mumayyaza' ? 'المميّزة' : t === 'fakhira' ? 'الفاخرة' : 'الملكية'}
                 </span>
               ))}
             </div>
