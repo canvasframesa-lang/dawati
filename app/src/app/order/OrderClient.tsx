@@ -18,7 +18,7 @@ const STORAGE_KEY = 'dawati_order_draft_v1';
 interface OrderDraft {
   // Tier + add-ons
   tier: Tier;
-  addons: string[]; // ids from ADD_ONS
+  addons: string[];
 
   // Occasion
   occasion: 'wedding' | 'engagement' | 'eid' | 'aqiqa' | 'graduation' | 'opening' | 'other';
@@ -38,7 +38,33 @@ interface OrderDraft {
   area: string;
   hall: string;
   mapsUrl: string;
-  expectedGuestCount: string;
+
+  // Guest counts (creative additions per user request)
+  expectedAdults: string;
+  expectedChildren: string;
+  hasSpecialNeeds: boolean;
+  specialNeedsNote: string;
+
+  // Photography policy
+  photographyPolicy: 'allowed' | 'forbidden' | 'designated-area' | 'professional-only';
+  photographyNote: string;
+
+  // Food & dietary
+  collectMealPreferences: boolean; // ask guests their meal type
+  collectAllergies: boolean; // ask guests their allergies
+  hasKidsMenu: boolean;
+  mealTypes: string[]; // what's available: lamb, chicken, fish, veg
+  dinnerTime: string;
+  menuDescription: string; // freeform menu description
+
+  // Accessibility / accommodations (Malakiyya)
+  hasWheelchairAccess: boolean;
+  hasNursingRoom: boolean;
+  hasPrayerRoom: boolean;
+  hasKidsPlayArea: boolean;
+  hasValetParking: boolean;
+  separateMaleFemale: boolean; // separate entrances/sections
+  accommodationNote: string;
 
   // Religious content
   verseChoice: 'auto' | 'tell-us';
@@ -46,14 +72,14 @@ interface OrderDraft {
   flourishChoice: 'auto' | 'tell-us';
   flourishNote: string;
 
-  // Design brief — the freeform description
-  designVibe: string[]; // e.g. ['royal', 'minimal', 'modern', 'classic', 'feminine']
+  // Design brief
+  designVibe: string[];
   paletteHint: string;
   referenceLinks: string;
-  designDescription: string; // the big freeform textarea
+  designDescription: string;
 
   // Languages
-  languages: string[]; // ['ar', 'en', 'fr']
+  languages: string[];
 
   // Contact
   yourName: string;
@@ -81,7 +107,25 @@ const INITIAL: OrderDraft = {
   area: '',
   hall: '',
   mapsUrl: '',
-  expectedGuestCount: '',
+  expectedAdults: '',
+  expectedChildren: '',
+  hasSpecialNeeds: false,
+  specialNeedsNote: '',
+  photographyPolicy: 'designated-area',
+  photographyNote: '',
+  collectMealPreferences: true,
+  collectAllergies: true,
+  hasKidsMenu: true,
+  mealTypes: [],
+  dinnerTime: '',
+  menuDescription: '',
+  hasWheelchairAccess: true,
+  hasNursingRoom: false,
+  hasPrayerRoom: true,
+  hasKidsPlayArea: false,
+  hasValetParking: false,
+  separateMaleFemale: true,
+  accommodationNote: '',
   verseChoice: 'auto',
   verseNote: '',
   flourishChoice: 'auto',
@@ -103,7 +147,8 @@ type Action =
   | { type: 'set'; patch: Partial<OrderDraft> }
   | { type: 'toggleAddon'; id: string }
   | { type: 'toggleVibe'; v: string }
-  | { type: 'toggleLanguage'; lang: string };
+  | { type: 'toggleLanguage'; lang: string }
+  | { type: 'toggleMeal'; m: string };
 
 function reducer(s: OrderDraft, a: Action): OrderDraft {
   if (a.type === 'set') return { ...s, ...a.patch };
@@ -118,10 +163,15 @@ function reducer(s: OrderDraft, a: Action): OrderDraft {
       : { ...s, designVibe: [...s.designVibe, a.v] };
   }
   if (a.type === 'toggleLanguage') {
-    if (a.lang === 'ar') return s; // Arabic is required
+    if (a.lang === 'ar') return s;
     return s.languages.includes(a.lang)
       ? { ...s, languages: s.languages.filter((x) => x !== a.lang) }
       : { ...s, languages: [...s.languages, a.lang] };
+  }
+  if (a.type === 'toggleMeal') {
+    return s.mealTypes.includes(a.m)
+      ? { ...s, mealTypes: s.mealTypes.filter((x) => x !== a.m) }
+      : { ...s, mealTypes: [...s.mealTypes, a.m] };
   }
   return s;
 }
@@ -490,17 +540,162 @@ export function OrderClient() {
                 onChange={(v) => dispatch({ type: 'set', patch: { mapsUrl: v } })}
                 placeholder="https://maps.app.goo.gl/..."
               />
-              <Field
-                label="عدد الضيوف المتوقّع"
-                value={data.expectedGuestCount}
-                onChange={(v) => dispatch({ type: 'set', patch: { expectedGuestCount: v } })}
-                placeholder="مثل: ٢٠٠"
-                type="text"
+            </Section>
+
+            {/* Guests breakdown */}
+            <Section title="٥ · توقّع عدد الضيوف" subtitle="يساعدنا نجهّز لوحتك بمعلومات أدقّ">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <Field
+                  label="عدد البالغين المتوقّع"
+                  value={data.expectedAdults}
+                  onChange={(v) => dispatch({ type: 'set', patch: { expectedAdults: v } })}
+                  placeholder="مثل: ٢٠٠"
+                />
+                <Field
+                  label="عدد الأطفال المتوقّع"
+                  value={data.expectedChildren}
+                  onChange={(v) => dispatch({ type: 'set', patch: { expectedChildren: v } })}
+                  placeholder="مثل: ٣٠"
+                />
+              </div>
+              <Toggle
+                label="فيه ضيوف من ذوي الاحتياجات الخاصة؟"
+                checked={data.hasSpecialNeeds}
+                onChange={(b) => dispatch({ type: 'set', patch: { hasSpecialNeeds: b } })}
+                hint="نضمن جاهزية القاعة بالمعلومات الصحيحة"
+              />
+              {data.hasSpecialNeeds && (
+                <Textarea
+                  label="تفاصيل الاحتياجات الخاصة"
+                  value={data.specialNeedsNote}
+                  onChange={(v) => dispatch({ type: 'set', patch: { specialNeedsNote: v } })}
+                  placeholder="مثل: ٢ كرسي متحرّك، حساسية صوت..."
+                  rows={2}
+                />
+              )}
+            </Section>
+
+            {/* Photography policy */}
+            <Section title="٦ · سياسة التصوير">
+              <p className="text-sm" style={{ color: 'var(--color-ink-light)', fontFamily: 'var(--font-body)' }}>
+                نُوضّح سياسة التصوير على الدعوة لضيوفك حتى يجيؤون مستعدّين
+              </p>
+              <Radios
+                name="photography"
+                value={data.photographyPolicy}
+                onChange={(v) => dispatch({ type: 'set', patch: { photographyPolicy: v as OrderDraft['photographyPolicy'] } })}
+                options={[
+                  { value: 'forbidden', label: 'ممنوع التصوير' },
+                  { value: 'designated-area', label: 'منطقة مخصّصة فقط' },
+                  { value: 'professional-only', label: 'مصوّر رسمي فقط' },
+                  { value: 'allowed', label: 'مسموح للجميع' },
+                ]}
+              />
+              <Textarea
+                label="ملاحظات إضافية للضيوف (اختياري)"
+                value={data.photographyNote}
+                onChange={(v) => dispatch({ type: 'set', patch: { photographyNote: v } })}
+                placeholder="مثل: التصوير مسموح بعد ساعة من بداية الحفل، أو تكون المنطقة المخصّصة هي البهو الخارجي..."
+                rows={2}
               />
             </Section>
 
+            {/* Food preferences (Fakhira+) */}
+            {(data.tier === 'fakhira' || data.tier === 'malakiyya') && (
+              <Section title="٧ · الطعام وتفضيلات الضيوف" subtitle="نسأل ضيوفك تلقائيًّا عند تأكيد الحضور — لتجهّز قائمتك بدقّة">
+                <Toggle
+                  label="اسأل الضيوف عن نوع الوجبة المفضّلة"
+                  checked={data.collectMealPreferences}
+                  onChange={(b) => dispatch({ type: 'set', patch: { collectMealPreferences: b } })}
+                  hint="يحدّد الضيف: لحم، دجاج، سمك، نباتي"
+                />
+                <Toggle
+                  label="اسأل الضيوف عن الحساسيات الغذائية"
+                  checked={data.collectAllergies}
+                  onChange={(b) => dispatch({ type: 'set', patch: { collectAllergies: b } })}
+                  hint="مكسرات، ألبان، جلوتين، بحريات..."
+                />
+                <Toggle
+                  label="عندك قائمة طعام مخصّصة للأطفال؟"
+                  checked={data.hasKidsMenu}
+                  onChange={(b) => dispatch({ type: 'set', patch: { hasKidsMenu: b } })}
+                />
+
+                <p className="text-sm pt-2" style={{ color: 'var(--color-ink-light)', fontFamily: 'var(--font-body)' }}>
+                  أنواع الوجبات المتوفّرة في حفلك
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { v: 'lamb', l: '🥩 لحم' },
+                    { v: 'chicken', l: '🍗 دجاج' },
+                    { v: 'fish', l: '🐟 سمك' },
+                    { v: 'rice', l: '🍚 كبسة' },
+                    { v: 'veg', l: '🥗 نباتي' },
+                    { v: 'sweets', l: '🍰 حلويات' },
+                    { v: 'buffet', l: '🍽️ بوفيه مفتوح' },
+                  ].map((o) => (
+                    <button
+                      key={o.v}
+                      type="button"
+                      onClick={() => dispatch({ type: 'toggleMeal', m: o.v })}
+                      className="px-4 py-2 rounded-full text-sm transition"
+                      style={{
+                        background: data.mealTypes.includes(o.v)
+                          ? 'linear-gradient(180deg, #f4d06b 0%, #d4a93a 100%)'
+                          : 'rgba(20, 14, 39, 0.55)',
+                        color: data.mealTypes.includes(o.v) ? '#2a1505' : 'var(--color-ink-light)',
+                        border: '1px solid rgba(184, 138, 30, 0.4)',
+                        fontFamily: 'var(--font-ui)',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {o.l}
+                    </button>
+                  ))}
+                </div>
+
+                <Field
+                  label="وقت تقديم العشاء"
+                  type="time"
+                  value={data.dinnerTime}
+                  onChange={(v) => dispatch({ type: 'set', patch: { dinnerTime: v } })}
+                />
+
+                {data.tier === 'malakiyya' && (
+                  <Textarea
+                    label="وصف القائمة الكاملة (للدعوة الملكية)"
+                    value={data.menuDescription}
+                    onChange={(v) => dispatch({ type: 'set', patch: { menuDescription: v } })}
+                    placeholder="اكتب القائمة كاملة كما تحبّ تظهر في الدعوة — مقبّلات، أطباق رئيسية، حلويات..."
+                    rows={5}
+                  />
+                )}
+              </Section>
+            )}
+
+            {/* Accommodations (Malakiyya) */}
+            {data.tier === 'malakiyya' && (
+              <Section title="٨ · وسائل الراحة في القاعة" subtitle="نُعلنها لضيوفك ليأتوا مرتاحين">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <Toggle label="♿ مدخل ووسائل وصول لذوي الاحتياجات الخاصة" checked={data.hasWheelchairAccess} onChange={(b) => dispatch({ type: 'set', patch: { hasWheelchairAccess: b } })} />
+                  <Toggle label="🛐 غرفة صلاة" checked={data.hasPrayerRoom} onChange={(b) => dispatch({ type: 'set', patch: { hasPrayerRoom: b } })} />
+                  <Toggle label="🤱 غرفة للأمهات / الرضاعة" checked={data.hasNursingRoom} onChange={(b) => dispatch({ type: 'set', patch: { hasNursingRoom: b } })} />
+                  <Toggle label="🧸 منطقة لعب للأطفال" checked={data.hasKidsPlayArea} onChange={(b) => dispatch({ type: 'set', patch: { hasKidsPlayArea: b } })} />
+                  <Toggle label="🅿️ خدمة Valet (تركن السيارة)" checked={data.hasValetParking} onChange={(b) => dispatch({ type: 'set', patch: { hasValetParking: b } })} />
+                  <Toggle label="🚪 مداخل منفصلة (رجال / نساء)" checked={data.separateMaleFemale} onChange={(b) => dispatch({ type: 'set', patch: { separateMaleFemale: b } })} />
+                </div>
+                <Textarea
+                  label="ملاحظات إضافية عن وسائل الراحة"
+                  value={data.accommodationNote}
+                  onChange={(v) => dispatch({ type: 'set', patch: { accommodationNote: v } })}
+                  placeholder="أيّ تفاصيل إضافية تبي توضّحها لضيوفك..."
+                  rows={3}
+                />
+              </Section>
+            )}
+
             {/* Religious */}
-            <Section title="٥ · النص الديني">
+            <Section title="٩ · النص الديني">
               <p
                 className="text-sm"
                 style={{ color: 'var(--color-ink-light)', fontFamily: 'var(--font-body)' }}
@@ -556,7 +751,7 @@ export function OrderClient() {
 
             {/* Design brief */}
             <Section
-              title="٦ · مواصفات التصميم"
+              title="١٠ · مواصفات التصميم"
               subtitle="هذا أهم قسم — احكِ لنا اللي تشوفه في خيالك"
             >
               <p
@@ -622,7 +817,7 @@ export function OrderClient() {
 
             {/* Languages */}
             {(data.tier === 'fakhira' || data.tier === 'malakiyya') && (
-              <Section title="٧ · اللغات">
+              <Section title="١١ · اللغات">
                 <div className="flex flex-wrap gap-2">
                   {[
                     { v: 'ar', l: 'العربية (إلزامي)' },
@@ -655,7 +850,7 @@ export function OrderClient() {
 
             {/* Add-ons */}
             {eligibleAddons.length > 0 && (
-              <Section title="٨ · إضافات اختيارية" subtitle="مطبوعات، تسليم سريع، خدمات إضافية">
+              <Section title="١٢ · إضافات اختيارية" subtitle="مطبوعات، تسليم سريع، خدمات إضافية">
                 <div className="space-y-2">
                   {eligibleAddons.map((a) => (
                     <label
@@ -715,7 +910,7 @@ export function OrderClient() {
             )}
 
             {/* Contact */}
-            <Section title="٩ · تواصلنا معك">
+            <Section title="١٣ · تواصلنا معك">
               <Field
                 label="اسمك"
                 value={data.yourName}
@@ -748,7 +943,7 @@ export function OrderClient() {
             </Section>
 
             {/* Notes */}
-            <Section title="١٠ · ملاحظات إضافية" subtitle="أيّ شيء آخر تبي تخبرنا به">
+            <Section title="١٤ · ملاحظات إضافية" subtitle="أيّ شيء آخر تبي تخبرنا به">
               <Field
                 label="تاريخ الحاجة للدعوة (اختياري)"
                 type="date"

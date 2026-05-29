@@ -2,26 +2,15 @@ import type { Tier } from './types';
 
 export interface TierDef {
   id: Tier;
-  /** Arabic display name */
   name: string;
-  /** Short Arabic tagline */
   tagline: string;
-  /** Price in SAR (VAT inclusive). */
   price: number;
-  /** Currency display */
   currency: 'SAR';
-  /** Highlighted feature bullets (Arabic) */
   features: string[];
-  /** Whether this tier is the recommended/middle one. */
   recommended?: boolean;
-  /** Promised delivery window. */
   deliveryHours: number;
 }
 
-/**
- * Concierge model: the customer submits a request, our team designs.
- * Pricing reflects done-for-you positioning.
- */
 export const TIERS: TierDef[] = [
   {
     id: 'mumayyaza',
@@ -32,11 +21,13 @@ export const TIERS: TierDef[] = [
     deliveryHours: 48,
     features: [
       '🎨 تصميم احترافي يصنعه فريقنا حسب طلبك',
-      '📜 آية قرآنية ودعاء ختامي نختاره معك',
+      '📜 آية قرآنية ودعاء ختامي نختاره معك من مكتبتنا',
       '🌙 التاريخ الهجري والميلادي تلقائيًّا',
-      '📍 زر الموقع الجغرافي (Google Maps / Apple)',
+      '📍 زر الموقع الجغرافي (Google Maps / Apple Maps / Waze)',
+      '📸 سياسة التصوير على البطاقة (مسموح / ممنوع / منطقة مخصّصة)',
+      '👨‍👩‍👧 عدد الضيوف الكلّي + عدد الأطفال للتوقع',
       '✅ نموذج تأكيد حضور للضيوف',
-      '📊 لوحة تحكم احترافية — تشاهد عدد الحاضرين والمعتذرين لحظيًّا',
+      '📊 لوحة تحكم احترافية — عدد الحاضرين والمعتذرين لحظيًّا',
       '💬 رسائل الضيوف تصلك في لوحتك',
       '🔗 رابط مشاركة جاهز لواتساب مع معاينة فاخرة',
       '✏️ تعديل واحد مجاني بعد التسليم',
@@ -47,7 +38,7 @@ export const TIERS: TierDef[] = [
   {
     id: 'fakhira',
     name: 'الفاخِرَة',
-    tagline: 'الأكثر طلبًا — تصميم مخصّص + لوحة متقدّمة + باركود',
+    tagline: 'الأكثر طلبًا — تصميم مخصّص + باركود + استعلامات الضيوف',
     price: 1200,
     currency: 'SAR',
     recommended: true,
@@ -57,13 +48,19 @@ export const TIERS: TierDef[] = [
       '🎨 تصميم مخصّص بألوان من اختيارك (٥ لوحات أو حسب طلبك)',
       '🖼️ خلفية صورة اختيارية للعروسَين أو شعار العائلة',
       '🎟 باركود فردي لكل ضيف + تسجيل دخول بالمسح عند القاعة',
+      '🍽️ سؤال الضيف عن تفضيلاته الغذائية عند تأكيد الحضور:',
+      '     · نوع الوجبة (لحم/دجاج/سمك/نباتي)',
+      '     · حساسيات (مكسرات، ألبان، جلوتين، بحريات...)',
+      '     · هل يحتاج وجبة أطفال؟',
+      '👶 سؤال الضيف عن: عدد البالغين + عدد الأطفال المرافقين',
+      '♿ سؤال الضيف عن احتياجات الوصول (كرسي متحرك، رعاية خاصة)',
       '📱 رسالة واتس مخصّصة لكل ضيف باسمه',
-      '🤖 ردّ تلقائي على أسئلة الضيوف على واتساب (متى؟ وين؟)',
+      '🤖 ردّ تلقائي على أسئلة الضيوف على واتساب (متى؟ وين؟ وش الوجبة؟)',
       '⏰ تذكير تلقائي قبل ٢٤ ساعة لمن أكّد الحضور',
-      '🌍 نسخة عربية + إنجليزية (للضيوف من خارج المنطقة)',
-      '📊 لوحة تحكم متقدّمة — خط زمني، إحصاءات، خرائط حرارية',
-      '📥 تصدير قائمة الضيوف Excel / PDF / CSV',
-      '🎙 رسالة صوتية اختيارية من العروسَين تشغل عند فتح الدعوة',
+      '🌍 نسخة عربية + إنجليزية',
+      '📊 لوحة متقدّمة — تجميع الوجبات، الحساسيات، عدد الأطفال، احتياجات خاصة',
+      '📥 تصدير قائمة الضيوف Excel / PDF / CSV (مع كل تفضيلاتهم)',
+      '🎙 رسالة صوتية اختيارية من العروسَين',
       '✏️ ٣ تعديلات مجانية بعد التسليم',
       '⏱ تسليم خلال ٢٤ ساعة من اعتماد التفاصيل',
       '📆 صلاحية الرابط ٦ أشهر',
@@ -72,7 +69,7 @@ export const TIERS: TierDef[] = [
   {
     id: 'malakiyya',
     name: 'المَلَكِيَّة',
-    tagline: 'الدعوة تصبح هويّة بصرية كاملة لمناسبتك',
+    tagline: 'الدعوة تصبح هويّة بصرية وتجربة متكاملة لمناسبتك',
     price: 2000,
     currency: 'SAR',
     deliveryHours: 12,
@@ -80,12 +77,22 @@ export const TIERS: TierDef[] = [
       'كل ما في الفاخرة — بالإضافة إلى:',
       '🎨 استشارة تصميمية ١-إلى-١ مع المصمم (٤٥ دقيقة)',
       '👑 شعار عائلي / مونوغرام مخصّص يُصمَّم لك',
-      '🎬 فيديو افتتاحي قصير + GIF متحرّك للمشاركة',
-      '🌐 دومين فرعي مخصّص باسمك (مثل: nawra-wedding.da3wati.com)',
-      '🗣 حتى ٤ لغات (عربي + إنجليزي + فرنسي + لغة رابعة حسب الحاجة)',
-      '👥 قائمة ضيوف VIP منفصلة + مجموعات (عائلة العريس، صديقات العروس، VIP)',
-      '🏷 شارات دخول للضيوف للطباعة (اسم + باركود + رقم طاولة)',
-      '📅 جدول الحفل المرئي للضيوف (استقبال، زفّة، عشاء)',
+      '🎬 فيديو افتتاحي قصير + GIF متحرّك',
+      '🌐 دومين فرعي مخصّص (مثل: nawra-wedding.da3wati.com)',
+      '🗣 حتى ٤ لغات (عربي + إنجليزي + فرنسي + رابعة)',
+      '🍽️ قائمة الطعام الكاملة معروضة في الدعوة + خيارات الضيف:',
+      '     · قائمة منفصلة للأطفال',
+      '     · خيارات نباتية / صحية / طبية موضّحة',
+      '     · ساعة تقديم العشاء معلنة',
+      '📸 توضيح كامل لسياسة التصوير + وقت التصوير الرسمي',
+      '🏛 جدول الحفل المفصّل: استقبال، زفّة، عشاء، تصوير، مغادرة',
+      '👥 قائمة ضيوف VIP منفصلة + مجموعات (عائلة العريس، صديقات العروس...)',
+      '🏷 شارات دخول للضيوف للطباعة (اسم + باركود + رقم طاولة + مجموعة)',
+      '🚪 خرائط للمداخل المخصّصة (مدخل الرجال / النساء / VIP)',
+      '🛐 معلومات أماكن الصلاة وأوقاتها داخل القاعة',
+      '👶 منطقة الأطفال + خدمة الحضانة (إن وجدت)',
+      '♿ تفاصيل الوصول للذوي الاحتياجات الخاصة',
+      '🅿️ معلومات المواقف والـ Valet',
       '💝 صفحة قائمة هدايا افتراضية',
       '🎉 صفحات للفعاليات المصاحبة (حنّاء، استقبال عائلي، وداع)',
       '✈ معلومات الفنادق والتنقّل للضيوف من خارج المدينة',
@@ -107,85 +114,50 @@ export interface AddOn {
   name: string;
   description: string;
   price: number;
-  /** Which tier(s) this add-on is available for. */
   availableFor: Tier[];
 }
 
-/** Print add-ons + extras — sold alongside any tier. */
+/**
+ * ملاحظة مهمّة: المطبوعات الفيزيائية ليست مشمولة في أي باقة — هي إضافات مستقلّة
+ * يدفع العميل تكلفتها بالكامل حسب الكمية والمقاس وجودة الطباعة.
+ * كل الأسعار شامل التوصيل لداخل الرياض وجدة، وتُحسب رسوم إضافية لباقي المدن.
+ */
 export const ADD_ONS: AddOn[] = [
-  {
-    id: 'print-100',
-    name: 'طباعة ١٠٠ بطاقة فاخرة',
-    description: 'بطاقات مطبوعة بورق ٣٥٠ جرام + باركود لكل ضيف. توصيل خلال ٣ أيام (الرياض/جدة).',
-    price: 300,
-    availableFor: ['mumayyaza', 'fakhira', 'malakiyya'],
-  },
-  {
-    id: 'print-250',
-    name: 'طباعة ٢٥٠ بطاقة فاخرة',
-    description: 'بطاقات مطبوعة بورق ٣٥٠ جرام + باركود لكل ضيف. توصيل خلال ٣ أيام.',
-    price: 600,
-    availableFor: ['mumayyaza', 'fakhira', 'malakiyya'],
-  },
-  {
-    id: 'print-500',
-    name: 'طباعة ٥٠٠ بطاقة فاخرة',
-    description: 'بطاقات مطبوعة بورق ٣٥٠ جرام + باركود لكل ضيف. توصيل خلال ٤ أيام.',
-    price: 1000,
-    availableFor: ['mumayyaza', 'fakhira', 'malakiyya'],
-  },
-  {
-    id: 'print-premium-100',
-    name: 'طباعة بريميوم — ١٠٠ بطاقة (ذهبي + بارز)',
-    description: 'بطاقات بنقش ذهبي حراري + تأثير بارز + باركود فردي. توصيل ٥ أيام.',
-    price: 700,
-    availableFor: ['fakhira', 'malakiyya'],
-  },
-  {
-    id: 'vip-badges-30',
-    name: 'شارات VIP مطبوعة — ٣٠ ضيف',
-    description: 'شارات فردية بأسماء الضيوف + شعار العائلة + باركود + رقم طاولة.',
-    price: 350,
-    availableFor: ['fakhira', 'malakiyya'],
-  },
-  {
-    id: 'custom-domain',
-    name: 'دومين مستقلّ خاص بك',
-    description: 'نربط الدعوة على دومين تشتريه أنت (مثل: nawra-wedding.com).',
-    price: 200,
-    availableFor: ['mumayyaza', 'fakhira'],
-  },
-  {
-    id: 'extra-revisions',
-    name: 'تعديلات إضافية (٥ تعديلات)',
-    description: 'دفعة إضافية من التعديلات بعد استنفاذ الباقة.',
-    price: 150,
-    availableFor: ['mumayyaza', 'fakhira'],
-  },
-  {
-    id: 'rush-6h',
-    name: 'تسليم سريع خلال ٦ ساعات',
-    description: 'تسليم خلال ٦ ساعات من اعتماد التفاصيل (للحالات العاجلة).',
-    price: 250,
-    availableFor: ['mumayyaza', 'fakhira'],
-  },
-  {
-    id: 'voice-message',
-    name: 'تسجيل صوتي احترافي للعروسَين',
-    description: 'استوديو صغير في الرياض أو جدة (موعد مسبق) لتسجيل رسالة بجودة عالية.',
-    price: 400,
-    availableFor: ['mumayyaza', 'fakhira', 'malakiyya'],
-  },
-  {
-    id: 'extra-language',
-    name: 'إضافة لغة ترجمة',
-    description: 'نسخة كاملة من الدعوة بلغة إضافية (إنجليزي، فرنسي، أو أيّ لغة أخرى).',
-    price: 200,
-    availableFor: ['fakhira'],
-  },
+  /* === مطبوعات قياسية A6 (105×148 مم) — الأكثر شيوعًا === */
+  { id: 'print-a6-50',  name: '🖨 طباعة ٥٠ بطاقة (مقاس A6)',  description: 'ورق فاخر ٣٥٠ جرام، طباعة عالية الجودة، باركود فردي لكل ضيف. توصيل ٣ أيام (الرياض/جدة).',  price: 250,  availableFor: ['mumayyaza', 'fakhira', 'malakiyya'] },
+  { id: 'print-a6-100', name: '🖨 طباعة ١٠٠ بطاقة (مقاس A6)', description: 'ورق فاخر ٣٥٠ جرام + باركود فردي. توصيل ٣ أيام.', price: 400,  availableFor: ['mumayyaza', 'fakhira', 'malakiyya'] },
+  { id: 'print-a6-250', name: '🖨 طباعة ٢٥٠ بطاقة (مقاس A6)', description: 'ورق فاخر ٣٥٠ جرام + باركود فردي. توصيل ٤ أيام.', price: 800,  availableFor: ['mumayyaza', 'fakhira', 'malakiyya'] },
+  { id: 'print-a6-500', name: '🖨 طباعة ٥٠٠ بطاقة (مقاس A6)', description: 'ورق فاخر ٣٥٠ جرام + باركود فردي. توصيل ٥ أيام.', price: 1400, availableFor: ['mumayyaza', 'fakhira', 'malakiyya'] },
+
+  /* === مطبوعات A5 (148×210 مم) — أكبر، تظهر فيها التفاصيل أكثر === */
+  { id: 'print-a5-100', name: '🖨 طباعة ١٠٠ بطاقة (مقاس A5 — أكبر)', description: 'مقاس مضاعف لـ A6، يعرض زخارف وتفاصيل أكثر. ورق ٣٥٠ جرام + باركود. توصيل ٤ أيام.', price: 600, availableFor: ['mumayyaza', 'fakhira', 'malakiyya'] },
+  { id: 'print-a5-250', name: '🖨 طباعة ٢٥٠ بطاقة (مقاس A5)',         description: 'مقاس A5 فاخر + باركود فردي. توصيل ٥ أيام.', price: 1200, availableFor: ['mumayyaza', 'fakhira', 'malakiyya'] },
+
+  /* === طباعة مربعة 15×15 سم — مودرن === */
+  { id: 'print-square-100', name: '🖨 طباعة ١٠٠ بطاقة مربعة (١٥×١٥ سم)', description: 'مقاس مربّع عصري — مميّز للأعراس الحديثة. ورق ٣٥٠ جرام + باركود. توصيل ٤ أيام.', price: 550, availableFor: ['mumayyaza', 'fakhira', 'malakiyya'] },
+
+  /* === بريميوم — نقش ذهبي بارز === */
+  { id: 'print-premium-100', name: '👑 طباعة بريميوم — ١٠٠ بطاقة (نقش ذهبي بارز)', description: 'نقش ذهبي حراري + تأثير بارز (Letterpress) + ورق قطني فاخر + باركود. توصيل ٦ أيام.', price: 1100, availableFor: ['fakhira', 'malakiyya'] },
+  { id: 'print-premium-250', name: '👑 طباعة بريميوم — ٢٥٠ بطاقة (نقش ذهبي بارز)', description: 'نفس مواصفات البريميوم، كميّة أكبر. توصيل ٧ أيام.', price: 2400, availableFor: ['fakhira', 'malakiyya'] },
+
+  /* === مطبوعات مرافقة للحفل === */
+  { id: 'vip-badges-30',  name: '🏷 شارات VIP مطبوعة — ٣٠ ضيف',  description: 'شارات بأسماء + شعار العائلة + باركود + رقم طاولة، بجودة فندقية.', price: 350, availableFor: ['fakhira', 'malakiyya'] },
+  { id: 'vip-badges-100', name: '🏷 شارات VIP مطبوعة — ١٠٠ ضيف', description: 'نفس مواصفات الشارات، كميّة أكبر للحفلات الكبيرة.', price: 900, availableFor: ['fakhira', 'malakiyya'] },
+  { id: 'menu-cards-20',  name: '🍽 بطاقات قائمة طعام — ٢٠ طاولة', description: 'بطاقة قائمة طعام لكل طاولة، بنفس تصميم الدعوة، ورق فاخر.', price: 350, availableFor: ['fakhira', 'malakiyya'] },
+  { id: 'thank-you-cards', name: '💌 بطاقات شكر إلكترونية بعد الحفل', description: 'تُرسل تلقائيًّا لكل من حضر بعد الحفل بساعات.', price: 150, availableFor: ['fakhira', 'malakiyya'] },
+
+  /* === مقاسات مخصّصة وكميات كبيرة === */
+  { id: 'print-custom-quote', name: '📦 طلب كمية أو مقاس مخصّص', description: 'أكثر من ٥٠٠ بطاقة أو مقاس غير قياسي (مظاريف، علب، ...) — نتواصل معك بعرض سعر مخصّص خلال ٦ ساعات.', price: 0, availableFor: ['mumayyaza', 'fakhira', 'malakiyya'] },
+
+  /* === خدمات رقمية إضافية === */
+  { id: 'custom-domain',    name: '🌐 دومين مستقلّ خاص بك',         description: 'نربط الدعوة على دومين تشتريه أنت (مثل: nawra-wedding.com).', price: 200, availableFor: ['mumayyaza', 'fakhira'] },
+  { id: 'extra-revisions',  name: '✏️ تعديلات إضافية (٥ تعديلات)',  description: 'بعد استنفاذ تعديلات باقتك.', price: 150, availableFor: ['mumayyaza', 'fakhira'] },
+  { id: 'rush-6h',          name: '⚡ تسليم سريع خلال ٦ ساعات',       description: 'للحالات العاجلة جدًّا.', price: 250, availableFor: ['mumayyaza', 'fakhira'] },
+  { id: 'voice-message',    name: '🎙 تسجيل صوتي احترافي للعروسَين', description: 'استوديو في الرياض أو جدة (موعد مسبق) لتسجيل رسالة بجودة عالية.', price: 400, availableFor: ['mumayyaza', 'fakhira', 'malakiyya'] },
+  { id: 'extra-language',   name: '🗣 إضافة لغة ترجمة',             description: 'نسخة كاملة بلغة إضافية (إنجليزي، فرنسي، أو أيّ لغة).', price: 200, availableFor: ['fakhira'] },
+  { id: 'kids-corner',      name: '🧸 دعوة منفصلة لمنطقة الأطفال',  description: 'صفحة مرافقة فيها أنشطة وألعاب — يفتحونها على جوّال أهلهم.', price: 200, availableFor: ['fakhira', 'malakiyya'] },
 ];
 
-/** Format the price for display: "٧٠٠ ر.س". */
 export function formatPrice(price: number): string {
   return `${price.toLocaleString('ar-SA')} ر.س`;
 }
