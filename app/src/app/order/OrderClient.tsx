@@ -15,6 +15,23 @@ import type { Tier } from '@/lib/types';
 
 const STORAGE_KEY = 'dawati_order_draft_v1';
 
+const OCCASION_LABEL: Record<string, string> = {
+  wedding: 'زواج',
+  engagement: 'خطوبة',
+  eid: 'عيد',
+  aqiqa: 'عقيقة',
+  graduation: 'تخرّج',
+  opening: 'افتتاح',
+  other: 'أخرى',
+};
+
+const PHOTO_LABEL: Record<string, string> = {
+  allowed: 'مسموح للجميع',
+  forbidden: 'ممنوع',
+  'designated-area': 'منطقة مخصّصة فقط',
+  'professional-only': 'مصوّر رسمي فقط',
+};
+
 interface OrderDraft {
   // Tier + add-ons
   tier: Tier;
@@ -217,16 +234,100 @@ export function OrderClient() {
     tier.price + selectedAddons.reduce((sum, a) => sum + a.price, 0);
 
   function handleSubmit() {
-    /* Validation will live in a Zod schema in Hermes' pass.
-     * For now, basic guards + log payload. */
     if (!data.yourName.trim() || !data.yourPhone.trim() || !data.gregorianDate) {
       alert('املأ على الأقل: اسمك، جوّالك، وتاريخ المناسبة.');
       return;
     }
     setSubmitted(true);
-    // In production this will POST to /api/orders → Moyasar checkout redirect
-    // eslint-disable-next-line no-console
-    console.warn('[order draft]', { ...data, total });
+
+    /* Until Moyasar checkout lands, route the order to Dawati's WhatsApp
+     * as a fully formatted message. The customer just hits Send. */
+    const phone = '966500000000'; // TODO Hermes: replace with real Dawati WhatsApp Business number
+    const msg = buildWhatsAppMessage(data, tier.name, total, selectedAddons);
+    const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    setTimeout(() => window.open(waUrl, '_blank'), 600);
+  }
+
+  function buildWhatsAppMessage(d: OrderDraft, tierName: string, totalSar: number, addons: typeof selectedAddons): string {
+    const lines: string[] = [];
+    lines.push('🌙 *طلب دعوة جديدة عبر دعوتي*');
+    lines.push('');
+    lines.push(`*الباقة:* ${tierName}`);
+    lines.push(`*الإجمالي:* ${totalSar.toLocaleString('ar-SA')} ر.س (شامل الضريبة)`);
+    lines.push('');
+    lines.push(`*المناسبة:* ${OCCASION_LABEL[d.occasion] ?? d.occasion}${d.occasionOther ? ' — ' + d.occasionOther : ''}`);
+    lines.push(`*التاريخ:* ${d.gregorianDate}${d.time ? ' · ' + d.time : ''}`);
+    lines.push(`*المكان:* ${d.city}${d.area ? ' — ' + d.area : ''}${d.hall ? ' — ' + d.hall : ''}`);
+    if (d.mapsUrl) lines.push(`*الموقع:* ${d.mapsUrl}`);
+    lines.push('');
+    if (d.occasion === 'wedding' || d.occasion === 'engagement') {
+      if (d.groomName) lines.push(`*العريس:* ${d.groomName}`);
+      if (d.brideName) lines.push(`*العروس:* ${d.brideName}`);
+      if (d.groomFamily) lines.push(`*عائلة العريس:* آل ${d.groomFamily}`);
+      if (d.brideFamily) lines.push(`*عائلة العروس:* آل ${d.brideFamily}`);
+      lines.push(`*إظهار اسم العروس في النص:* ${d.hideBrideFirstName ? 'لا' : 'نعم'}`);
+    } else {
+      if (d.groomName) lines.push(`*المُضيف:* ${d.groomName}`);
+    }
+    lines.push('');
+    lines.push(`*الضيوف:* ${d.expectedAdults || '?'} بالغ + ${d.expectedChildren || '0'} طفل`);
+    if (d.hasSpecialNeeds) lines.push(`*ذوي احتياجات خاصة:* ${d.specialNeedsNote || 'نعم'}`);
+    lines.push(`*التصوير:* ${PHOTO_LABEL[d.photographyPolicy]}`);
+    if (d.photographyNote) lines.push(`*ملاحظة التصوير:* ${d.photographyNote}`);
+    if (d.tier === 'fakhira' || d.tier === 'malakiyya') {
+      lines.push('');
+      lines.push(`*جمع تفضيلات الوجبة من الضيوف:* ${d.collectMealPreferences ? 'نعم' : 'لا'}`);
+      lines.push(`*جمع الحساسيات:* ${d.collectAllergies ? 'نعم' : 'لا'}`);
+      lines.push(`*قائمة أطفال:* ${d.hasKidsMenu ? 'نعم' : 'لا'}`);
+      if (d.mealTypes.length) lines.push(`*أنواع الوجبات:* ${d.mealTypes.join('، ')}`);
+      if (d.dinnerTime) lines.push(`*وقت العشاء:* ${d.dinnerTime}`);
+      if (d.menuDescription) lines.push(`*وصف القائمة:* ${d.menuDescription}`);
+    }
+    if (d.tier === 'malakiyya') {
+      const accommodations: string[] = [];
+      if (d.hasWheelchairAccess) accommodations.push('وصول لذوي الاحتياجات');
+      if (d.hasPrayerRoom) accommodations.push('غرفة صلاة');
+      if (d.hasNursingRoom) accommodations.push('غرفة رضاعة');
+      if (d.hasKidsPlayArea) accommodations.push('منطقة أطفال');
+      if (d.hasValetParking) accommodations.push('Valet');
+      if (d.separateMaleFemale) accommodations.push('مداخل منفصلة');
+      if (accommodations.length) lines.push(`*وسائل الراحة:* ${accommodations.join('، ')}`);
+      if (d.accommodationNote) lines.push(`*ملاحظة الراحة:* ${d.accommodationNote}`);
+    }
+    lines.push('');
+    lines.push(`*النص الديني:* ${d.verseChoice === 'auto' ? 'اتركوا لنا' : d.verseNote}`);
+    lines.push(`*الدعاء:* ${d.flourishChoice === 'auto' ? 'اتركوا لنا' : d.flourishNote}`);
+    lines.push('');
+    if (d.designVibe.length) lines.push(`*مزاج التصميم:* ${d.designVibe.join('، ')}`);
+    if (d.paletteHint) lines.push(`*اللون:* ${d.paletteHint}`);
+    if (d.designDescription) {
+      lines.push('');
+      lines.push('*وصف التصميم المطلوب:*');
+      lines.push(d.designDescription);
+    }
+    if (d.referenceLinks) {
+      lines.push('');
+      lines.push('*مراجع:*');
+      lines.push(d.referenceLinks);
+    }
+    if (d.languages.length > 1) lines.push(`\n*اللغات:* ${d.languages.join('، ')}`);
+    if (addons.length) {
+      lines.push('');
+      lines.push('*الإضافات:*');
+      addons.forEach((a) => lines.push(`+ ${a.name} (${a.price} ر.س)`));
+    }
+    lines.push('');
+    lines.push('━━━━━━━━━━━━━━');
+    lines.push(`*اسمي:* ${d.yourName}`);
+    lines.push(`*جوّالي:* ${d.yourPhone}`);
+    if (d.yourEmail) lines.push(`*إيميلي:* ${d.yourEmail}`);
+    if (d.neededByDate) lines.push(`*أحتاجها بحلول:* ${d.neededByDate}`);
+    if (d.notes) {
+      lines.push('');
+      lines.push('*ملاحظات:*');
+      lines.push(d.notes);
+    }
+    return lines.join('\n');
   }
 
   if (submitted) {
@@ -253,7 +354,7 @@ export function OrderClient() {
                 fontSize: 'clamp(28px, 5vw, 40px)',
               }}
             >
-              وصلنا طلبك — جزاك الله خير
+              فتحنا لك واتساب — أرسل الطلب
             </h1>
             <p
               className="mb-6"
@@ -264,30 +365,42 @@ export function OrderClient() {
                 lineHeight: 1.8,
               }}
             >
-              نوجّهك الآن لصفحة الدفع. بعد الدفع، فريقنا يبدأ على تصميم دعوتك فورًا،
-              وتصلك معاينة خلال {tier.deliveryHours} ساعة على الواتس والإيميل.
+              راح يفتح لك واتساب مع طلبك جاهز — كل اللي عليك تضغط «إرسال».
+              فريقنا يراجع طلبك خلال ساعة ويرسل لك رابط الدفع، ثم نبدأ التصميم
+              ونسلّم خلال {tier.deliveryHours} ساعة.
             </p>
             <p
-              className="text-sm"
+              className="text-sm mb-2"
               style={{
-                color: 'var(--color-gold-1)',
+                color: 'var(--color-gold-2)',
                 fontFamily: 'var(--font-body)',
-                fontStyle: 'italic',
               }}
             >
-              ⚙ ربط الدفع (موياسر) سيكمله هرمز — هذا الجزء معطّل حاليًّا
+              ما فتح واتساب؟ اضغط الزر تحت
             </p>
-            <Link
-              href="/"
-              className="inline-block mt-8 rounded-2xl px-8 py-3 border-2 font-bold"
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="inline-block mt-6 rounded-2xl px-10 py-4 font-bold"
               style={{
-                borderColor: 'rgba(244, 208, 107, 0.55)',
-                color: 'var(--color-gold-1)',
+                background: 'linear-gradient(180deg, #25D366 0%, #128C7E 100%)',
+                color: '#fff',
                 fontFamily: 'var(--font-display)',
+                fontSize: 18,
+                boxShadow: '0 8px 22px rgba(37, 211, 102, 0.4)',
               }}
             >
-              ← الرجوع للرئيسية
-            </Link>
+              💬 افتح واتساب مرة ثانية
+            </button>
+            <div className="mt-6">
+              <Link
+                href="/"
+                className="inline-block text-sm"
+                style={{ color: 'var(--color-gold-2)', textDecoration: 'underline' }}
+              >
+                ← الرجوع للرئيسية
+              </Link>
+            </div>
           </div>
         </main>
       </>
@@ -1045,18 +1158,16 @@ export function OrderClient() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="block w-full text-center rounded-2xl py-4 font-bold mt-6"
+                className="block w-full text-center rounded-2xl py-4 font-bold mt-6 flex items-center justify-center gap-2"
                 style={{
-                  background:
-                    'linear-gradient(180deg, #f4d06b 0%, #d4a93a 50%, #8a6817 100%)',
-                  color: '#2a1505',
-                  boxShadow:
-                    'inset 0 1px 0 rgba(255,255,255,0.55), 0 8px 22px rgba(184,138,30,0.45)',
+                  background: 'linear-gradient(180deg, #25D366 0%, #128C7E 100%)',
+                  color: '#fff',
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.35), 0 8px 22px rgba(37, 211, 102, 0.4)',
                   fontFamily: 'var(--font-display)',
                   fontSize: 18,
                 }}
               >
-                إرسال الطلب والدفع ←
+                💬 ابعث طلبك على واتساب
               </button>
               <p
                 className="text-xs mt-3 text-center"
@@ -1066,7 +1177,8 @@ export function OrderClient() {
                   lineHeight: 1.6,
                 }}
               >
-                ادفع بأمان عبر موياسر. استرداد كامل قبل بدء التصميم.
+                طلبك يصل لفريقنا على واتساب — نراجعه ونرسل لك رابط الدفع خلال ساعة.
+                <br />استرداد كامل قبل بدء التصميم.
               </p>
             </div>
           </aside>
