@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Tajawal, Amiri, Aref_Ruqaa, Inter } from 'next/font/google';
+import { Tajawal, Amiri, Aref_Ruqaa, Reem_Kufi, El_Messiri, Cairo, Inter } from 'next/font/google';
 import { baseMetadata, organizationLd, websiteLd } from '@/lib/seo';
 import './globals.css';
 
@@ -31,6 +31,27 @@ const arefRuqaa = Aref_Ruqaa({
   variable: '--font-aref-ruqaa',
 });
 
+const reemKufi = Reem_Kufi({
+  subsets: ['arabic', 'latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-reem-kufi',
+});
+
+const elMessiri = El_Messiri({
+  subsets: ['arabic', 'latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-el-messiri',
+});
+
+const cairo = Cairo({
+  subsets: ['arabic', 'latin'],
+  weight: ['400', '600', '700', '900'],
+  display: 'swap',
+  variable: '--font-cairo',
+});
+
 const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
@@ -53,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="ar"
       dir="rtl"
-      className={`${tajawal.variable} ${amiri.variable} ${arefRuqaa.variable} ${inter.variable}`}
+      className={`${tajawal.variable} ${amiri.variable} ${arefRuqaa.variable} ${reemKufi.variable} ${elMessiri.variable} ${cairo.variable} ${inter.variable}`}
     >
       <head>
         <script

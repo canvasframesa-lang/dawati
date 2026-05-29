@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { serviceLd } from '@/lib/seo';
+import { SampleCardTile, type SampleStyle } from '@/components/SampleCardTile';
 
 export default function HomePage() {
   return (
@@ -415,10 +416,40 @@ const FEATURES = [
 /* ============ Sample gallery ============ */
 
 function SampleGallery() {
-  const samples = [
-    { occasion: 'زواج', families: 'الراجحي ✦ الفوزان', date: 'الجمعة ٤ محرّم ١٤٤٨', palette: 'gold' as const },
-    { occasion: 'زواج', families: 'التويجري ✦ السديري', date: 'الخميس ١٦ صفر ١٤٤٨', palette: 'rose' as const },
-    { occasion: 'خطوبة', families: 'البابطين ✦ الزامل', date: 'الأحد ٢٦ صفر ١٤٤٨', palette: 'midnight' as const },
+  const samples: { style: SampleStyle; occasion: string; topLine?: string; groomName: string; brideName?: string; date: string; venue: string; tierLabel: string; href: string }[] = [
+    {
+      style: 'royal-cosmos',
+      occasion: 'زواج',
+      topLine: 'دعوة زواج',
+      groomName: 'فيصل الراجحي',
+      brideName: 'كريمة الفوزان',
+      date: 'الجمعة ٤ محرّم ١٤٤٨',
+      venue: 'الرياض · الفيصلية',
+      tierLabel: 'الفاخرة',
+      href: '/order?tier=fakhira',
+    },
+    {
+      style: 'botanical-rose',
+      occasion: 'خطوبة',
+      topLine: 'خطوبة',
+      groomName: 'سلطان البابطين',
+      brideName: 'كريمة الزامل',
+      date: 'الأحد ٢٦ صفر ١٤٤٨',
+      venue: 'الرياض · حطّين',
+      tierLabel: 'المميّزة',
+      href: '/order?tier=mumayyaza',
+    },
+    {
+      style: 'modern-minimal',
+      occasion: 'زواج',
+      topLine: 'Save the Date',
+      groomName: 'عبد العزيز التويجري',
+      brideName: 'كريمة السديري',
+      date: 'الخميس ١٦ صفر ١٤٤٨',
+      venue: 'جدة · شاطئ السلام',
+      tierLabel: 'الملكية',
+      href: '/order?tier=malakiyya',
+    },
   ];
   return (
     <section className="section">
@@ -426,10 +457,10 @@ function SampleGallery() {
         <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
           <div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-2">
-              أمثلة من تصاميمنا
+              أنماط تليق بكل ذوق
             </h2>
             <p className="text-[var(--color-ink-mute)]">
-              كل بطاقة مصمّمة من الصفر — لا قوالب جاهزة.
+              لكل بطاقة شخصيتها — فخامة كلاسيكية، نعومة عصرية، زخارف أندلسية، وغيرها.
             </p>
           </div>
           <Link
@@ -441,58 +472,12 @@ function SampleGallery() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {samples.map((s, i) => (
-            <SampleCard key={i} {...s} />
+          {samples.map((s) => (
+            <SampleCardTile key={s.style} data={s} />
           ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function SampleCard({
-  occasion,
-  families,
-  date,
-  palette,
-}: {
-  occasion: string;
-  families: string;
-  date: string;
-  palette: 'gold' | 'rose' | 'midnight';
-}) {
-  const bg = {
-    gold: 'linear-gradient(155deg, #fdf6e3 0%, #f4d56e 100%)',
-    rose: 'linear-gradient(155deg, #fdf2ee 0%, #e09a85 100%)',
-    midnight: 'linear-gradient(155deg, #f4f0fa 0%, #b8a3e0 100%)',
-  }[palette];
-
-  return (
-    <article className="rounded-2xl overflow-hidden border border-[var(--color-line)] bg-white hover:shadow-lg transition-shadow" style={{ boxShadow: 'var(--shadow-sm)' }}>
-      <div
-        className="aspect-[3/4] flex flex-col items-center justify-center p-6 text-center"
-        style={{ background: bg }}
-      >
-        <div className="text-[10px] tracking-[3px] mb-3 font-semibold" style={{ color: '#8a6817' }}>
-          دَعوَة · {occasion}
-        </div>
-        <div
-          className="font-bold mb-3 text-gradient-gold leading-tight"
-          style={{ fontFamily: 'var(--font-aref-ruqaa)', fontSize: 22 }}
-        >
-          {families}
-        </div>
-        <div className="text-xs" style={{ color: '#4a2c0a' }}>
-          {date}
-        </div>
-      </div>
-      <div className="p-4 flex items-center justify-between">
-        <span className="text-xs font-semibold text-[var(--color-ink-mute)]">{occasion}</span>
-        <Link href="/order" className="text-xs font-bold text-[var(--color-ink)] hover:text-[var(--color-gold-3)] transition">
-          مثل هذي ←
-        </Link>
-      </div>
-    </article>
   );
 }
 
