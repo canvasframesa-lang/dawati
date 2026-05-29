@@ -1167,7 +1167,7 @@ export function OrderClient() {
                   fontSize: 18,
                 }}
               >
-                💬 ابعث طلبك على واتساب
+                💬 ودّ طلبك لنا على واتساب
               </button>
               <p
                 className="text-xs mt-3 text-center"

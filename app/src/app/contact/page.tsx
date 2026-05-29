@@ -25,7 +25,7 @@ export default function ContactPage() {
           title="البريد الإلكتروني"
           subtitle="للأسئلة التفصيلية والمرفقات"
           href="mailto:hello@da3wati.com"
-          cta="ابعث إيميل"
+          cta="ودّ إيميل"
           icon="✉️"
         />
         <Method

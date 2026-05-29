@@ -20,7 +20,7 @@ export default function PrivacyPage() {
           <ul className="list-disc pr-6 space-y-2">
             <li><strong style={{ color: 'var(--color-gold-1)' }}>الاسم والبريد ورقم الجوّال:</strong> للتواصل معك وتسليم الدعوة.</li>
             <li><strong style={{ color: 'var(--color-gold-1)' }}>تفاصيل الطلب:</strong> الأسماء، التاريخ، المكان، الوصف التصميمي — نستخدمها فقط لتنفيذ دعوتك.</li>
-            <li><strong style={{ color: 'var(--color-gold-1)' }}>معلومات الدفع:</strong> لا نخزّن رقم بطاقتك. الدفع يمرّ مباشرة عبر موياسر، ولا يصلنا منها إلا تأكيد العملية ومعرّفها.</li>
+            <li><strong style={{ color: 'var(--color-gold-1)' }}>معلومات الدفع:</strong> لا نحفظ رقم بطاقتك أبدًا — الدفع يمرّ عبر بوّابة آمنة معتمدة، ولا يصلنا منها إلا تأكيد العملية.</li>
             <li><strong style={{ color: 'var(--color-gold-1)' }}>عنوان IP والمتصفّح:</strong> لأغراض أمنية تقنية فقط، ويُحذف بعد ٣٠ يومًا.</li>
           </ul>
         </Section>
@@ -67,7 +67,7 @@ export default function PrivacyPage() {
         <Section title="مشاركة البيانات مع أطراف ثالثة">
           <p>نشارك الحد الأدنى من البيانات مع هذي الجهات فقط لتقديم الخدمة:</p>
           <ul className="list-disc pr-6 space-y-2 mt-3">
-            <li><strong style={{ color: 'var(--color-gold-1)' }}>موياسر</strong> (الدفع): اسمك ومبلغ الفاتورة فقط، لا تفاصيل الطلب.</li>
+            <li><strong style={{ color: 'var(--color-gold-1)' }}>بوّابة الدفع المعتمدة:</strong> اسمك ومبلغ الفاتورة فقط، لا تفاصيل الطلب.</li>
             <li><strong style={{ color: 'var(--color-gold-1)' }}>Cloudflare</strong> (استضافة): يمرّ بياناتك بحماية WAF — لا يخزّنها.</li>
             <li><strong style={{ color: 'var(--color-gold-1)' }}>Resend</strong> (البريد): إيميلك واسم الدعوة فقط، لإرسال الإشعارات.</li>
           </ul>
