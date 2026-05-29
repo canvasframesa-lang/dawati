@@ -1,112 +1,221 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Dawati design tokens — verbatim from DESIGN_SYSTEM.md.
-   Do NOT invent new gold hexes. Add new tokens in @theme block.
+   Dawati design tokens — modern light SaaS for Saudi market.
+   Cards themselves (delivered product) keep the gold-cosmos
+   aesthetic; the marketing site is a different language.
    ============================================================ */
 
 @theme {
-  /* Cosmic ground */
-  --color-bg-0: #050714;
-  --color-bg-1: #0a0e27;
-  --color-bg-2: #15082a;
+  /* Surfaces — warm whites, almost imperceptibly champagne */
+  --color-bg:          #fafaf7;
+  --color-bg-alt:      #f4f1ea;
+  --color-bg-card:     #ffffff;
 
-  /* Gold scale */
-  --color-gold-hi:   #fff8d8;
-  --color-gold-1:    #ffe7a3;
-  --color-gold-2:    #f4d06b;
-  --color-gold-3:    #d4a93a;
-  --color-gold-4:    #b88a1e;
-  --color-gold-5:    #8a6817;
-  --color-gold-deep: #4a2c0a;
+  /* Neutrals — soft slate */
+  --color-ink:         #0e0e14;
+  --color-ink-soft:    #2a2a35;
+  --color-ink-mute:    #6a6a7a;
+  --color-ink-faint:   #b0b0bd;
+  --color-line:        #e8e4dc;
+  --color-line-soft:   #f0ede5;
 
-  /* Rose-gold accent */
-  --color-rose-1: #f4c8a8;
-  --color-rose-2: #d99878;
+  /* Accent — subtle gold (used sparingly) */
+  --color-gold-1:      #f4d56e;
+  --color-gold-2:      #d4a93a;
+  --color-gold-3:      #b88a1e;
+  --color-gold-4:      #8a6817;
+  --color-gold-bg:     #fdf6e3;
 
-  /* Ink (text on white glass — always pure black) */
-  --color-ink:      #000000;
-  --color-ink-mute: #3a3a3a;
-  --color-gold-text: #8a6817;
-
-  /* Ink on cosmos (outside the glass) */
-  --color-ink-light: #ebd9b0;
-  --color-ink-dim:   #6a72a0;
+  /* Secondary accent — soft rose for visual variety */
+  --color-rose-1:      #f5d2c8;
+  --color-rose-2:      #e09a85;
 
   /* Semantic */
-  --color-success: #2da640;
-  --color-success-dark: #1e6e2a;
-  --color-danger:  #c72e48;
-  --color-danger-dark: #7a1830;
+  --color-success:     #16a34a;
+  --color-success-bg:  #dcfce7;
+  --color-danger:      #dc2626;
+  --color-warn:        #f59e0b;
 
-  /* Fonts (loaded via next/font in layout.tsx) */
-  --font-display:    var(--font-aref-ruqaa);   /* Aref Ruqaa — calligraphic display */
-  --font-body:       var(--font-amiri);        /* Amiri — Quranic body */
-  --font-ui:         var(--font-reem-kufi);    /* Reem Kufi — Arabic UI */
-  --font-latin:      var(--font-inter);        /* Inter — Latin labels */
+  /* Fonts — modern Arabic + clean Latin */
+  --font-display:      var(--font-tajawal);
+  --font-body:         var(--font-tajawal);
+  --font-quran:        var(--font-amiri);
+  --font-latin:        var(--font-inter);
+
+  /* Legacy aliases — kept while other pages are being migrated to the light theme */
+  --color-bg-0:       #fafaf7;
+  --color-bg-1:       #f4f1ea;
+  --color-bg-2:       #ede8df;
+  --color-ink-light:  #2a2a35;
+  --color-ink-deep:   #0e0e14;
+  --color-ink-dim:    #6a6a7a;
+  --color-gold-text:  #8a6817;
+  --color-gold-hi:    #fff8d8;
+  --color-gold-5:     #8a6817;
+
+  /* Radii — generous, modern */
+  --radius-sm:         8px;
+  --radius:            14px;
+  --radius-lg:         20px;
+  --radius-xl:         28px;
+  --radius-2xl:        36px;
+
+  /* Shadow scale — soft */
+  --shadow-xs:  0 1px 2px rgba(15, 15, 30, 0.05);
+  --shadow-sm:  0 2px 6px rgba(15, 15, 30, 0.06), 0 1px 2px rgba(15, 15, 30, 0.04);
+  --shadow:     0 6px 18px rgba(15, 15, 30, 0.08), 0 2px 4px rgba(15, 15, 30, 0.04);
+  --shadow-lg:  0 12px 32px rgba(15, 15, 30, 0.10), 0 4px 8px rgba(15, 15, 30, 0.05);
+  --shadow-xl:  0 24px 60px rgba(15, 15, 30, 0.14), 0 8px 16px rgba(15, 15, 30, 0.06);
 }
 
-/* ============================================================
-   Global reset + RTL base
-   ============================================================ */
+* { -webkit-tap-highlight-color: transparent; }
 
-*, *::before, *::after {
-  -webkit-tap-highlight-color: transparent;
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-}
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 html, body {
-  background: var(--color-bg-0);
-  color: var(--color-ink-light);
+  background: var(--color-bg);
+  color: var(--color-ink);
 }
 
 body {
-  font-family: var(--font-ui), sans-serif;
+  font-family: var(--font-body), sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
   min-height: 100dvh;
-  overscroll-behavior-y: contain;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "kern", "liga";
 }
 
-/* RTL is set on <html> via the layout; no need to flip Tailwind utilities manually. */
+/* Subtle textured backdrop for the page */
+.page-backdrop {
+  position: fixed; inset: 0; z-index: -10; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(244, 213, 110, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 10% 100%, rgba(245, 210, 200, 0.12) 0%, transparent 60%),
+    var(--color-bg);
+}
 
-/* ============================================================
-   Reusable utility: gold shimmer text
-   ============================================================ */
+/* Frosted glass — for cards on the landing */
+@utility glass {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadow);
+}
 
-@utility text-gold-shim {
-  background: linear-gradient(90deg, #8a6817 0%, #b88a1e 25%, #f4d06b 50%, #b88a1e 75%, #8a6817 100%);
-  background-size: 220% 100%;
+@utility glass-strong {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Gradient text — only for the brand mark and hero headlines */
+@utility text-gradient-gold {
+  background: linear-gradient(135deg, #b88a1e 0%, #d4a93a 50%, #8a6817 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 6s linear infinite;
 }
 
-@utility text-gold-grad {
-  background: linear-gradient(180deg, #fff8d8 0%, #f4d06b 35%, #d4a93a 70%, #8a6817 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Buttons — primary CTA */
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: var(--color-bg);
+  font-weight: 700;
+  font-size: 16px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s;
+  box-shadow: var(--shadow);
+  border: none;
+  cursor: pointer;
+}
+@utility btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  background: var(--color-ink-soft);
 }
 
-@keyframes shimmer {
-  0%   { background-position: 200% 50%; }
-  100% { background-position: -200% 50%; }
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-ink);
+  font-weight: 600;
+  font-size: 16px;
+  transition: background 0.2s, transform 0.15s;
+  border: 1px solid var(--color-line);
+  cursor: pointer;
+}
+@utility btn-ghost:hover {
+  background: var(--color-bg-alt);
+  transform: translateY(-1px);
+}
+
+@utility btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f4d56e 0%, #d4a93a 100%);
+  color: #2a1505;
+  font-weight: 700;
+  font-size: 16px;
+  transition: transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 6px 16px rgba(184, 138, 30, 0.32);
+  border: none;
+  cursor: pointer;
+}
+@utility btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(184, 138, 30, 0.45);
+}
+
+/* Section spacing */
+@utility section {
+  padding-top: 96px;
+  padding-bottom: 96px;
+}
+
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+}
+
+/* Focus rings — accessible, brand-aligned */
+:focus-visible {
+  outline: 2px solid var(--color-gold-2);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: rgba(244, 213, 110, 0.4);
+  color: var(--color-ink);
 }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes halo-pulse {
-  0%, 100% { transform: scale(1);    opacity: 0.9; }
-  50%      { transform: scale(1.08); opacity: 1; }
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -115,23 +224,4 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-}
-
-/* ============================================================
-   Focus rings — visible by default, gold not blue
-   ============================================================ */
-
-:focus-visible {
-  outline: 2px solid var(--color-gold-2);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-/* ============================================================
-   Selection — gold tint
-   ============================================================ */
-
-::selection {
-  background: rgba(244, 208, 107, 0.35);
-  color: var(--color-gold-deep);
 }

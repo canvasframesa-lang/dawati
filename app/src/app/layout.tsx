@@ -1,13 +1,19 @@
 import type { Metadata, Viewport } from 'next';
-import { Aref_Ruqaa, Amiri, Reem_Kufi, Inter } from 'next/font/google';
+import { Tajawal, Amiri, Aref_Ruqaa, Inter } from 'next/font/google';
 import { baseMetadata, organizationLd, websiteLd } from '@/lib/seo';
 import './globals.css';
 
-const arefRuqaa = Aref_Ruqaa({
+/**
+ * Tajawal — primary modern Saudi font. Used for all website chrome.
+ * Amiri — kept ONLY for Quranic verses (with diacritics).
+ * Aref Ruqaa — kept ONLY for the actual delivered card preview.
+ * Inter — Latin labels and numbers.
+ */
+const tajawal = Tajawal({
   subsets: ['arabic', 'latin'],
-  weight: ['400', '700'],
+  weight: ['300', '400', '500', '700', '800', '900'],
   display: 'swap',
-  variable: '--font-aref-ruqaa',
+  variable: '--font-tajawal',
 });
 
 const amiri = Amiri({
@@ -18,16 +24,16 @@ const amiri = Amiri({
   variable: '--font-amiri',
 });
 
-const reemKufi = Reem_Kufi({
+const arefRuqaa = Aref_Ruqaa({
   subsets: ['arabic', 'latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '700'],
   display: 'swap',
-  variable: '--font-reem-kufi',
+  variable: '--font-aref-ruqaa',
 });
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-inter',
 });
@@ -35,11 +41,11 @@ const inter = Inter({
 export const metadata: Metadata = baseMetadata;
 
 export const viewport: Viewport = {
-  themeColor: '#070914',
+  themeColor: '#fafaf7',
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  colorScheme: 'dark',
+  colorScheme: 'light',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -47,21 +53,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="ar"
       dir="rtl"
-      className={`${arefRuqaa.variable} ${amiri.variable} ${reemKufi.variable} ${inter.variable}`}
+      className={`${tajawal.variable} ${amiri.variable} ${arefRuqaa.variable} ${inter.variable}`}
     >
       <head>
         <script
           type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: structured data is trusted/static
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted static schema
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }}
         />
         <script
           type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: structured data is trusted/static
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted static schema
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <div className="page-backdrop" aria-hidden="true" />
+        {children}
+      </body>
     </html>
   );
 }
