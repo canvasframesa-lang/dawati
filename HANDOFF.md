@@ -1,6 +1,16 @@
 # HANDOFF · دعوتي / Dawati
 
-> **For Hermes (هرمز):** This is your starting point. Read `PROJECT_BRIEF.md` first for vision/scope, then this doc for the *state of the codebase* and your next steps. Owner: Abdelrahman (عبدالرحمن). Reference build that validated the whole approach lives at `D:\Private\Nuwairi Wedding\` and is in production at https://canvasframesa-lang.github.io/nuwairi-wedding/ — that is the visual & technical bar to meet for every card the platform produces.
+> **For Hermes (هرمز):** This is your starting point. Read `PROJECT_BRIEF.md` first for vision/scope, then this doc for the *state of the codebase* and your next steps. Owner: Abdelrahman (عبدالرحمن). The reference build that validated the whole approach is in production at https://canvasframesa-lang.github.io/nuwairi-wedding/ — that is the visual & technical bar to meet for every card the platform produces. Verbatim copies of every file from that build are checked into this repo under `reference-templates/` so you don't need access to the original machine.
+
+## 0. Get the code
+
+```bash
+git clone https://github.com/canvasframesa-lang/dawati.git
+cd dawati
+# everything in this doc is relative to the repo root
+```
+
+You won't need access to the original developer's machine — every file you need is in this repo, including the production wedding-card reference templates under `reference-templates/`. If anything appears missing, open an issue on the repo.
 
 ---
 
@@ -40,7 +50,7 @@ A SaaS that lets a Saudi/Sudanese/Gulf host fill a 30-minute form and receive a 
 ## 3. Repo layout (after handoff)
 
 ```
-D:\Private\Dawati\
+<repo root>/
 ├── PROJECT_BRIEF.md         ← vision, scope, pricing, roadmap
 ├── HANDOFF.md               ← this file
 ├── DESIGN_SYSTEM.md
@@ -110,7 +120,7 @@ These are non-negotiable — they're why the Nuwairi card landed so well. Don't 
 ## 5. Dev quickstart
 
 ```bash
-# from D:\Private\Dawati\app
+# from <repo-root>/app
 pnpm install
 cp .env.example .env.local
 # fill SUPABASE_URL, SUPABASE_ANON_KEY, MOYASAR_KEY, etc.
@@ -154,6 +164,6 @@ These are documented in `PROJECT_BRIEF.md` §9 — re-confirm before you build t
 
 ## 8. Contact for context I might know that isn't written down
 
-Open a question issue in the repo and tag the owner. The Nuwairi build context lives in commit history at `D:\Private\Nuwairi Wedding\` — `git log` there is a useful narrative of what worked and what didn't.
+Open a question issue on the repo (https://github.com/canvasframesa-lang/dawati/issues) and tag the owner. The Nuwairi build's commit history (a useful narrative of what worked and what didn't) lives at https://github.com/canvasframesa-lang/nuwairi-wedding — `git log` there is worth a read before you make architectural decisions about the multi-tenant version.
 
 — Built and handed off 2026-05-29.

@@ -38,7 +38,7 @@ There's a gap in the Saudi/Sudanese/Gulf invitation market: traditional printers
 ## 2. The Card Template (Nuwairi reference)
 
 ### Visual DNA (locked, validated, do not drift)
-Carry over from `nuwairi-wedding` repo (`D:\Private\Nuwairi Wedding\index.html`):
+Carry over from the Nuwairi reference (`reference-templates/01-card-template.html` in this repo, mirror of https://github.com/canvasframesa-lang/nuwairi-wedding/blob/main/index.html):
 
 - **Background:** dark cosmos — `radial-gradient` of warm-gold nebula upper-left + soft champagne lower-right + violet depth behind card + cyan distant star cluster + pure black base (`#020207`). See `:root .cosmos` rule.
 - **Card:** white frosted glass with `backdrop-filter: blur(20px) saturate(1.5) brightness(1.06)`, opacity ~0.55 (translucent enough to see falling petals behind, but with text-shadow halos for legibility — see §5).
@@ -298,12 +298,15 @@ Notes:
 
 ## 8. Files to extract from Nuwairi as starter templates
 
-From `D:\Private\Nuwairi Wedding\`:
-- `index.html` — the canonical card template. Strip the hardcoded names/dates and turn into `{{handlebars}}` placeholders.
-- `admin.html` — the admin dashboard. Will become per-card dashboard, password gated.
-- `_og.html` — the 1200×630 OG template. Same: parametrize.
-- `worker/worker.js` — the RSVP API. Multi-tenant version will switch from one KV namespace to a key-prefix scheme (`card:<slug>:rsvp:<id>`).
-- `worker/wrangler.toml` — config (account ID + KV bindings will change for Da3wati).
+All five files are checked into this repo under `reference-templates/` (verbatim copies of the live Nuwairi build). Treat them as read-only source-of-truth:
+
+- `reference-templates/01-card-template.html` — the canonical card template. Strip the hardcoded names/dates and turn into a parametrized React component or `{{handlebars}}`-style template.
+- `reference-templates/03-admin-template.html` — the admin dashboard. Will become per-card dashboard, password gated.
+- `reference-templates/02-og-template.html` — the 1200×630 OG template. Same: parametrize.
+- `reference-templates/04-worker.js` — the RSVP API. Multi-tenant version will switch from one KV namespace to a key-prefix scheme (`card:<slug>:rsvp:<id>`).
+- `reference-templates/05-wrangler.toml` — config (account ID + KV bindings will be replaced with Dawati's own when Hermes provisions Cloudflare).
+
+Upstream source: https://github.com/canvasframesa-lang/nuwairi-wedding
 
 ---
 
@@ -319,15 +322,19 @@ From `D:\Private\Nuwairi Wedding\`:
 
 ---
 
-## 10. Reference repos & docs (in this machine)
+## 10. Reference repos & live URLs
 
-- Nuwairi wedding card (production reference): `D:\Private\Nuwairi Wedding\`
+All accessible to anyone with a browser — no machine access needed.
+
+- **Nuwairi wedding card** (production reference, the proven build):
+  - Source: https://github.com/canvasframesa-lang/nuwairi-wedding
   - Live: https://canvasframesa-lang.github.io/nuwairi-wedding/
-  - Admin: https://canvasframesa-lang.github.io/nuwairi-wedding/admin.html
+  - Admin: https://canvasframesa-lang.github.io/nuwairi-wedding/admin.html (password kept private with the owner)
   - Worker: https://nuwairi-wedding-api.nuwairi-wedding.workers.dev
-- Eid Mubarak cards (visual DNA origin): `D:\Private\Aid Mubarak\`
+- **Eid Mubarak cards** (visual DNA origin):
+  - Source: https://github.com/canvasframesa-lang/eid-mubarak
   - Live: https://canvasframesa-lang.github.io/eid-mubarak/
-- CanvasFrame HQ (user's main project, brand quality bar): `E:\CanvasFrameHQ\`
+- **CanvasFrame HQ** (owner's main product — sets the brand quality bar): private, not part of this codebase. If style decisions need cross-referencing, ask the owner.
 
 ---
 
