@@ -177,43 +177,43 @@ function HeroVisual() {
         {/* Side buttons — vibrant Cosmic Orange anodized aluminum */}
         <span
           aria-hidden="true"
-          className="absolute -right-[3px] top-[210px] w-[3px] h-[95px] rounded-l-sm"
-          style={{ background: 'linear-gradient(180deg, #ff7c3a, #c44a14, #ff7c3a)' }}
+          className="absolute -right-[5px] top-[210px] w-[5px] h-[95px] rounded-l-sm z-10"
+          style={{ background: 'linear-gradient(180deg, #ff8a4d, #b8410f, #ff8a4d)' }}
         />
         <span
           aria-hidden="true"
-          className="absolute -left-[3px] top-[130px] w-[3px] h-[35px] rounded-r-sm"
-          style={{ background: 'linear-gradient(180deg, #ff7c3a, #c44a14, #ff7c3a)' }}
+          className="absolute -left-[5px] top-[130px] w-[5px] h-[36px] rounded-r-sm z-10"
+          style={{ background: 'linear-gradient(180deg, #ff8a4d, #b8410f, #ff8a4d)' }}
         />
         <span
           aria-hidden="true"
-          className="absolute -left-[3px] top-[200px] w-[3px] h-[65px] rounded-r-sm"
-          style={{ background: 'linear-gradient(180deg, #ff7c3a, #c44a14, #ff7c3a)' }}
+          className="absolute -left-[5px] top-[200px] w-[5px] h-[65px] rounded-r-sm z-10"
+          style={{ background: 'linear-gradient(180deg, #ff8a4d, #b8410f, #ff8a4d)' }}
         />
         <span
           aria-hidden="true"
-          className="absolute -left-[3px] top-[285px] w-[3px] h-[65px] rounded-r-sm"
-          style={{ background: 'linear-gradient(180deg, #ff7c3a, #c44a14, #ff7c3a)' }}
+          className="absolute -left-[5px] top-[285px] w-[5px] h-[65px] rounded-r-sm z-10"
+          style={{ background: 'linear-gradient(180deg, #ff8a4d, #b8410f, #ff8a4d)' }}
         />
 
-        {/* Cosmic Orange aluminum frame — iPhone 17 Pro Max */}
+        {/* Cosmic Orange titanium frame — iPhone 17 Pro Max */}
         <div
-          className="relative rounded-[64px] p-[3px]"
+          className="relative rounded-[64px] p-[10px]"
           style={{
             background:
-              'linear-gradient(135deg, #ffbf9b 0%, #ff8a4d 15%, #ff6320 35%, #d24a18 55%, #ff6320 75%, #ffbf9b 100%)',
+              'linear-gradient(135deg, #ffa977 0%, #ff7a36 22%, #ff5a14 45%, #c43d0a 65%, #ff6320 85%, #ffa977 100%)',
             boxShadow:
-              '0 50px 110px rgba(210, 74, 24, 0.42), 0 14px 30px rgba(180, 60, 18, 0.28), inset 0 0 0 1px rgba(255, 191, 155, 0.35)',
+              '0 50px 110px rgba(210, 74, 24, 0.55), 0 14px 30px rgba(180, 60, 18, 0.35), inset 0 0 0 1px rgba(255, 191, 155, 0.6), inset 0 -2px 4px rgba(120, 40, 10, 0.4)',
           }}
         >
-          {/* Inner black bezel (thinner — iPhone 17 has the slimmest bezels yet) */}
+          {/* Inner black bezel (thin — iPhone 17 Pro has the slimmest bezels yet) */}
           <div
-            className="rounded-[61px] p-[5px]"
-            style={{ background: '#1a0e08' }}
+            className="rounded-[56px] p-[3px]"
+            style={{ background: '#0a0604' }}
           >
             {/* Screen — iPhone 17 Pro Max is 6.9", aspect ratio ~9:19.5 */}
             <div
-              className="rounded-[56px] overflow-hidden relative"
+              className="rounded-[52px] overflow-hidden relative"
               style={{
                 aspectRatio: '9 / 19.5',
                 background: '#020207',
