@@ -1,10 +1,19 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { OccasionLanding } from '@/components/OccasionLanding';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'دعوة تخرّج إلكترونية',
-  description: 'بطاقة تخرّج فاخرة تعلن لحظة التتويج — ادعو الأهل والأصدقاء بأسلوب رسمي وأنيق',
-};
+  description:
+    'بطاقة تخرّج فاخرة تعلن لحظة التتويج — ادعو الأهل والأصدقاء بأسلوب رسمي وأنيق',
+  path: '/graduation',
+  extraKeywords: [
+    'دعوة تخرّج إلكترونية',
+    'بطاقة تخرج فاخرة',
+    'حفل تخرج جامعة',
+    'تصميم بطاقة تخرج',
+    'دعوة حفل تكريم',
+  ],
+});
 
 export default function GraduationPage() {
   return (

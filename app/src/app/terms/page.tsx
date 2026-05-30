@@ -1,10 +1,12 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { PageShell, H1, Lead } from '@/components/PageShell';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'الشروط والأحكام',
-  description: 'شروط استخدام دعوتي — حقوقك، التزاماتنا، سياسة الاسترداد، الملكية الفكرية',
-};
+  description:
+    'شروط استخدام دعوتي — حقوقك، التزاماتنا، سياسة الاسترداد، الملكية الفكرية',
+  path: '/terms',
+});
 
 export default function TermsPage() {
   return (

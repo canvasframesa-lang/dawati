@@ -1,10 +1,19 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { OccasionLanding } from '@/components/OccasionLanding';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'دعوة عيد إلكترونية',
-  description: 'عيدية رقمية فاخرة للأهل والأصدقاء — تقبّل الله منا ومنكم، شاركها على واتساب بضغطة',
-};
+  description:
+    'عيدية رقمية فاخرة للأهل والأصدقاء — تقبّل الله منا ومنكم، شاركها على واتساب بضغطة',
+  path: '/eid',
+  extraKeywords: [
+    'بطاقة عيد إلكترونية',
+    'تهنئة عيد فاخرة',
+    'دعوة عيد فطر',
+    'دعوة عيد أضحى',
+    'كرت عيد رقمي',
+  ],
+});
 
 export default function EidPage() {
   return (

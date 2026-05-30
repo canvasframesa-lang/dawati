@@ -1,11 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import { pageMetadata } from '@/lib/seo';
 import { PageShell, H1, Lead, H2 } from '@/components/PageShell';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'تواصل معنا',
-  description: 'نسعد بسماعك — تواصل مع فريق دعوتي عبر واتساب، البريد، أو نموذج الطلب',
-};
+  description:
+    'نسعد بسماعك — تواصل مع فريق دعوتي عبر واتساب، البريد، أو نموذج الطلب',
+  path: '/contact',
+  extraKeywords: ['تواصل دعوتي', 'دعم بطاقة دعوة', 'واتساب دعوتي'],
+});
 
 export default function ContactPage() {
   return (

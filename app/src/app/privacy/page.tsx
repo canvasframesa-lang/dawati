@@ -1,10 +1,12 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { PageShell, H1, Lead, H2 } from '@/components/PageShell';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'سياسة الخصوصية',
-  description: 'كيف نحمي بياناتك وبيانات ضيوفك في دعوتي — متوافقون مع نظام حماية البيانات الشخصية السعودي (PDPL)',
-};
+  description:
+    'كيف نحمي بياناتك وبيانات ضيوفك في دعوتي — متوافقون مع نظام حماية البيانات الشخصية السعودي (PDPL)',
+  path: '/privacy',
+});
 
 export default function PrivacyPage() {
   return (

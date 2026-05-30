@@ -5,6 +5,7 @@ import { PageShell, PageContainer } from '@/components/PageShell';
 import { SampleCardTile } from '@/components/SampleCardTile';
 import { STYLE_DETAILS, ALL_STYLE_SLUGS } from '@/lib/style-details';
 import { TIER_BY_ID, formatPrice } from '@/lib/tiers';
+import { pageMetadata, breadcrumbLd } from '@/lib/seo';
 
 export function generateStaticParams() {
   return ALL_STYLE_SLUGS.map((style) => ({ style }));
@@ -18,10 +19,17 @@ export async function generateMetadata({
   const { style } = await params;
   const detail = STYLE_DETAILS[style as keyof typeof STYLE_DETAILS];
   if (!detail) return { title: 'نمط غير موجود' };
-  return {
+  return pageMetadata({
     title: `${detail.name} · ${detail.hero}`,
-    description: detail.philosophy[0],
-  };
+    description: detail.philosophy[0]!,
+    path: `/examples/${style}`,
+    extraKeywords: [
+      detail.name,
+      `${detail.name} دعوة عرس`,
+      `بطاقة ${detail.name}`,
+      'تصميم دعوة عرس',
+    ],
+  });
 }
 
 export default async function StyleDetailPage({
@@ -33,8 +41,19 @@ export default async function StyleDetailPage({
   const detail = STYLE_DETAILS[style as keyof typeof STYLE_DETAILS];
   if (!detail) notFound();
 
+  const crumbs = breadcrumbLd([
+    { name: 'الرئيسية',  path: '/' },
+    { name: 'الأمثلة',    path: '/examples' },
+    { name: detail.name, path: `/examples/${style}` },
+  ]);
+
   return (
     <PageShell>
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted static schema
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }}
+      />
       <PageContainer>
         <BreadcrumbBack />
         <Hero detail={detail} />

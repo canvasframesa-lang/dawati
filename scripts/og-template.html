@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>Dawati OG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Tajawal:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 25% 30%, rgba(244,213,110,0.30) 0%, transparent 50%),
+        radial-gradient(circle at 75% 70%, rgba(160,90,200,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 1400px 700px at 50% 50%, #0a0820 0%, #050410 60%, #020108 100%);
+      font-family: 'Tajawal', sans-serif;
+      position: relative;
+    }
+    /* Star field */
+    .stars {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,248,216,0.95), transparent 60%),
+        radial-gradient(1px 1px at 35% 32%, rgba(255,255,255,0.7), transparent 60%),
+        radial-gradient(1.5px 1.5px at 62% 22%, rgba(255,248,216,0.85), transparent 60%),
+        radial-gradient(1px 1px at 86% 38%, rgba(255,255,255,0.6), transparent 60%),
+        radial-gradient(1px 1px at 18% 78%, rgba(255,255,255,0.6), transparent 60%),
+        radial-gradient(1.5px 1.5px at 48% 88%, rgba(255,248,216,0.85), transparent 60%),
+        radial-gradient(1px 1px at 78% 78%, rgba(255,255,255,0.6), transparent 60%),
+        radial-gradient(1px 1px at 92% 12%, rgba(255,255,255,0.5), transparent 60%),
+        radial-gradient(2px 2px at 28% 55%, rgba(255,248,216,1), transparent 60%);
+    }
+    .wrap {
+      position: relative;
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 60px;
+      text-align: center;
+    }
+    .mark {
+      width: 140px; height: 140px; margin-bottom: 38px;
+      filter: drop-shadow(0 8px 30px rgba(244,213,110,0.5));
+    }
+    .wordmark {
+      font-family: 'Aref Ruqaa', serif;
+      font-weight: 700;
+      font-size: 180px;
+      line-height: 0.95;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, #fff8d8 0%, #f4d56e 35%, #c9a23d 70%, #8a6817 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      margin-bottom: 26px;
+    }
+    .tagline {
+      font-family: 'Aref Ruqaa', serif;
+      font-weight: 700;
+      font-size: 46px;
+      line-height: 1.35;
+      color: #fff8d8;
+      max-width: 980px;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.6);
+    }
+    .tagline .gold {
+      background: linear-gradient(135deg, #fff8d8 0%, #f4d56e 50%, #c9a23d 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    .domain {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: 4px;
+      color: rgba(244,213,110,0.85);
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="wrap">
+    <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#fff8d8"/>
+          <stop offset="35%" stop-color="#f4d56e"/>
+          <stop offset="70%" stop-color="#c9a23d"/>
+          <stop offset="100%" stop-color="#8a6817"/>
+        </linearGradient>
+        <linearGradient id="r" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f4d56e"/>
+          <stop offset="100%" stop-color="#5a4310"/>
+        </linearGradient>
+        <radialGradient id="j" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stop-color="#fffce5"/>
+          <stop offset="60%" stop-color="#f4d56e"/>
+          <stop offset="100%" stop-color="#8a6817"/>
+        </radialGradient>
+      </defs>
+      <g stroke="url(#g)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <rect x="6" y="14" width="52" height="40" rx="4"/>
+        <path d="M6 14 L32 34 L58 14"/>
+      </g>
+      <g transform="translate(32 34)">
+        <circle r="10" fill="url(#j)"/>
+        <circle r="10" fill="none" stroke="url(#r)" stroke-width="0.8"/>
+        <g fill="#1a0f06">
+          <polygon points="0,-6.5 1.7,-1.7 6.5,0 1.7,1.7 0,6.5 -1.7,1.7 -6.5,0 -1.7,-1.7"/>
+          <polygon points="0,-5.5 1.4,-1.4 5.5,0 1.4,1.4 0,5.5 -1.4,1.4 -5.5,0 -1.4,-1.4" transform="rotate(22.5)" opacity="0.55"/>
+        </g>
+      </g>
+    </svg>
+
+    <div class="wordmark">دعوتي</div>
+    <div class="tagline">
+      نحن نُصمّم دعوتك،<br>
+      <span class="gold">وأنت تستقبل ضيوفك</span>
+    </div>
+  </div>
+  <div class="domain">DAWATI.SA · بطاقات دعوة إلكترونية فاخرة</div>
+</body>
+</html>

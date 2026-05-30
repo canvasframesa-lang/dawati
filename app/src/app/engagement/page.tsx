@@ -1,10 +1,19 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { OccasionLanding } from '@/components/OccasionLanding';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'دعوة خطوبة إلكترونية',
-  description: 'بطاقة خطوبة فاخرة وأنيقة، تفاعلية، تشاركها على واتساب — مع نموذج تأكيد حضور ولوحة لمتابعة الردود',
-};
+  description:
+    'بطاقة خطوبة فاخرة وأنيقة، تفاعلية، تشاركها على واتساب — مع نموذج تأكيد حضور ولوحة لمتابعة الردود',
+  path: '/engagement',
+  extraKeywords: [
+    'دعوة خطوبة إلكترونية',
+    'بطاقة دعوة خطوبة',
+    'دعوة ملكة فخمة',
+    'تصميم دعوة خطوبة',
+    'دعوة شبكة',
+  ],
+});
 
 export default function EngagementPage() {
   return (

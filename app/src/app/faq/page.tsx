@@ -1,10 +1,18 @@
-import type { Metadata } from 'next';
+import { pageMetadata, faqLd } from '@/lib/seo';
 import { PageShell, PageBanner, PageContainer, H2, Cta } from '@/components/PageShell';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'الأسئلة الشائعة',
-  description: 'إجابات على كل سؤال محتمل عن دعوتي — الخدمة، التصميم، الدفع، التسليم، التعديلات، الخصوصية',
-};
+  description:
+    'إجابات على كل سؤال محتمل عن دعوتي — الخدمة، التصميم، الدفع، التسليم، التعديلات، الخصوصية',
+  path: '/faq',
+  extraKeywords: [
+    'أسئلة دعوة الكترونية',
+    'كم سعر دعوة عرس',
+    'مدة تسليم دعوة',
+    'سياسة الاسترداد دعوة',
+  ],
+});
 
 const SECTIONS = [
   {
@@ -76,8 +84,19 @@ const SECTIONS = [
 ];
 
 export default function FaqPage() {
+  // Flatten all Q/A pairs for FAQPage JSON-LD so Google can render
+  // them as rich results in SERP.
+  const faqJsonLd = faqLd(
+    SECTIONS.flatMap((sec) => sec.items.map(([q, a]) => ({ q: q!, a: a! }))),
+  );
+
   return (
     <PageShell>
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted static schema
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <PageBanner
         eyebrow="الأسئلة الشائعة"
         emoji="❓"

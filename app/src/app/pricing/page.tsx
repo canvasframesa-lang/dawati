@@ -1,12 +1,21 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import { pageMetadata } from '@/lib/seo';
 import { PageShell, PageBanner, PageContainer } from '@/components/PageShell';
 import { TIERS, ADD_ONS, formatPriceNumber } from '@/lib/tiers';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'الباقات والأسعار',
-  description: 'باقات بطاقات الدعوة الإلكترونية الفاخرة — 700 / 1,200 / 2,000 ﷼ مع إضافات اختيارية للطباعة والشارات والتسليم السريع',
-};
+  description:
+    'باقات بطاقات الدعوة الإلكترونية الفاخرة — 700 / 1,200 / 2,000 ﷼ مع إضافات اختيارية للطباعة والشارات والتسليم السريع',
+  path: '/pricing',
+  extraKeywords: [
+    'أسعار بطاقات دعوة الكترونية',
+    'باقات تصميم دعوة',
+    'كم سعر دعوة الكترونية',
+    'بطاقة دعوة ٧٠٠ ريال',
+    'دعوة عرس بأسعار مناسبة',
+  ],
+});
 
 export default function PricingPage() {
   return (

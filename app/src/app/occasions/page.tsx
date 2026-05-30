@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import { pageMetadata } from '@/lib/seo';
 import { PageShell, PageBanner, PageContainer } from '@/components/PageShell';
 import {
   WEDDING_OCCASIONS,
@@ -13,10 +13,20 @@ import {
   type Occasion,
 } from '@/lib/occasions';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'كل المناسبات',
-  description: 'بطاقات دعوة لكل مناسبة سعودية — أعراس، أعياد، تخرّجات، مناسبات وطنية، احتفالات أسرية وتجارية',
-};
+  description:
+    'بطاقات دعوة لكل مناسبة سعودية — أعراس، أعياد، تخرّجات، مناسبات وطنية، احتفالات أسرية وتجارية',
+  path: '/occasions',
+  extraKeywords: [
+    'مناسبات سعودية',
+    'دعوة افتتاح',
+    'دعوة حفل تكريم',
+    'دعوة يوم وطني',
+    'دعوة شركات',
+    'دعوة استقبال',
+  ],
+});
 
 export default function OccasionsPage() {
   return (

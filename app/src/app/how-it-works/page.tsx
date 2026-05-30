@@ -1,10 +1,18 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { PageShell, H1, Lead, H2, Prose, Cta } from '@/components/PageShell';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'كيف يشتغل',
-  description: 'صمّم دعوتك في ٤ خطوات بسيطة — نموذج طلب، دفع آمن، تصميم احترافي، وتسليم بنقرة',
-};
+  description:
+    'صمّم دعوتك في ٤ خطوات بسيطة — نموذج طلب، دفع آمن، تصميم احترافي، وتسليم بنقرة',
+  path: '/how-it-works',
+  extraKeywords: [
+    'كيف اطلب دعوة الكترونية',
+    'خطوات طلب بطاقة دعوة',
+    'تصميم دعوة بنفسك',
+    'دعوة جاهزة باسماء العروسين',
+  ],
+});
 
 export default function HowPage() {
   return (

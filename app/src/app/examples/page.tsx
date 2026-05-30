@@ -1,12 +1,22 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import { pageMetadata } from '@/lib/seo';
 import { PageShell, H1, Lead, PageContainer } from '@/components/PageShell';
 import { SampleCardTile, type SampleStyle } from '@/components/SampleCardTile';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'أمثلة من تصاميمنا',
-  description: 'استعرض ٦ أنماط مختلفة من بطاقات الدعوة — فخامة كلاسيكية، نعومة عصرية، زخارف أندلسية، خط مخطوطات، طبيعية وردية، وكوفي هندسي',
-};
+  description:
+    'استعرض ٦ أنماط مختلفة من بطاقات الدعوة — فخامة كلاسيكية، نعومة عصرية، زخارف أندلسية، خط مخطوطات، طبيعية وردية، وكوفي هندسي',
+  path: '/examples',
+  extraKeywords: [
+    'تصاميم دعوات إلكترونية',
+    'قوالب بطاقات دعوة',
+    'أمثلة بطاقات عرس',
+    'دعوة كلاسيكية',
+    'دعوة عصرية',
+    'دعوة أندلسية',
+  ],
+});
 
 interface Sample {
   style: SampleStyle;

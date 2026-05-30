@@ -57,46 +57,32 @@ export function BrandMark({
         </radialGradient>
       </defs>
 
-      <g transform="translate(32 32)">
-        {/* Outer 8-point najmah — two overlapping rotated rosettes */}
-        <polygon
-          points="0,-30 7.5,-7.5 30,0 7.5,7.5 0,30 -7.5,7.5 -30,0 -7.5,-7.5"
-          fill="url(#bm-gold)"
-        />
-        <polygon
-          points="0,-30 7.5,-7.5 30,0 7.5,7.5 0,30 -7.5,7.5 -30,0 -7.5,-7.5"
-          fill="url(#bm-gold)"
-          transform="rotate(22.5)"
-          opacity="0.65"
-        />
+      {/* Envelope outline — gold line art */}
+      <g
+        stroke="url(#bm-gold)"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      >
+        <rect x="6" y="14" width="52" height="40" rx="4" />
+        {/* Flap V — top corners meeting at the seal */}
+        <path d="M6 14 L32 34 L58 14" />
+      </g>
 
-        {/* Inner octagonal seal — dark wax body for contrast */}
-        <polygon
-          points="0,-15 10.6,-10.6 15,0 10.6,10.6 0,15 -10.6,10.6 -15,0 -10.6,-10.6"
-          fill="#1a0f06"
-        />
-        <polygon
-          points="0,-15 10.6,-10.6 15,0 10.6,10.6 0,15 -10.6,10.6 -15,0 -10.6,-10.6"
-          fill="none"
-          stroke="url(#bm-gold-rim)"
-          strokeWidth="0.8"
-        />
-
-        {/* Inner small najmah — gold on dark */}
-        <polygon
-          points="0,-9 2.2,-2.2 9,0 2.2,2.2 0,9 -2.2,2.2 -9,0 -2.2,-2.2"
-          fill="url(#bm-gold)"
-        />
-        <polygon
-          points="0,-9 2.2,-2.2 9,0 2.2,2.2 0,9 -2.2,2.2 -9,0 -2.2,-2.2"
-          fill="url(#bm-gold)"
-          transform="rotate(45)"
-          opacity="0.75"
-        />
-
-        {/* Center jewel */}
-        <circle r="2.2" fill="url(#bm-jewel)" />
-        <circle r="2.2" fill="none" stroke="#fff8d8" strokeWidth="0.3" opacity="0.6" />
+      {/* Gold wax seal on the flap, with najmah star */}
+      <g transform="translate(32 34)">
+        <circle r="10" fill="url(#bm-jewel)" />
+        <circle r="10" fill="none" stroke="url(#bm-gold-rim)" strokeWidth="0.8" />
+        {/* 8-point najmah inside the seal */}
+        <g fill="#1a0f06">
+          <polygon points="0,-6.5 1.7,-1.7 6.5,0 1.7,1.7 0,6.5 -1.7,1.7 -6.5,0 -1.7,-1.7" />
+          <polygon
+            points="0,-5.5 1.4,-1.4 5.5,0 1.4,1.4 0,5.5 -1.4,1.4 -5.5,0 -1.4,-1.4"
+            transform="rotate(22.5)"
+            opacity="0.55"
+          />
+        </g>
       </g>
     </svg>
   );

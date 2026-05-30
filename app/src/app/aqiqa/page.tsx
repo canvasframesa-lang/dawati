@@ -1,10 +1,19 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { OccasionLanding } from '@/components/OccasionLanding';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'دعوة عقيقة إلكترونية',
-  description: 'بطاقة دعوة عقيقة فاخرة باسم المولود — تشاركها على واتساب مع تأكيد الحضور وتفضيلات الضيوف',
-};
+  description:
+    'بطاقة دعوة عقيقة فاخرة باسم المولود — تشاركها على واتساب مع تأكيد الحضور وتفضيلات الضيوف',
+  path: '/aqiqa',
+  extraKeywords: [
+    'دعوة عقيقة إلكترونية',
+    'بطاقة استقبال مولود',
+    'دعوة استقبال مولود',
+    'تصميم بطاقة عقيقة',
+    'دعوة تسمية مولود',
+  ],
+});
 
 export default function AqiqaPage() {
   return (

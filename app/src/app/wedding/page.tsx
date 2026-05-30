@@ -1,10 +1,20 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { OccasionLanding } from '@/components/OccasionLanding';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'دعوة زواج إلكترونية فاخرة',
-  description: 'صمّم دعوة زواج إلكترونية فاخرة وتفاعلية مع آية الزواج وتأكيد حضور وباركود للضيوف ولوحة تحكم احترافية',
-};
+  description:
+    'صمّم دعوة زواج إلكترونية فاخرة وتفاعلية مع آية الزواج وتأكيد حضور وباركود للضيوف ولوحة تحكم احترافية',
+  path: '/wedding',
+  extraKeywords: [
+    'دعوة زواج إلكترونية',
+    'بطاقة دعوة زفاف فاخرة',
+    'دعوة عرس بالباركود',
+    'تصميم بطاقة عرس',
+    'دعوة عقد قران',
+    'دعوة زفاف بالأسماء',
+  ],
+});
 
 export default function WeddingPage() {
   return (

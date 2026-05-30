@@ -7,6 +7,7 @@ import {
   LatestMessageCard,
 } from '@/components/LiveNotifications';
 import { BrandMark, BrandWordmark } from '@/components/Brand';
+import { CategoryIcon, type CategoryName } from '@/components/CategoryIcon';
 
 export default function HomePage() {
   return (
@@ -463,15 +464,21 @@ function TrustBar() {
 /* ============ How it works ============ */
 
 function OccasionTeaser() {
-  const cats = [
-    { emoji: '💍', label: 'الأعراس', n: 9, href: '/occasions#wedding', highlight: true },
-    { emoji: '🌙', label: 'الأعياد', n: 7, href: '/occasions' },
-    { emoji: '👨‍👩‍👧‍👦', label: 'الأسرة', n: 9, href: '/occasions' },
-    { emoji: '🎓', label: 'التخرّجات', n: 8, href: '/occasions' },
-    { emoji: '🏢', label: 'الأعمال', n: 6, href: '/occasions' },
-    { emoji: '🇸🇦', label: 'الوطنية', n: 4, href: '/occasions' },
-    { emoji: '🤝', label: 'اجتماعية', n: 8, href: '/occasions' },
-    { emoji: '✨', label: 'أخرى', n: 1, href: '/occasions' },
+  const cats: Array<{
+    icon: CategoryName;
+    label: string;
+    n: number;
+    href: string;
+    highlight?: boolean;
+  }> = [
+    { icon: 'wedding',    label: 'الأعراس',    n: 9, href: '/occasions#wedding', highlight: true },
+    { icon: 'religious',  label: 'الأعياد',    n: 7, href: '/occasions' },
+    { icon: 'family',     label: 'الأسرة',     n: 9, href: '/occasions' },
+    { icon: 'milestone',  label: 'التخرّجات',  n: 8, href: '/occasions' },
+    { icon: 'commercial', label: 'الأعمال',    n: 6, href: '/occasions' },
+    { icon: 'national',   label: 'الوطنية',    n: 4, href: '/occasions' },
+    { icon: 'social',     label: 'اجتماعية',   n: 8, href: '/occasions' },
+    { icon: 'other',      label: 'أخرى',       n: 1, href: '/occasions' },
   ];
   return (
     <section className="section bg-[var(--color-bg-alt)]">
@@ -500,7 +507,9 @@ function OccasionTeaser() {
                 boxShadow: c.highlight ? '0 8px 22px rgba(184, 138, 30, 0.15)' : 'var(--shadow-xs)',
               }}
             >
-              <span className="text-4xl mb-2" aria-hidden="true">{c.emoji}</span>
+              <span className="mb-3 transition-transform group-hover:scale-110" aria-hidden="true">
+                <CategoryIcon name={c.icon} size={40} />
+              </span>
               <span className="text-base font-bold text-[var(--color-ink)] mb-0.5 group-hover:text-[var(--color-gold-4)] transition-colors">
                 {c.label}
               </span>
