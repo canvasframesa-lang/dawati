@@ -122,7 +122,11 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Buttons — primary CTA */
+/* Buttons — primary CTA
+   Every button has an explicit edge (border or contrasting ring)
+   so it stays visually anchored on glass / translucent / busy
+   backgrounds. WCAG AA contrast target: 4.5:1 for text. */
+
 @utility btn-primary {
   display: inline-flex;
   align-items: center;
@@ -131,17 +135,17 @@ body {
   padding: 14px 28px;
   border-radius: 999px;
   background: var(--color-ink);
-  color: var(--color-bg);
+  color: #ffffff;
   font-weight: 700;
   font-size: 16px;
   transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s;
-  box-shadow: var(--shadow);
-  border: none;
+  box-shadow: 0 4px 12px rgba(15, 15, 30, 0.25);
+  border: 1px solid var(--color-ink);
   cursor: pointer;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 8px 22px rgba(15, 15, 30, 0.32);
     background: var(--color-ink-soft);
   }
 }
@@ -153,16 +157,18 @@ body {
   gap: 8px;
   padding: 14px 28px;
   border-radius: 999px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.85);
   color: var(--color-ink);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
-  transition: background 0.2s, transform 0.15s;
-  border: 1px solid var(--color-line);
+  transition: background 0.2s, transform 0.15s, border-color 0.2s;
+  border: 1.5px solid var(--color-line);
   cursor: pointer;
+  backdrop-filter: blur(8px);
 
   &:hover {
-    background: var(--color-bg-alt);
+    background: #ffffff;
+    border-color: var(--color-ink-mute);
     transform: translateY(-1px);
   }
 }
@@ -176,17 +182,42 @@ body {
   border-radius: 999px;
   background: linear-gradient(180deg, #f4d56e 0%, #d4a93a 100%);
   color: #2a1505;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 16px;
-  transition: transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 6px 16px rgba(184, 138, 30, 0.32);
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 216, 0.7),
+    0 4px 12px rgba(184, 138, 30, 0.4),
+    0 0 0 1px rgba(138, 104, 23, 0.5);
   border: none;
   cursor: pointer;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 26px rgba(184, 138, 30, 0.45);
+    background: linear-gradient(180deg, #ffe7a3 0%, #d4a93a 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 248, 216, 0.7),
+      0 8px 22px rgba(184, 138, 30, 0.55),
+      0 0 0 1px rgba(138, 104, 23, 0.6);
   }
+}
+
+/* Use this for any pill/badge that sits on a glass or photo
+   background — guarantees contrast regardless of what's behind it. */
+@utility chip-anchored {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-ink);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(15, 15, 30, 0.08);
+  box-shadow: 0 2px 6px rgba(15, 15, 30, 0.08);
+  backdrop-filter: blur(8px);
 }
 
 /* Section spacing */

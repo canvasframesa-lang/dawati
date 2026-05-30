@@ -252,23 +252,41 @@ function HeroVisual() {
           </div>
         </div>
 
-        {/* Floating stats card */}
+        {/* Floating stats cards — solid white + soft border so contrast
+            holds against the dark phone behind them */}
         <div
-          className="hidden md:block absolute -right-12 top-1/3 glass-strong rounded-2xl p-4"
-          style={{ animation: 'float-soft 4s ease-in-out infinite' }}
+          className="hidden md:block absolute -right-12 top-1/3 rounded-2xl p-4 bg-white"
+          style={{
+            animation: 'float-soft 4s ease-in-out infinite',
+            border: '1px solid rgba(15, 15, 30, 0.08)',
+            boxShadow: '0 14px 36px rgba(15, 15, 30, 0.18), 0 4px 8px rgba(15, 15, 30, 0.08)',
+            minWidth: 140,
+          }}
         >
-          <div className="text-xs text-[var(--color-ink-mute)] mb-1">أكّدوا الحضور</div>
-          <div className="text-2xl font-extrabold text-[var(--color-success)]">142</div>
-          <div className="text-[10px] text-[var(--color-ink-faint)]">من أصل 200</div>
+          <div className="text-[10px] uppercase tracking-widest text-[var(--color-ink-mute)] mb-1 font-bold">
+            أكّدوا الحضور
+          </div>
+          <div className="text-2xl font-black text-[var(--color-success-dark)] leading-none">142</div>
+          <div className="text-[11px] text-[var(--color-ink-mute)] mt-1.5">من أصل ٢٠٠</div>
+          <div className="mt-2 h-1 rounded-full bg-[var(--color-line)] overflow-hidden">
+            <div className="h-full bg-[var(--color-success)]" style={{ width: '71%' }} />
+          </div>
         </div>
 
         <div
-          className="hidden md:block absolute -left-12 bottom-1/4 glass-strong rounded-2xl p-4"
-          style={{ animation: 'float-soft 5s ease-in-out infinite reverse' }}
+          className="hidden md:block absolute -left-12 bottom-1/4 rounded-2xl p-4 bg-white"
+          style={{
+            animation: 'float-soft 5s ease-in-out infinite reverse',
+            border: '1px solid rgba(15, 15, 30, 0.08)',
+            boxShadow: '0 14px 36px rgba(15, 15, 30, 0.18), 0 4px 8px rgba(15, 15, 30, 0.08)',
+            minWidth: 200,
+          }}
         >
-          <div className="text-xs text-[var(--color-ink-mute)] mb-1">رسالة جديدة</div>
-          <div className="text-sm font-semibold text-[var(--color-ink)]">«مبارك يا غالي 🌹»</div>
-          <div className="text-[10px] text-[var(--color-ink-faint)] mt-1">قبل ٣ دقائق</div>
+          <div className="text-[10px] uppercase tracking-widest text-[var(--color-ink-mute)] mb-1 font-bold">
+            رسالة جديدة
+          </div>
+          <div className="text-sm font-bold text-[var(--color-ink)]">«مبارك يا غالي 🌹»</div>
+          <div className="text-[11px] text-[var(--color-ink-mute)] mt-1.5">قبل ٣ دقائق · أبو فيصل</div>
         </div>
       </div>
     </div>
