@@ -158,6 +158,12 @@ export const ADD_ONS: AddOn[] = [
   { id: 'kids-corner',      name: '🧸 دعوة منفصلة لمنطقة الأطفال',  description: 'صفحة مرافقة فيها أنشطة وألعاب — يفتحونها على جوّال أهلهم.', price: 200, availableFor: ['fakhira', 'malakiyya'] },
 ];
 
+/** Format a price as English numerals + Saudi Riyal symbol (LTR-safe). */
 export function formatPrice(price: number): string {
-  return `${price.toLocaleString('ar-SA')} ر.س`;
+  return `${price.toLocaleString('en-US')} ﷼`;
+}
+
+/** Just the number, English numerals, no symbol — for splitting display. */
+export function formatPriceNumber(price: number): string {
+  return price.toLocaleString('en-US');
 }
