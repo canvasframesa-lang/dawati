@@ -165,90 +165,213 @@ function HeroVisual() {
       {/* Soft glow behind */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 rounded-[40px] -m-8 opacity-50"
+        className="absolute inset-0 rounded-[60px] -m-8 opacity-50"
         style={{
           background: 'radial-gradient(ellipse at center, rgba(244,213,110,0.3) 0%, transparent 70%)',
-          filter: 'blur(50px)',
+          filter: 'blur(60px)',
         }}
       />
 
-      {/* Phone frame mockup */}
-      <div className="relative mx-auto" style={{ maxWidth: 380 }}>
+      {/* iPhone 15 Pro-style mockup */}
+      <div className="relative mx-auto" style={{ width: 360 }}>
+        {/* Side buttons (right side: power) */}
+        <span
+          aria-hidden="true"
+          className="absolute -right-[3px] top-[180px] w-[3px] h-[80px] rounded-l-sm"
+          style={{ background: 'linear-gradient(180deg, #3a3a45, #1a1a25, #3a3a45)' }}
+        />
+        {/* Left side: action button + volume up + volume down */}
+        <span
+          aria-hidden="true"
+          className="absolute -left-[3px] top-[110px] w-[3px] h-[30px] rounded-r-sm"
+          style={{ background: 'linear-gradient(180deg, #3a3a45, #1a1a25, #3a3a45)' }}
+        />
+        <span
+          aria-hidden="true"
+          className="absolute -left-[3px] top-[170px] w-[3px] h-[55px] rounded-r-sm"
+          style={{ background: 'linear-gradient(180deg, #3a3a45, #1a1a25, #3a3a45)' }}
+        />
+        <span
+          aria-hidden="true"
+          className="absolute -left-[3px] top-[245px] w-[3px] h-[55px] rounded-r-sm"
+          style={{ background: 'linear-gradient(180deg, #3a3a45, #1a1a25, #3a3a45)' }}
+        />
+
+        {/* Titanium frame */}
         <div
-          className="rounded-[40px] p-3 border"
+          className="relative rounded-[58px] p-[3px]"
           style={{
-            background: 'linear-gradient(180deg, #1a1a25 0%, #0a0a14 100%)',
-            borderColor: '#2a2a35',
-            boxShadow: '0 30px 80px rgba(15, 15, 30, 0.25), 0 8px 20px rgba(15, 15, 30, 0.12)',
+            background:
+              'linear-gradient(135deg, #c8c8d0 0%, #4a4a55 25%, #2a2a35 50%, #4a4a55 75%, #c8c8d0 100%)',
+            boxShadow:
+              '0 40px 90px rgba(15, 15, 30, 0.35), 0 10px 25px rgba(15, 15, 30, 0.18), inset 0 0 0 1px rgba(255,255,255,0.05)',
           }}
         >
+          {/* Inner black bezel */}
           <div
-            className="rounded-[28px] overflow-hidden aspect-[9/16] relative"
-            style={{
-              background: '#020207',
-            }}
+            className="rounded-[55px] p-[7px]"
+            style={{ background: '#0a0a14' }}
           >
-            {/* Notch */}
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 rounded-full bg-black z-10" />
-
-            {/* Mock card content */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8"
+            {/* Screen */}
+            <div
+              className="rounded-[48px] overflow-hidden relative"
               style={{
-                background: `
-                  radial-gradient(ellipse 60% 50% at 30% 20%, rgba(244, 208, 107, 0.20) 0%, transparent 60%),
-                  radial-gradient(ellipse 60% 50% at 80% 90%, rgba(217, 152, 120, 0.15) 0%, transparent 60%),
-                  #020207
-                `,
+                aspectRatio: '9 / 19.5',
+                background: '#020207',
               }}
             >
-              {/* Mini glass card */}
+              {/* Dynamic Island */}
               <div
-                className="w-full rounded-2xl p-5 text-center"
+                className="absolute top-2.5 left-1/2 -translate-x-1/2 rounded-full z-30 flex items-center justify-end pr-2"
                 style={{
-                  background: 'linear-gradient(155deg, rgba(255,255,255,0.85) 0%, rgba(244,208,107,0.40) 100%)',
-                  border: '1px solid rgba(255, 255, 255, 0.7)',
-                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.9), 0 12px 30px rgba(0,0,0,0.5)',
-                  backdropFilter: 'blur(20px)',
+                  width: 110,
+                  height: 32,
+                  background: '#000',
                 }}
               >
-                <div className="text-[9px] tracking-[3px] mb-2" style={{ color: '#8a6817', fontFamily: 'var(--font-latin)' }}>
-                  WEDDING · 1448 H
-                </div>
-                <div
-                  className="font-black mb-1 text-gradient-gold"
-                  style={{ fontFamily: 'var(--font-aref-ruqaa)', fontSize: 22, lineHeight: 1.2 }}
+                {/* Camera dot */}
+                <span
+                  className="block rounded-full"
+                  style={{
+                    width: 8,
+                    height: 8,
+                    background: 'radial-gradient(circle at 30% 30%, #2a4a6a, #050a14)',
+                    boxShadow: 'inset 0 0 0 1px rgba(60,80,120,0.5)',
+                  }}
+                />
+              </div>
+
+              {/* iOS status bar */}
+              <div className="absolute top-0 left-0 right-0 h-12 flex items-center justify-between px-7 z-20 pt-1">
+                <span
+                  className="text-white text-[13px] font-semibold"
+                  style={{ fontFamily: 'var(--font-latin)' }}
                 >
-                  وَمَوَدَّةً وَرَحْمَة
-                </div>
-                <div className="text-[10px] mb-3" style={{ color: '#8a6817' }}>
-                  الروم: ٢١
-                </div>
-                <div className="text-[10px] mb-1" style={{ color: '#8a6817', letterSpacing: 2 }}>
-                  العَريس
-                </div>
-                <div
-                  className="font-bold mb-2 text-gradient-gold"
-                  style={{ fontFamily: 'var(--font-aref-ruqaa)', fontSize: 14, lineHeight: 1.2 }}
-                >
-                  فيصل بن محمد الراجحي
-                </div>
-                <div className="text-xl" style={{ color: '#b88a1e', fontFamily: 'var(--font-aref-ruqaa)' }}>و</div>
-                <div className="text-[10px] mb-1 mt-2" style={{ color: '#8a6817', letterSpacing: 2 }}>
-                  العَروس
-                </div>
-                <div
-                  className="font-bold mb-3 text-gradient-gold"
-                  style={{ fontFamily: 'var(--font-aref-ruqaa)', fontSize: 14, lineHeight: 1.2 }}
-                >
-                  كريمة عبد الله الفوزان
-                </div>
-                <div className="text-[11px] pt-3 border-t" style={{ borderColor: 'rgba(184, 138, 30, 0.3)', color: '#4a2c0a' }}>
-                  الجمعة ٤ محرّم ١٤٤٨
-                </div>
-                <div className="text-[10px] mt-1" style={{ color: '#4a2c0a' }}>
-                  الرياض · قاعة الفيصلية
+                  9:41
+                </span>
+                <div className="flex items-center gap-1.5 text-white">
+                  {/* Signal */}
+                  <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor" aria-hidden="true">
+                    <rect x="0"  y="7" width="3" height="4" rx="0.5" />
+                    <rect x="4"  y="5" width="3" height="6" rx="0.5" />
+                    <rect x="8"  y="3" width="3" height="8" rx="0.5" />
+                    <rect x="12" y="1" width="3" height="10" rx="0.5" />
+                  </svg>
+                  {/* Wifi */}
+                  <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor" aria-hidden="true">
+                    <path d="M8 11l1.5-1.5a2 2 0 00-3 0L8 11zM3 6a7 7 0 0110 0l-1 1a5.5 5.5 0 00-8 0L3 6zM0 3a11 11 0 0116 0l-1 1a9.5 9.5 0 00-14 0L0 3z" />
+                  </svg>
+                  {/* Battery */}
+                  <div className="flex items-center">
+                    <div
+                      className="border border-white/60 rounded-sm relative flex items-center"
+                      style={{ width: 22, height: 11, padding: 1.2 }}
+                    >
+                      <div
+                        className="bg-white rounded-[1px]"
+                        style={{ width: '85%', height: '100%' }}
+                      />
+                    </div>
+                    <div
+                      className="bg-white/60 rounded-r-sm"
+                      style={{ width: 1.5, height: 4 }}
+                    />
+                  </div>
                 </div>
               </div>
+
+              {/* Card content area */}
+              <div
+                className="absolute inset-0 flex flex-col items-center justify-center text-center px-5 pt-16 pb-10"
+                style={{
+                  background: `
+                    radial-gradient(ellipse 60% 50% at 30% 20%, rgba(244, 208, 107, 0.22) 0%, transparent 60%),
+                    radial-gradient(ellipse 60% 50% at 80% 90%, rgba(217, 152, 120, 0.15) 0%, transparent 60%),
+                    #020207
+                  `,
+                }}
+              >
+                {/* Mini glass card */}
+                <div
+                  className="w-full rounded-2xl p-5 text-center"
+                  style={{
+                    background:
+                      'linear-gradient(155deg, rgba(255,255,255,0.85) 0%, rgba(244,208,107,0.40) 100%)',
+                    border: '1px solid rgba(255, 255, 255, 0.7)',
+                    boxShadow:
+                      'inset 0 1px 0 rgba(255,255,255,0.9), 0 12px 30px rgba(0,0,0,0.5)',
+                    backdropFilter: 'blur(20px)',
+                  }}
+                >
+                  <div
+                    className="text-[9px] tracking-[3px] mb-2"
+                    style={{ color: '#8a6817', fontFamily: 'var(--font-latin)' }}
+                  >
+                    WEDDING · 1448 H
+                  </div>
+                  <div
+                    className="font-black mb-1 text-gradient-gold"
+                    style={{ fontFamily: 'var(--font-aref-ruqaa)', fontSize: 22, lineHeight: 1.2 }}
+                  >
+                    وَمَوَدَّةً وَرَحْمَة
+                  </div>
+                  <div className="text-[10px] mb-3" style={{ color: '#8a6817' }}>
+                    الروم: ٢١
+                  </div>
+                  <div className="text-[10px] mb-1" style={{ color: '#8a6817', letterSpacing: 2 }}>
+                    العَريس
+                  </div>
+                  <div
+                    className="font-bold mb-2 text-gradient-gold"
+                    style={{ fontFamily: 'var(--font-aref-ruqaa)', fontSize: 14, lineHeight: 1.2 }}
+                  >
+                    فيصل بن محمد الراجحي
+                  </div>
+                  <div
+                    className="text-xl"
+                    style={{ color: '#b88a1e', fontFamily: 'var(--font-aref-ruqaa)' }}
+                  >
+                    و
+                  </div>
+                  <div
+                    className="text-[10px] mb-1 mt-2"
+                    style={{ color: '#8a6817', letterSpacing: 2 }}
+                  >
+                    العَروس
+                  </div>
+                  <div
+                    className="font-bold mb-3 text-gradient-gold"
+                    style={{ fontFamily: 'var(--font-aref-ruqaa)', fontSize: 14, lineHeight: 1.2 }}
+                  >
+                    كريمة عبد الله الفوزان
+                  </div>
+                  <div
+                    className="text-[11px] pt-3 border-t"
+                    style={{ borderColor: 'rgba(184, 138, 30, 0.3)', color: '#4a2c0a' }}
+                  >
+                    الجمعة ٤ محرّم ١٤٤٨
+                  </div>
+                  <div className="text-[10px] mt-1" style={{ color: '#4a2c0a' }}>
+                    الرياض · قاعة الفيصلية
+                  </div>
+                </div>
+              </div>
+
+              {/* Home indicator */}
+              <div
+                className="absolute bottom-1.5 left-1/2 -translate-x-1/2 rounded-full bg-white/40 z-30"
+                style={{ width: 110, height: 4 }}
+              />
+
+              {/* Subtle screen reflection */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 30%, transparent 70%, rgba(255,255,255,0.04) 100%)',
+                }}
+              />
             </div>
           </div>
         </div>
