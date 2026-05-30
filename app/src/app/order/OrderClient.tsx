@@ -2,8 +2,6 @@
 
 import { useReducer, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Cosmos } from '@/components/Cosmos';
-import { GoldDust } from '@/components/GoldDust';
 import { TIERS, ADD_ONS, formatPrice } from '@/lib/tiers';
 import type { Tier } from '@/lib/types';
 
@@ -333,60 +331,32 @@ export function OrderClient() {
   if (submitted) {
     return (
       <>
-        <Cosmos />
-        <GoldDust />
-        <main className="relative z-10 mx-auto max-w-2xl px-4 py-20 text-center">
+        <main className="mx-auto max-w-2xl px-5 py-20 text-center">
           <div
-            className="rounded-3xl p-10 border"
-            style={{
-              background:
-                'linear-gradient(155deg, rgba(255,255,255,0.08) 0%, rgba(244,208,107,0.06) 100%)',
-              borderColor: 'rgba(244, 208, 107, 0.55)',
-              backdropFilter: 'blur(14px)',
-            }}
+            className="rounded-3xl p-10 bg-white border border-[#f4d56e]/60"
+            style={{ boxShadow: 'var(--shadow-lg)' }}
           >
             <div className="text-6xl mb-4" aria-hidden="true">🌙</div>
             <h1
-              className="text-gold-shim mb-4"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 700,
-                fontSize: 'clamp(28px, 5vw, 40px)',
-              }}
+              className="font-black text-[var(--color-ink)] mb-4"
+              style={{ fontSize: 'clamp(26px, 5vw, 36px)', lineHeight: 1.3 }}
             >
               فتحنا لك واتساب — أرسل الطلب
             </h1>
-            <p
-              className="mb-6"
-              style={{
-                color: 'var(--color-ink-light)',
-                fontFamily: 'var(--font-body)',
-                fontSize: 18,
-                lineHeight: 1.8,
-              }}
-            >
+            <p className="mb-6 text-[var(--color-ink-soft)] leading-relaxed text-base sm:text-lg">
               راح يفتح لك واتساب مع طلبك جاهز — كل اللي عليك تضغط «إرسال».
               فريقنا يراجع طلبك خلال ساعة ويرسل لك رابط الدفع، ثم نبدأ التصميم
               ونسلّم خلال {tier.deliveryHours} ساعة.
             </p>
-            <p
-              className="text-sm mb-2"
-              style={{
-                color: 'var(--color-gold-2)',
-                fontFamily: 'var(--font-body)',
-              }}
-            >
+            <p className="text-sm mb-2 text-[var(--color-ink-mute)]">
               ما فتح واتساب؟ اضغط الزر تحت
             </p>
             <button
               type="button"
               onClick={handleSubmit}
-              className="inline-block mt-6 rounded-2xl px-10 py-4 font-bold"
+              className="inline-flex items-center justify-center gap-2 mt-6 rounded-full px-10 py-4 font-bold text-white text-base"
               style={{
                 background: 'linear-gradient(180deg, #25D366 0%, #128C7E 100%)',
-                color: '#fff',
-                fontFamily: 'var(--font-display)',
-                fontSize: 18,
                 boxShadow: '0 8px 22px rgba(37, 211, 102, 0.4)',
               }}
             >
@@ -395,8 +365,7 @@ export function OrderClient() {
             <div className="mt-6">
               <Link
                 href="/"
-                className="inline-block text-sm"
-                style={{ color: 'var(--color-gold-2)', textDecoration: 'underline' }}
+                className="inline-block text-sm font-semibold text-[var(--color-ink-mute)] hover:text-[var(--color-ink)] transition"
               >
                 ← الرجوع للرئيسية
               </Link>
@@ -409,62 +378,36 @@ export function OrderClient() {
 
   return (
     <>
-      <Cosmos />
-      <GoldDust />
-
-      <header
-        className="sticky top-0 z-50 backdrop-blur-md border-b"
-        style={{
-          background: 'rgba(5, 7, 20, 0.7)',
-          borderColor: 'rgba(184, 138, 30, 0.25)',
-        }}
-      >
-        <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between gap-3">
-          <Link
-            href="/"
-            className="text-gold-shim text-lg font-bold"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
+      <header className="sticky top-0 z-50 bg-[rgba(250,250,247,0.85)] backdrop-blur-lg border-b border-[var(--color-line-soft)]">
+        <div className="mx-auto max-w-5xl px-5 py-4 flex items-center justify-between gap-3">
+          <Link href="/" className="text-lg font-extrabold text-[var(--color-ink)]">
             ← دعوتي
           </Link>
-          <div
-            className="text-xs hidden sm:block"
-            style={{
-              color: savedAt ? 'var(--color-gold-3)' : 'var(--color-ink-dim)',
-              fontFamily: 'var(--font-ui)',
-            }}
-          >
-            {savedAt ? `محفوظ تلقائيًّا · ${timeSince(savedAt)}` : 'يجري التحميل...'}
+          <div className="text-xs text-[var(--color-ink-mute)] font-medium">
+            {savedAt
+              ? `محفوظ تلقائيًّا · ${timeSince(savedAt)}`
+              : 'يجري التحميل...'}
           </div>
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto max-w-5xl px-4 py-6 sm:py-10">
-        <div className="text-center mb-8">
-          <p
-            className="text-xs tracking-[0.5em] uppercase mb-3"
-            style={{ color: 'var(--color-gold-3)', fontFamily: 'var(--font-latin)' }}
-          >
-            ✦  ORDER INTAKE  ✦
-          </p>
+      <main className="mx-auto max-w-5xl px-5 py-8 sm:py-12">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full bg-[var(--color-gold-bg)] border border-[#f4d56e]/40">
+            <span className="text-[var(--color-gold-3)] text-sm">✦</span>
+            <span className="text-[var(--color-gold-4)] text-sm font-semibold">
+              نموذج الطلب
+            </span>
+          </div>
           <h1
-            className="text-gold-shim text-balance"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              fontSize: 'clamp(28px, 5vw, 42px)',
-            }}
+            className="text-balance font-black tracking-tight text-[var(--color-ink)]"
+            style={{ fontSize: 'clamp(28px, 5vw, 44px)', lineHeight: 1.25 }}
           >
-            احكِ لنا عن دعوتك — ونحنا نسوّيها
+            احكِ لنا عن دعوتك<br className="sm:hidden" /> — ونحنا نسوّيها
           </h1>
           <p
-            className="mt-4 mx-auto max-w-xl text-balance"
-            style={{
-              color: 'var(--color-ink-light)',
-              fontFamily: 'var(--font-body)',
-              fontSize: 17,
-              lineHeight: 1.8,
-            }}
+            className="mt-5 mx-auto max-w-xl text-balance text-[var(--color-ink-mute)] leading-relaxed"
+            style={{ fontSize: 'clamp(15px, 2vw, 17px)' }}
           >
             املأ التفاصيل بهدوء — تقدر ترجع لها أيّ وقت. كل شيء يُحفظ تلقائيًّا.
             بعد الدفع، فريقنا يصمّمها لك ويسلّمك خلال <strong>{tier.deliveryHours} ساعة</strong>.
@@ -1074,111 +1017,58 @@ export function OrderClient() {
           </div>
 
           {/* Sticky summary sidebar (desktop only) */}
-          <aside className="lg:sticky lg:top-20 lg:self-start space-y-4">
+          <aside className="lg:sticky lg:top-24 lg:self-start space-y-4">
             <div
-              className="rounded-3xl p-6 border"
-              style={{
-                background:
-                  'linear-gradient(155deg, rgba(255,255,255,0.08) 0%, rgba(244,208,107,0.06) 100%)',
-                borderColor: 'rgba(244, 208, 107, 0.4)',
-                backdropFilter: 'blur(14px)',
-              }}
+              className="rounded-3xl p-6 bg-white border border-[#f4d56e]/50"
+              style={{ boxShadow: 'var(--shadow-lg)' }}
             >
-              <div
-                className="text-xs tracking-[0.4em] uppercase mb-3 text-center"
-                style={{ color: 'var(--color-gold-3)', fontFamily: 'var(--font-latin)' }}
-              >
+              <div className="text-[10px] tracking-[0.4em] uppercase mb-4 text-center font-bold text-[var(--color-gold-3)]">
                 ملخّص طلبك
               </div>
+
               <div className="flex justify-between items-baseline mb-2">
-                <span
-                  style={{
-                    color: 'var(--color-ink-light)',
-                    fontFamily: 'var(--font-ui)',
-                  }}
-                >
-                  {tier.name}
-                </span>
-                <span
-                  className="text-gold-grad font-bold"
-                  style={{ fontFamily: 'var(--font-display)', fontSize: 18 }}
-                >
+                <span className="text-sm font-bold text-[var(--color-ink)]">{tier.name}</span>
+                <span className="font-extrabold text-[var(--color-ink)] text-lg">
                   {formatPrice(tier.price)}
                 </span>
               </div>
+
               {selectedAddons.map((a) => (
                 <div key={a.id} className="flex justify-between items-baseline mb-2 text-sm">
-                  <span
-                    style={{
-                      color: 'var(--color-ink-light)',
-                      fontFamily: 'var(--font-body)',
-                      opacity: 0.85,
-                    }}
-                  >
-                    + {a.name}
-                  </span>
-                  <span
-                    style={{
-                      color: 'var(--color-gold-1)',
-                      fontFamily: 'var(--font-display)',
-                    }}
-                  >
+                  <span className="text-[var(--color-ink-mute)]">+ {a.name}</span>
+                  <span className="text-[var(--color-ink-soft)] font-semibold">
                     {formatPrice(a.price)}
                   </span>
                 </div>
               ))}
-              <div
-                className="mt-4 pt-4 border-t flex justify-between items-baseline"
-                style={{ borderColor: 'rgba(184, 138, 30, 0.3)' }}
-              >
-                <span
-                  style={{
-                    color: 'var(--color-gold-1)',
-                    fontFamily: 'var(--font-display)',
-                    fontWeight: 700,
-                    fontSize: 18,
-                  }}
-                >
-                  الإجمالي
-                </span>
-                <span
-                  className="text-gold-shim font-bold"
-                  style={{ fontFamily: 'var(--font-display)', fontSize: 28 }}
-                >
+
+              <div className="mt-4 pt-4 border-t border-[var(--color-line)] flex justify-between items-baseline">
+                <span className="text-base font-extrabold text-[var(--color-ink)]">الإجمالي</span>
+                <span className="font-black text-2xl text-gradient-gold">
                   {formatPrice(total)}
                 </span>
               </div>
-              <div
-                className="text-xs mt-1 text-center"
-                style={{ color: 'var(--color-ink-dim)', fontFamily: 'var(--font-ui)' }}
-              >
+
+              <div className="text-[11px] mt-1 text-center text-[var(--color-ink-faint)]">
                 شامل ضريبة القيمة المضافة ١٥٪
               </div>
 
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="block w-full text-center rounded-2xl py-4 font-bold mt-6 flex items-center justify-center gap-2"
+                className="w-full mt-6 rounded-full py-4 font-extrabold text-white text-base flex items-center justify-center gap-2 transition hover:-translate-y-0.5"
                 style={{
                   background: 'linear-gradient(180deg, #25D366 0%, #128C7E 100%)',
-                  color: '#fff',
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.35), 0 8px 22px rgba(37, 211, 102, 0.4)',
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 18,
                 }}
               >
                 💬 ودّ طلبك لنا على واتساب
               </button>
-              <p
-                className="text-xs mt-3 text-center"
-                style={{
-                  color: 'var(--color-ink-dim)',
-                  fontFamily: 'var(--font-body)',
-                  lineHeight: 1.6,
-                }}
-              >
+
+              <p className="text-xs mt-3 text-center text-[var(--color-ink-mute)] leading-relaxed">
                 طلبك يصل لفريقنا على واتساب — نراجعه ونرسل لك رابط الدفع خلال ساعة.
-                <br />استرداد كامل قبل بدء التصميم.
+                <br />
+                <span className="text-[var(--color-ink-faint)]">استرداد كامل قبل بدء التصميم.</span>
               </p>
             </div>
           </aside>
@@ -1202,33 +1092,26 @@ function Section({
   return (
     <details
       open
-      className="rounded-2xl border overflow-hidden"
-      style={{
-        borderColor: 'rgba(184, 138, 30, 0.3)',
-        background: 'rgba(20, 14, 39, 0.5)',
-        backdropFilter: 'blur(10px)',
-      }}
+      className="rounded-2xl bg-white border border-[var(--color-line)] overflow-hidden group"
+      style={{ boxShadow: 'var(--shadow-xs)' }}
     >
-      <summary
-        className="cursor-pointer px-5 py-4 flex items-center justify-between list-none select-none"
-        style={{ fontFamily: 'var(--font-display)', color: 'var(--color-gold-1)' }}
-      >
+      <summary className="cursor-pointer px-6 py-5 flex items-center justify-between list-none select-none border-b border-transparent group-open:border-[var(--color-line-soft)]">
         <div>
-          <div className="text-lg font-bold">{title}</div>
+          <div className="text-base font-extrabold text-[var(--color-ink)]">{title}</div>
           {subtitle && (
-            <div
-              className="text-xs mt-1 opacity-70"
-              style={{ fontFamily: 'var(--font-body)' }}
-            >
+            <div className="text-xs mt-1 text-[var(--color-ink-mute)] leading-relaxed">
               {subtitle}
             </div>
           )}
         </div>
-        <span aria-hidden="true" style={{ color: 'var(--color-gold-3)' }}>
+        <span
+          aria-hidden="true"
+          className="text-[var(--color-ink-faint)] group-open:rotate-180 transition-transform"
+        >
           ▾
         </span>
       </summary>
-      <div className="px-5 pb-5 space-y-4">{children}</div>
+      <div className="px-6 py-5 space-y-5 bg-[var(--color-bg)]">{children}</div>
     </details>
   );
 }
@@ -1250,27 +1133,17 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span
-        className="block mb-2 text-sm"
-        style={{ color: 'var(--color-gold-1)', fontFamily: 'var(--font-ui)' }}
-      >
+      <span className="block mb-1.5 text-xs font-bold text-[var(--color-ink-soft)]">
         {label}
-        {required && <span style={{ color: 'var(--color-danger)' }}> *</span>}
+        {required && <span className="text-[var(--color-danger)] mr-1">*</span>}
       </span>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-xl px-4 py-3 outline-none transition focus:border-[var(--color-gold-2)]"
-        style={{
-          background: 'rgba(20, 14, 39, 0.65)',
-          border: '1px solid rgba(184, 138, 30, 0.35)',
-          color: 'var(--color-ink-light)',
-          fontFamily: 'var(--font-body)',
-          fontSize: 16,
-          direction: 'rtl',
-        }}
+        dir="rtl"
+        className="w-full rounded-xl px-4 py-3 text-base bg-white border border-[var(--color-line)] text-[var(--color-ink)] placeholder:text-[var(--color-ink-faint)] outline-none transition focus:border-[var(--color-gold-2)] focus:ring-2 focus:ring-[#f4d56e]/30"
       />
     </label>
   );
@@ -1291,10 +1164,7 @@ function Textarea({
 }) {
   return (
     <label className="block">
-      <span
-        className="block mb-2 text-sm"
-        style={{ color: 'var(--color-gold-1)', fontFamily: 'var(--font-ui)' }}
-      >
+      <span className="block mb-1.5 text-xs font-bold text-[var(--color-ink-soft)]">
         {label}
       </span>
       <textarea
@@ -1302,16 +1172,8 @@ function Textarea({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={rows}
-        className="w-full rounded-xl px-4 py-3 outline-none transition focus:border-[var(--color-gold-2)] resize-y"
-        style={{
-          background: 'rgba(20, 14, 39, 0.65)',
-          border: '1px solid rgba(184, 138, 30, 0.35)',
-          color: 'var(--color-ink-light)',
-          fontFamily: 'var(--font-body)',
-          fontSize: 16,
-          lineHeight: 1.8,
-          direction: 'rtl',
-        }}
+        dir="rtl"
+        className="w-full rounded-xl px-4 py-3 text-base leading-relaxed bg-white border border-[var(--color-line)] text-[var(--color-ink)] placeholder:text-[var(--color-ink-faint)] outline-none transition focus:border-[var(--color-gold-2)] focus:ring-2 focus:ring-[#f4d56e]/30 resize-y"
       />
     </label>
   );
@@ -1341,22 +1203,21 @@ function Radios({
             className="sr-only peer"
           />
           <div
-            className="rounded-xl px-4 py-3 text-center font-bold transition peer-checked:scale-105"
+            className="rounded-xl px-4 py-3 text-center font-bold transition peer-checked:scale-[1.02]"
             style={{
               background:
                 value === o.value
-                  ? 'linear-gradient(180deg, #f4d06b 0%, #d4a93a 50%, #8a6817 100%)'
-                  : 'rgba(20, 14, 39, 0.55)',
-              color: value === o.value ? '#2a1505' : 'var(--color-ink-light)',
+                  ? 'linear-gradient(180deg, #f4d56e 0%, #d4a93a 100%)'
+                  : '#ffffff',
+              color: value === o.value ? '#2a1505' : 'var(--color-ink)',
               border:
                 value === o.value
-                  ? '1px solid transparent'
-                  : '1px solid rgba(184, 138, 30, 0.3)',
-              fontFamily: 'var(--font-display)',
+                  ? '1px solid #b88a1e'
+                  : '1px solid var(--color-line)',
               boxShadow:
                 value === o.value
-                  ? 'inset 0 1px 0 rgba(255,255,255,0.55), 0 4px 12px rgba(184,138,30,0.4)'
-                  : undefined,
+                  ? 'inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(184,138,30,0.3)'
+                  : 'var(--shadow-xs)',
             }}
           >
             {o.label}
@@ -1379,39 +1240,31 @@ function Toggle({
   hint?: string;
 }) {
   return (
-    <label className="flex items-start gap-3 cursor-pointer p-3 rounded-xl transition hover:bg-[rgba(244,208,107,0.04)]">
+    <label className="flex items-start gap-3 cursor-pointer p-2 -mx-2 rounded-xl transition hover:bg-[var(--color-gold-bg)]">
       <button
         type="button"
         role="switch"
         aria-checked={checked}
         onClick={() => onChange(!checked)}
-        className="relative shrink-0 w-12 h-7 rounded-full transition mt-0.5"
+        className="relative shrink-0 w-11 h-6 rounded-full transition mt-0.5"
         style={{
           background: checked
-            ? 'linear-gradient(180deg, #f4d06b 0%, #d4a93a 100%)'
-            : 'rgba(184, 138, 30, 0.25)',
+            ? 'linear-gradient(180deg, #f4d56e 0%, #d4a93a 100%)'
+            : 'var(--color-line)',
+          boxShadow: checked ? '0 2px 6px rgba(184,138,30,0.3)' : 'none',
         }}
       >
         <span
-          className="absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-lg transition"
-          style={{ right: checked ? '2px' : 'calc(100% - 26px)' }}
+          className="absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-all"
+          style={{ right: checked ? '2px' : 'calc(100% - 22px)' }}
         />
       </button>
-      <div className="flex-1">
-        <span
-          style={{
-            color: 'var(--color-ink-light)',
-            fontFamily: 'var(--font-ui)',
-            fontWeight: 600,
-          }}
-        >
+      <div className="flex-1 min-w-0">
+        <span className="text-sm font-semibold text-[var(--color-ink)] leading-tight block">
           {label}
         </span>
         {hint && (
-          <div
-            className="text-xs mt-0.5"
-            style={{ color: 'var(--color-ink-dim)', fontFamily: 'var(--font-body)' }}
-          >
+          <div className="text-xs mt-0.5 text-[var(--color-ink-mute)] leading-relaxed">
             {hint}
           </div>
         )}
