@@ -115,9 +115,9 @@ export default function FaqPage() {
                   className="group rounded-2xl p-5 bg-white border border-[var(--color-line)] hover:border-[var(--color-gold-2)] cursor-pointer transition"
                   style={{ boxShadow: 'var(--shadow-xs)' }}
                 >
-                  <summary className="flex items-center justify-between list-none text-base font-bold text-[var(--color-ink)]">
-                    <span>{q}</span>
-                    <span className="text-2xl transition-transform group-open:rotate-45 text-[var(--color-gold-3)]" aria-hidden="true">
+                  <summary className="flex items-center justify-between gap-3 list-none text-sm sm:text-base font-bold text-[var(--color-ink)]">
+                    <span className="flex-1 min-w-0 break-words leading-snug">{q}</span>
+                    <span className="text-2xl shrink-0 transition-transform group-open:rotate-45 text-[var(--color-gold-3)]" aria-hidden="true">
                       +
                     </span>
                   </summary>
