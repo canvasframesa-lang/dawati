@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import { serviceLd } from '@/lib/seo';
 import { SampleCardTile, type SampleStyle } from '@/components/SampleCardTile';
-import { LiveNotifications } from '@/components/LiveNotifications';
+import {
+  NotificationStack,
+  RsvpCounterCard,
+  LatestMessageCard,
+} from '@/components/LiveNotifications';
 import { BrandMark, BrandWordmark } from '@/components/Brand';
 
 export default function HomePage() {
@@ -71,68 +75,79 @@ function SiteHeader() {
 
 function Hero() {
   return (
-    <section className="relative pt-16 pb-20 sm:pt-24 sm:pb-32 overflow-hidden">
-      {/* Soft decorative blobs */}
+    <section className="hero-cosmos relative pt-16 pb-24 sm:pt-24 sm:pb-32 overflow-hidden">
+      {/* Layered nebulae (gold + violet) — pure CSS, no canvas. */}
       <div
         aria-hidden="true"
-        className="absolute -top-40 -left-20 w-[600px] h-[600px] rounded-full opacity-50 pointer-events-none"
+        className="absolute -top-40 -right-20 w-[700px] h-[700px] rounded-full opacity-50 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(244,213,110,0.18) 0%, transparent 70%)',
-          filter: 'blur(40px)',
+          background: 'radial-gradient(circle, rgba(244,213,110,0.35) 0%, transparent 65%)',
+          filter: 'blur(60px)',
         }}
       />
       <div
         aria-hidden="true"
-        className="absolute -bottom-40 -right-20 w-[600px] h-[600px] rounded-full opacity-40 pointer-events-none"
+        className="absolute -bottom-32 -left-20 w-[700px] h-[700px] rounded-full opacity-50 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(245,210,200,0.25) 0%, transparent 70%)',
-          filter: 'blur(40px)',
+          background: 'radial-gradient(circle, rgba(160, 90, 200, 0.28) 0%, transparent 65%)',
+          filter: 'blur(60px)',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-40 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse, rgba(217, 152, 120, 0.22) 0%, transparent 70%)',
+          filter: 'blur(80px)',
         }}
       />
 
       <div className="mx-auto max-w-6xl px-5 relative">
-        <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full bg-[var(--color-gold-bg)] border border-[#f4d56e]/40">
-            <span className="text-[var(--color-gold-3)] text-sm">✦</span>
-            <span className="text-[var(--color-gold-4)] text-sm font-semibold">
+        {/* Compact title — the phone is the hero, copy supports it. */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div
+            className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full"
+            style={{
+              background: 'rgba(244, 213, 110, 0.10)',
+              border: '1px solid rgba(244, 213, 110, 0.35)',
+              backdropFilter: 'blur(8px)',
+            }}
+          >
+            <span className="text-[#f4d56e] text-sm">✦</span>
+            <span className="text-[#fff8d8] text-sm font-semibold">
               دعوات سعودية تليق بأهم لحظاتك
             </span>
           </div>
 
           <h1
-            className="text-balance font-black tracking-tight text-[var(--color-ink)]"
-            style={{ fontSize: 'clamp(36px, 6vw, 64px)', lineHeight: 1.15 }}
+            className="text-balance font-black tracking-tight text-white"
+            style={{ fontSize: 'clamp(32px, 5.5vw, 56px)', lineHeight: 1.15 }}
           >
-            نحن نُصمّم دعوتك،
-            <br />
+            نحن نُصمّم دعوتك،{' '}
             <span className="text-gradient-gold">وأنت تستقبل ضيوفك.</span>
           </h1>
+        </div>
 
-          <p
-            className="mt-7 mx-auto max-w-2xl text-balance text-[var(--color-ink-mute)] leading-relaxed"
-            style={{ fontSize: 'clamp(16px, 2vw, 19px)' }}
-          >
-            بطاقات دعوة إلكترونية فاخرة، يُصمّمها فريقنا وفقًا لتفاصيل طلبك.
-            شاركها عبر واتساب، وتابع حضور ضيوفك من لوحة تحكم احترافية — كل التفاصيل في مكان واحد.
-          </p>
+        {/* Hero visual — the phone IS the landing page.
+            On desktop the floating cards orbit it; the live demo plays
+            in a continuous 8.4s loop, fully synchronized. */}
+        <div className="mx-auto" style={{ maxWidth: 920 }}>
+          <HeroVisual />
+        </div>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+        {/* CTAs sit below the phone so the phone leads the eye. */}
+        <div className="mt-12 sm:mt-16 text-center max-w-2xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link href="/order" className="btn-gold w-full sm:w-auto">
               اطلب دعوتك الآن ←
             </Link>
-            <Link href="/examples" className="btn-ghost w-full sm:w-auto">
+            <Link href="/examples" className="btn-ghost-dark w-full sm:w-auto">
               استعرض الأمثلة
             </Link>
           </div>
-
-          <p className="mt-6 text-sm text-[var(--color-ink-faint)]">
+          <p className="mt-5 text-sm text-white/55">
             تسليم خلال 12–48 ساعة · استرداد كامل قبل بدء التصميم
           </p>
-        </div>
-
-        {/* Hero visual — a stylized device showing a card */}
-        <div className="mt-16 sm:mt-24 mx-auto max-w-3xl">
-          <HeroVisual />
         </div>
       </div>
     </section>
@@ -356,8 +371,8 @@ function HeroVisual() {
                 </span>
               </div>
 
-              {/* Live RSVP notifications — stacked deck, cycles */}
-              <LiveNotifications />
+              {/* Live RSVP notifications — cascading deck, synced to counter */}
+              <NotificationStack />
 
               {/* Bottom Flashlight + Camera (iOS lock screen) */}
               <div
@@ -411,42 +426,10 @@ function HeroVisual() {
           </div>
         </div>
 
-        {/* Floating stats cards — solid white + soft border so contrast
-            holds against the dark phone behind them */}
-        <div
-          className="hidden md:block absolute -right-12 top-1/3 rounded-2xl p-4 bg-white"
-          style={{
-            animation: 'float-soft 4s ease-in-out infinite',
-            border: '1px solid rgba(15, 15, 30, 0.08)',
-            boxShadow: '0 14px 36px rgba(15, 15, 30, 0.18), 0 4px 8px rgba(15, 15, 30, 0.08)',
-            minWidth: 140,
-          }}
-        >
-          <div className="text-[10px] uppercase tracking-widest text-[var(--color-ink-mute)] mb-1 font-bold">
-            أكّدوا الحضور
-          </div>
-          <div className="text-2xl font-black text-[var(--color-success-dark)] leading-none" dir="ltr" style={{ fontFamily: 'var(--font-latin)' }}>142</div>
-          <div className="text-[11px] text-[var(--color-ink-mute)] mt-1.5" dir="ltr" style={{ fontFamily: 'var(--font-latin)' }}>من أصل 200</div>
-          <div className="mt-2 h-1 rounded-full bg-[var(--color-line)] overflow-hidden">
-            <div className="h-full bg-[var(--color-success)]" style={{ width: '71%' }} />
-          </div>
-        </div>
-
-        <div
-          className="hidden md:block absolute -left-12 bottom-1/4 rounded-2xl p-4 bg-white"
-          style={{
-            animation: 'float-soft 5s ease-in-out infinite reverse',
-            border: '1px solid rgba(15, 15, 30, 0.08)',
-            boxShadow: '0 14px 36px rgba(15, 15, 30, 0.18), 0 4px 8px rgba(15, 15, 30, 0.08)',
-            minWidth: 200,
-          }}
-        >
-          <div className="text-[10px] uppercase tracking-widest text-[var(--color-ink-mute)] mb-1 font-bold">
-            رسالة جديدة
-          </div>
-          <div className="text-sm font-bold text-[var(--color-ink)]">«مبارك يا غالي 🌹»</div>
-          <div className="text-[11px] text-[var(--color-ink-mute)] mt-1.5">قبل 3 دقائق · أبو فيصل</div>
-        </div>
+        {/* Floating cards — both wired to the same master tick as the
+            notification stack, so counter + latest message stay in sync. */}
+        <RsvpCounterCard />
+        <LatestMessageCard />
       </div>
         </div>
       </div>

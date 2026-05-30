@@ -173,6 +173,29 @@ body {
   }
 }
 
+@utility btn-ghost-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff8d8;
+  font-weight: 700;
+  font-size: 16px;
+  transition: background 0.2s, transform 0.15s, border-color 0.2s;
+  border: 1.5px solid rgba(244, 213, 110, 0.35);
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(244, 213, 110, 0.7);
+    transform: translateY(-1px);
+  }
+}
+
 @utility btn-gold {
   display: inline-flex;
   align-items: center;
@@ -252,15 +275,61 @@ body {
   50%      { transform: translateY(-8px); }
 }
 
-/* Lock-screen notification stack: each card slides down from above and
-   fades in. Wrapped in an inner div so it doesn't fight with the parent's
-   depth-based scale/opacity. */
-@keyframes notif-stack-enter {
-  from { opacity: 0; transform: translateY(-22px); }
+/* Lock-screen notification entrance.
+   The wrapper div uses CSS transitions for ongoing depth changes;
+   this inner keyframe is one-shot on mount so it doesn't fight them. */
+@keyframes notif-enter {
+  from { opacity: 0; transform: translateY(-22px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+.notif-enter {
+  animation: notif-enter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Counter slot-machine flip. Triggered by `key` change so the span
+   remounts whenever the number ticks. */
+@keyframes counter-flip {
+  from { opacity: 0; transform: translateY(45%); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.notif-stack-enter {
-  animation: notif-stack-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+.counter-flip {
+  animation: counter-flip 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Floating-card body text swap. */
+@keyframes message-flip {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.message-flip {
+  animation: message-flip 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Dark cosmic hero — base ink with a tiled star field. Each "star" is
+   a tiny radial gradient; two layers at different offsets break up any
+   visible pattern. Cheap to render, no canvas needed. */
+.hero-cosmos {
+  background-color: #050410;
+  background-image:
+    radial-gradient(1px 1px at 25% 35%,  rgba(255,255,255,0.85), transparent 60%),
+    radial-gradient(1px 1px at 78% 12%,  rgba(255,255,255,0.55), transparent 60%),
+    radial-gradient(1px 1px at 12% 78%,  rgba(255,255,255,0.7),  transparent 60%),
+    radial-gradient(1px 1px at 62% 62%,  rgba(255,255,255,0.45), transparent 60%),
+    radial-gradient(1.5px 1.5px at 42% 18%, rgba(255,248,216,0.9), transparent 60%),
+    radial-gradient(1px 1px at 88% 88%,  rgba(255,255,255,0.5),  transparent 60%),
+    radial-gradient(1.5px 1.5px at 8% 30%, rgba(255,248,216,0.8), transparent 60%),
+    radial-gradient(1px 1px at 55% 85%,  rgba(255,255,255,0.6),  transparent 60%),
+    /* Faint second layer (offset) for density */
+    radial-gradient(0.5px 0.5px at 35% 55%, rgba(255,255,255,0.4), transparent 60%),
+    radial-gradient(0.5px 0.5px at 72% 42%, rgba(255,255,255,0.4), transparent 60%),
+    /* Base cosmic gradient */
+    radial-gradient(ellipse 1200px 800px at 50% 40%, #0a0820 0%, #050410 60%, #020108 100%);
+  background-size: 320px 320px, 320px 320px, 320px 320px, 320px 320px,
+                   320px 320px, 320px 320px, 320px 320px, 320px 320px,
+                   240px 240px, 240px 240px, auto;
+  background-repeat: repeat, repeat, repeat, repeat,
+                     repeat, repeat, repeat, repeat,
+                     repeat, repeat, no-repeat;
 }
 
 /* Hero iPhone — design coords are 420 × ~920. The outer is the layout

@@ -1,67 +1,63 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useHeroTick, TOTAL_NOTIFS } from '@/lib/useHeroTick';
 
-type Notif = {
-  id: number;
-  title: string;
-  body: string;
-  time: string;
-};
+type Notif = { id: number; title: string; body: string };
 
 const FEED: Notif[] = [
-  { id: 1, title: 'تأكيد حضور',        body: 'أحمد الزامل أكّد حضوره',                 time: 'الآن' },
-  { id: 2, title: 'رسالة جديدة',       body: 'كريمة الفوزان: «ألف مبروك يا غالي»',      time: 'قبل دقيقة' },
-  { id: 3, title: 'تأكيد حضور',        body: 'فيصل القحطاني + ٢ مرافقين',              time: 'قبل ٣ دقائق' },
-  { id: 4, title: 'تفضيل وجبة',        body: 'سارة الراشد اختارت: نباتي',               time: 'قبل ٥ دقائق' },
-  { id: 5, title: 'اعتذار',            body: 'محمد السبيعي يعتذر مع تمنياته بالتوفيق',  time: 'قبل ٧ دقائق' },
+  { id: 1, title: 'تأكيد حضور',  body: 'أحمد الزامل أكّد حضوره' },
+  { id: 2, title: 'رسالة جديدة', body: 'كريمة الفوزان: «ألف مبروك يا غالي»' },
+  { id: 3, title: 'تأكيد حضور',  body: 'فيصل القحطاني + ٢ مرافقين' },
+  { id: 4, title: 'تفضيل وجبة',  body: 'سارة الراشد اختارت: نباتي' },
+  { id: 5, title: 'اعتذار',      body: 'محمد السبيعي يعتذر، مع تمنياته بالتوفيق' },
 ];
 
-export function LiveNotifications() {
-  const [head, setHead] = useState(0);
+/* ============ The notification stack inside the phone ============ */
 
-  useEffect(() => {
-    const id = setInterval(() => setHead((v) => (v + 1) % FEED.length), 2800);
-    return () => clearInterval(id);
-  }, []);
-
-  // Stack: newest on top, two older peek below (iOS lock-screen pattern).
-  const cards = [
-    { n: FEED[head]!,                                          depth: 0 },
-    { n: FEED[(head - 1 + FEED.length) % FEED.length]!,        depth: 1 },
-    { n: FEED[(head - 2 + FEED.length) % FEED.length]!,        depth: 2 },
-  ];
+export function NotificationStack() {
+  const { cycle, arrivedCount, isFading } = useHeroTick();
 
   return (
     <div
       aria-hidden="true"
       className="absolute z-30 pointer-events-none"
-      style={{ top: 260, left: 12, right: 12 }}
+      style={{ top: 240, left: 12, right: 12 }}
     >
-      <div className="relative" style={{ height: 130 }}>
-        {/* Render deepest first so newest paints on top */}
-        {cards.slice().reverse().map(({ n, depth }) => (
-          <div
-            key={`${head}-${depth}`}
-            className="absolute left-0 right-0"
-            style={{
-              top: depth * 14,
-              transform: `scale(${1 - depth * 0.05})`,
-              transformOrigin: 'top center',
-              opacity: 1 - depth * 0.28,
-              zIndex: 10 - depth,
-            }}
-          >
-            {/* Inner wrapper: handles entrance animation so it doesn't
-                fight with the parent's depth-based transform/opacity. */}
+      <div className="relative" style={{ height: 200 }}>
+        {FEED.slice(0, arrivedCount).map((notif, idx) => {
+          // depth = how many cards arrived after this one (0 = newest)
+          const depth = arrivedCount - 1 - idx;
+          const yOffset = depth * 12;
+          const scale = 1 - depth * 0.05;
+          const restingOpacity = 1 - depth * 0.22;
+          const blur = depth >= 2 ? `blur(${(depth - 1) * 0.5}px)` : 'none';
+
+          return (
             <div
-              className="notif-stack-enter"
-              style={{ animationDelay: `${(2 - depth) * 0.05}s` }}
+              key={`${cycle}-${notif.id}`}
+              className="absolute left-0 right-0"
+              style={{
+                top: yOffset,
+                transform: `scale(${scale})`,
+                transformOrigin: 'top center',
+                opacity: isFading ? 0 : restingOpacity,
+                filter: blur,
+                zIndex: 100 - depth,
+                transition:
+                  'top 380ms cubic-bezier(0.4, 0, 0.2, 1), ' +
+                  'transform 380ms cubic-bezier(0.4, 0, 0.2, 1), ' +
+                  'opacity 400ms ease, ' +
+                  'filter 380ms ease',
+              }}
             >
-              <NotifBubble notif={n} />
+              {/* Inner wrapper: entrance animation that doesn't fight
+                  the outer scale/opacity transitions. */}
+              <div className="notif-enter">
+                <NotifBubble notif={notif} />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -79,7 +75,6 @@ function NotifBubble({ notif }: { notif: Notif }) {
         boxShadow: '0 8px 22px rgba(0, 0, 0, 0.4)',
       }}
     >
-      {/* Top row: app icon + app name + time */}
       <div className="flex items-center gap-2">
         <div
           className="flex-shrink-0 rounded-[6px] flex items-center justify-center"
@@ -105,13 +100,104 @@ function NotifBubble({ notif }: { notif: Notif }) {
           className="text-white/55 text-[9px]"
           style={{ fontFamily: 'var(--font-latin)' }}
         >
-          {notif.time}
+          الآن
         </span>
       </div>
+      <div className="mt-1 text-white text-[12px] font-bold leading-tight">{notif.title}</div>
+      <div
+        className="text-white/85 text-[11.5px] leading-tight mt-0.5"
+        style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+      >
+        {notif.body}
+      </div>
+    </div>
+  );
+}
 
-      {/* Title + body */}
-      <div className="mt-1 text-white text-[11px] font-bold leading-tight">{notif.title}</div>
-      <div className="text-white/85 text-[11px] leading-tight mt-0.5 truncate">{notif.body}</div>
+/* ============ Floating RSVP counter (right side, desktop only) ============ */
+
+export function RsvpCounterCard() {
+  const { counter, cycle } = useHeroTick();
+  const pct = Math.round((counter / 200) * 100);
+
+  return (
+    <div
+      className="hidden md:block absolute -right-12 top-1/3 rounded-2xl p-4 bg-white"
+      style={{
+        animation: 'float-soft 4s ease-in-out infinite',
+        border: '1px solid rgba(15, 15, 30, 0.08)',
+        boxShadow: '0 14px 36px rgba(15, 15, 30, 0.18), 0 4px 8px rgba(15, 15, 30, 0.08)',
+        minWidth: 156,
+      }}
+    >
+      <div className="text-[10px] uppercase tracking-widest text-[var(--color-ink-mute)] mb-1 font-bold">
+        أكّدوا الحضور
+      </div>
+      <div
+        className="text-2xl font-black text-[var(--color-success-dark)] leading-none overflow-hidden"
+        style={{ fontFamily: 'var(--font-latin)', height: 28 }}
+      >
+        <span
+          key={`${cycle}-${counter}`}
+          className="counter-flip block"
+          dir="ltr"
+        >
+          {counter}
+        </span>
+      </div>
+      <div
+        className="text-[11px] text-[var(--color-ink-mute)] mt-1.5"
+        dir="ltr"
+        style={{ fontFamily: 'var(--font-latin)' }}
+      >
+        من أصل 200
+      </div>
+      <div className="mt-2 h-1 rounded-full bg-[var(--color-line)] overflow-hidden">
+        <div
+          className="h-full bg-[var(--color-success)]"
+          style={{
+            width: `${pct}%`,
+            transition: 'width 480ms cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* ============ Floating latest-message (left side, desktop only) ============ */
+
+export function LatestMessageCard() {
+  const { arrivedCount, cycle, isFading } = useHeroTick();
+  const latest = FEED[Math.min(arrivedCount, TOTAL_NOTIFS) - 1] ?? FEED[0]!;
+
+  return (
+    <div
+      className="hidden md:block absolute -left-12 bottom-1/4 rounded-2xl p-4 bg-white"
+      style={{
+        animation: 'float-soft 5s ease-in-out infinite reverse',
+        border: '1px solid rgba(15, 15, 30, 0.08)',
+        boxShadow: '0 14px 36px rgba(15, 15, 30, 0.18), 0 4px 8px rgba(15, 15, 30, 0.08)',
+        minWidth: 220,
+        opacity: isFading ? 0.55 : 1,
+        transition: 'opacity 400ms ease',
+      }}
+    >
+      <div className="text-[10px] uppercase tracking-widest text-[var(--color-ink-mute)] mb-1 font-bold">
+        آخر رسالة
+      </div>
+      <div
+        key={`${cycle}-${latest.id}`}
+        className="text-sm font-bold text-[var(--color-ink)] message-flip"
+      >
+        {latest.body}
+      </div>
+      <div
+        className="text-[11px] text-[var(--color-ink-mute)] mt-1.5"
+        style={{ fontFamily: 'var(--font-latin)' }}
+      >
+        منذ ثوانٍ · دعوتي
+      </div>
     </div>
   );
 }
