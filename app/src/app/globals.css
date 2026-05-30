@@ -305,6 +305,118 @@ body {
   animation: message-flip 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* ================================================================
+   Animated invitation previews — one motion vocabulary per style
+   ================================================================ */
+
+/* Generic: gentle fade-up (used by every style for line reveals). */
+@keyframes ai-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ai-rise { animation: ai-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* Cosmic: twinkling stars (cycles on a long phase). */
+@keyframes ai-twinkle {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 1; }
+}
+.ai-twinkle { animation: ai-twinkle 3.4s ease-in-out infinite; }
+
+/* Cosmic: slow continuous rotation for the central najmah. */
+@keyframes ai-spin-slow {
+  to { transform: rotate(360deg); }
+}
+.ai-spin-slow { animation: ai-spin-slow 28s linear infinite; }
+
+/* Cosmic: drifting gold particles (per-particle delay/distance). */
+@keyframes ai-drift {
+  0%   { opacity: 0;   transform: translateY(20px); }
+  20%  { opacity: 0.8; }
+  80%  { opacity: 0.8; }
+  100% { opacity: 0;   transform: translateY(-60px); }
+}
+.ai-drift { animation: ai-drift 9s ease-in-out infinite; }
+
+/* Cosmic: one-shot lens-flare sweep on load. */
+@keyframes ai-flare {
+  from { transform: translateX(-120%) skewX(-25deg); opacity: 0; }
+  20%  { opacity: 0.4; }
+  to   { transform: translateX(220%) skewX(-25deg); opacity: 0; }
+}
+.ai-flare { animation: ai-flare 1.8s ease-out 0.4s both; }
+
+/* Manuscript / kufic / andalusian: SVG path draw-on. Set
+   stroke-dasharray + stroke-dashoffset to the path length inline. */
+@keyframes ai-draw {
+  from { stroke-dashoffset: var(--ai-len, 400); }
+  to   { stroke-dashoffset: 0; }
+}
+.ai-draw {
+  stroke-dasharray: var(--ai-len, 400);
+  stroke-dashoffset: var(--ai-len, 400);
+  animation: ai-draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+/* Modern minimal: gold underline scaling from center. */
+@keyframes ai-line {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.ai-line {
+  transform-origin: center;
+  animation: ai-line 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Botanical: corner ornament bloom (scale from 0). */
+@keyframes ai-bloom {
+  from { opacity: 0; transform: scale(0.5) rotate(-12deg); }
+  to   { opacity: 1; transform: scale(1)    rotate(0deg); }
+}
+.ai-bloom {
+  transform-origin: center;
+  animation: ai-bloom 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Botanical: petals drifting from top, swaying as they fall. */
+@keyframes ai-petal {
+  0% {
+    opacity: 0;
+    transform: translate(0, -20px) rotate(0deg);
+  }
+  10% { opacity: 0.85; }
+  100% {
+    opacity: 0;
+    transform: translate(var(--ai-px, 60px), 480px) rotate(360deg);
+  }
+}
+.ai-petal { animation: ai-petal 11s linear infinite; }
+
+/* Letter-spacing reveal — premium serif feel for names. */
+@keyframes ai-letter {
+  from { opacity: 0; letter-spacing: 0.6em; transform: translateY(4px); }
+  to   { opacity: 1; letter-spacing: 0;     transform: translateY(0); }
+}
+.ai-letter { animation: ai-letter 1.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* Geometric tile reveal — fades + slight scale, used by andalusian zellige
+   and kufic geometric pattern, one tile per delay step. */
+@keyframes ai-tile {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.ai-tile {
+  transform-origin: center;
+  animation: ai-tile 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-twinkle, .ai-spin-slow, .ai-drift, .ai-petal {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 /* Dark cosmic hero — base ink with a tiled star field. Each "star" is
    a tiny radial gradient; two layers at different offsets break up any
    visible pattern. Cheap to render, no canvas needed. */

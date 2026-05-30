@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell, PageContainer } from '@/components/PageShell';
 import { SampleCardTile } from '@/components/SampleCardTile';
+import { AnimatedInvitation } from '@/components/AnimatedInvitation';
 import { STYLE_DETAILS, ALL_STYLE_SLUGS } from '@/lib/style-details';
 import { TIER_BY_ID, formatPrice } from '@/lib/tiers';
 import { pageMetadata, breadcrumbLd } from '@/lib/seo';
@@ -121,20 +122,14 @@ function Hero({ detail }: { detail: typeof STYLE_DETAILS[keyof typeof STYLE_DETA
         </div>
       </div>
 
-      <div className="max-w-sm mx-auto w-full">
-        <SampleCardTile
-          data={{
-            style: detail.slug,
-            occasion: detail.sampleOccasion,
-            topLine: detail.sampleTopLine,
-            groomName: detail.sampleGroom,
-            brideName: detail.sampleBride,
-            date: detail.sampleDate,
-            venue: detail.sampleVenue,
-            tierLabel: TIER_BY_ID[detail.tiers[0]!].name,
-            href: `/order?tier=${detail.tiers[0]!}`,
-          }}
-        />
+      <div className="w-full">
+        {/* Full animated preview — each style has its own motion language */}
+        <AnimatedInvitation style={detail.slug} />
+        <div className="mt-4 text-center">
+          <span className="text-xs text-[var(--color-ink-mute)]">
+            معاينة حيّة · المؤثرات تعمل تلقائيًّا عند فتح الصفحة
+          </span>
+        </div>
       </div>
     </section>
   );
