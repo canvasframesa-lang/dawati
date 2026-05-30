@@ -252,15 +252,49 @@ body {
   50%      { transform: translateY(-8px); }
 }
 
-/* Notification banner: slide down from above, hold, slide back up. */
-@keyframes notif-slide {
-  0%   { opacity: 0; transform: translateY(-56px) scale(0.96); }
-  12%  { opacity: 1; transform: translateY(0)    scale(1); }
-  88%  { opacity: 1; transform: translateY(0)    scale(1); }
-  100% { opacity: 0; transform: translateY(-36px) scale(0.97); }
+/* Lock-screen notification stack: each card slides down from above and
+   fades in. Wrapped in an inner div so it doesn't fight with the parent's
+   depth-based scale/opacity. */
+@keyframes notif-stack-enter {
+  from { opacity: 0; transform: translateY(-22px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.notif-slide {
-  animation: notif-slide 3.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.notif-stack-enter {
+  animation: notif-stack-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Hero iPhone — design coords are 420 × ~920. The outer is the layout
+   box (collapses to viewport on mobile); the inner is the 420×920
+   surface that gets uniformly scaled so the phone always fits without
+   horizontal scroll and without a vertical gap below.
+
+   Continuous scaling: scale = min(1, (100vw − 32px) / 420). This relies
+   on CSS Math L4 length/length → number, supported in all modern
+   browsers (Chrome 91+, Safari 14.1+, Firefox 75+). */
+.hero-phone-outer {
+  position: relative;
+  margin: 0 auto;
+  width: 420px;
+  height: 924px;
+}
+.hero-phone-inner {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 420px;
+  height: 924px;
+  transform: translateX(-50%);
+  transform-origin: top center;
+}
+
+@media (max-width: 500px) {
+  .hero-phone-outer {
+    width: min(420px, calc(100vw - 32px));
+    height: calc(min(420px, calc(100vw - 32px)) * 924 / 420);
+  }
+  .hero-phone-inner {
+    transform: translateX(-50%) scale(min(1, calc((100vw - 32px) / 420px)));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

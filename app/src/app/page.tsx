@@ -152,28 +152,61 @@ function HeroVisual() {
         }}
       />
 
-      {/* iPhone 17 Pro Max — Cosmic Orange (actual proportions) */}
-      <div className="relative mx-auto" style={{ width: 420 }}>
-        {/* Side buttons — vibrant Cosmic Orange anodized aluminum */}
+      {/* iPhone 17 Pro Max — Cosmic Orange (actual proportions).
+          Wrapped in .hero-phone-outer/.hero-phone-inner so the 420px-wide
+          phone scales down smoothly on narrow viewports without forcing
+          a horizontal scrollbar or leaving a gap below. */}
+      <div className="hero-phone-outer">
+        <div className="hero-phone-inner">
+      <div className="relative" style={{ width: 420 }}>
+        {/* Side buttons — vibrant Cosmic Orange titanium.
+            iPhone 17 Pro Max layout:
+              LEFT  (top → bottom): Action button, Volume Up, Volume Down
+              RIGHT (top → bottom): Side button (power), Camera Control */}
+        {/* RIGHT — Side button (power) */}
         <span
           aria-hidden="true"
-          className="absolute -right-[5px] top-[210px] w-[5px] h-[95px] rounded-l-sm z-10"
-          style={{ background: 'linear-gradient(180deg, #ff8a4d, #b8410f, #ff8a4d)' }}
+          className="absolute -right-[6px] top-[190px] w-[6px] h-[95px] rounded-l-[2px] z-10"
+          style={{
+            background: 'linear-gradient(180deg, #ff8a4d 0%, #c44a14 50%, #ff8a4d 100%)',
+            boxShadow: 'inset 0 0 0 0.5px rgba(255, 191, 155, 0.5)',
+          }}
         />
+        {/* RIGHT — Camera Control (new on iPhone 16/17 Pro) */}
         <span
           aria-hidden="true"
-          className="absolute -left-[5px] top-[130px] w-[5px] h-[36px] rounded-r-sm z-10"
-          style={{ background: 'linear-gradient(180deg, #ff8a4d, #b8410f, #ff8a4d)' }}
+          className="absolute -right-[6px] top-[330px] w-[6px] h-[34px] rounded-l-[2px] z-10"
+          style={{
+            background: 'linear-gradient(180deg, #ff8a4d 0%, #c44a14 50%, #ff8a4d 100%)',
+            boxShadow: 'inset 0 0 0 0.5px rgba(255, 191, 155, 0.5)',
+          }}
         />
+        {/* LEFT — Action button */}
         <span
           aria-hidden="true"
-          className="absolute -left-[5px] top-[200px] w-[5px] h-[65px] rounded-r-sm z-10"
-          style={{ background: 'linear-gradient(180deg, #ff8a4d, #b8410f, #ff8a4d)' }}
+          className="absolute -left-[6px] top-[155px] w-[6px] h-[36px] rounded-r-[2px] z-10"
+          style={{
+            background: 'linear-gradient(180deg, #ff8a4d 0%, #c44a14 50%, #ff8a4d 100%)',
+            boxShadow: 'inset 0 0 0 0.5px rgba(255, 191, 155, 0.5)',
+          }}
         />
+        {/* LEFT — Volume Up */}
         <span
           aria-hidden="true"
-          className="absolute -left-[5px] top-[285px] w-[5px] h-[65px] rounded-r-sm z-10"
-          style={{ background: 'linear-gradient(180deg, #ff8a4d, #b8410f, #ff8a4d)' }}
+          className="absolute -left-[6px] top-[210px] w-[6px] h-[68px] rounded-r-[2px] z-10"
+          style={{
+            background: 'linear-gradient(180deg, #ff8a4d 0%, #c44a14 50%, #ff8a4d 100%)',
+            boxShadow: 'inset 0 0 0 0.5px rgba(255, 191, 155, 0.5)',
+          }}
+        />
+        {/* LEFT — Volume Down */}
+        <span
+          aria-hidden="true"
+          className="absolute -left-[6px] top-[290px] w-[6px] h-[68px] rounded-r-[2px] z-10"
+          style={{
+            background: 'linear-gradient(180deg, #ff8a4d 0%, #c44a14 50%, #ff8a4d 100%)',
+            boxShadow: 'inset 0 0 0 0.5px rgba(255, 191, 155, 0.5)',
+          }}
         />
 
         {/* Cosmic Orange titanium frame — iPhone 17 Pro Max */}
@@ -259,89 +292,109 @@ function HeroVisual() {
                 </div>
               </div>
 
-              {/* Card content area */}
+              {/* === iOS Lock Screen === */}
+              {/* Wallpaper — cosmic gold/violet, premium feel */}
               <div
-                className="absolute inset-0 flex flex-col items-center justify-center text-center px-5 pt-16 pb-10"
+                className="absolute inset-0"
                 style={{
                   background: `
-                    radial-gradient(ellipse 60% 50% at 30% 20%, rgba(244, 208, 107, 0.22) 0%, transparent 60%),
-                    radial-gradient(ellipse 60% 50% at 80% 90%, rgba(217, 152, 120, 0.15) 0%, transparent 60%),
-                    #020207
+                    radial-gradient(ellipse 55% 40% at 28% 22%, rgba(244, 208, 107, 0.32) 0%, transparent 60%),
+                    radial-gradient(ellipse 65% 50% at 78% 85%, rgba(160, 90, 200, 0.22) 0%, transparent 60%),
+                    radial-gradient(circle at 50% 55%, rgba(120, 70, 30, 0.18) 0%, transparent 70%),
+                    linear-gradient(180deg, #050207 0%, #0a0410 50%, #050207 100%)
                   `,
                 }}
+              />
+              {/* Subtle wallpaper grain (tiny dots) */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 opacity-25"
+                style={{
+                  backgroundImage:
+                    'radial-gradient(circle, rgba(255,248,216,0.45) 0.5px, transparent 0.6px)',
+                  backgroundSize: '36px 36px',
+                }}
+              />
+
+              {/* Lock icon (top, just under DI) */}
+              <div className="absolute top-[64px] left-1/2 -translate-x-1/2 z-10">
+                <svg width="14" height="18" viewBox="0 0 14 18" aria-hidden="true">
+                  <path
+                    fill="rgba(255,255,255,0.85)"
+                    d="M7 0a4 4 0 0 0-4 4v3H2a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1V4a4 4 0 0 0-4-4Zm0 1.6c1.3 0 2.4 1 2.4 2.4v3H4.6V4c0-1.3 1-2.4 2.4-2.4Z"
+                  />
+                </svg>
+              </div>
+
+              {/* Time — huge, light weight (iOS lock screen) */}
+              <div
+                className="absolute top-[90px] left-0 right-0 text-center z-10"
+                style={{ color: 'white' }}
               >
-                {/* Mini glass card */}
                 <div
-                  className="w-full rounded-2xl p-5 text-center"
+                  dir="ltr"
                   style={{
-                    background:
-                      'linear-gradient(155deg, rgba(255,255,255,0.85) 0%, rgba(244,208,107,0.40) 100%)',
-                    border: '1px solid rgba(255, 255, 255, 0.7)',
-                    boxShadow:
-                      'inset 0 1px 0 rgba(255,255,255,0.9), 0 12px 30px rgba(0,0,0,0.5)',
-                    backdropFilter: 'blur(20px)',
+                    fontFamily: 'var(--font-latin)',
+                    fontSize: 84,
+                    fontWeight: 300,
+                    lineHeight: 1,
+                    letterSpacing: '-2px',
+                    textShadow: '0 2px 12px rgba(0,0,0,0.4)',
                   }}
                 >
-                  <div
-                    className="text-[9px] tracking-[3px] mb-2"
-                    style={{ color: '#8a6817', fontFamily: 'var(--font-latin)' }}
-                  >
-                    WEDDING · 1448 H
-                  </div>
-                  <div
-                    className="font-black mb-1 text-gradient-gold"
-                    style={{ fontFamily: 'var(--font-aref-ruqaa)', fontSize: 22, lineHeight: 1.2 }}
-                  >
-                    وَمَوَدَّةً وَرَحْمَة
-                  </div>
-                  <div className="text-[10px] mb-3" style={{ color: '#8a6817' }}>
-                    الروم: ٢١
-                  </div>
-                  <div className="text-[10px] mb-1" style={{ color: '#8a6817', letterSpacing: 2 }}>
-                    العَريس
-                  </div>
-                  <div
-                    className="font-bold mb-2 text-gradient-gold"
-                    style={{ fontFamily: 'var(--font-aref-ruqaa)', fontSize: 14, lineHeight: 1.2 }}
-                  >
-                    فيصل بن محمد الراجحي
-                  </div>
-                  <div
-                    className="text-xl"
-                    style={{ color: '#b88a1e', fontFamily: 'var(--font-aref-ruqaa)' }}
-                  >
-                    و
-                  </div>
-                  <div
-                    className="text-[10px] mb-1 mt-2"
-                    style={{ color: '#8a6817', letterSpacing: 2 }}
-                  >
-                    العَروس
-                  </div>
-                  <div
-                    className="font-bold mb-3 text-gradient-gold"
-                    style={{ fontFamily: 'var(--font-aref-ruqaa)', fontSize: 14, lineHeight: 1.2 }}
-                  >
-                    كريمة عبد الله الفوزان
-                  </div>
-                  <div
-                    className="text-[11px] pt-3 border-t"
-                    style={{ borderColor: 'rgba(184, 138, 30, 0.3)', color: '#4a2c0a' }}
-                  >
-                    الجمعة ٤ محرّم ١٤٤٨
-                  </div>
-                  <div className="text-[10px] mt-1" style={{ color: '#4a2c0a' }}>
-                    الرياض · قاعة الفيصلية
-                  </div>
+                  9:41
                 </div>
               </div>
 
-              {/* Live RSVP notifications — cycle every 3.2s */}
+              {/* Date */}
+              <div className="absolute top-[185px] left-0 right-0 text-center z-10">
+                <span
+                  className="text-[12px] font-semibold text-white/85"
+                  style={{ textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}
+                >
+                  الجمعة ٤ محرّم
+                </span>
+              </div>
+
+              {/* Live RSVP notifications — stacked deck, cycles */}
               <LiveNotifications />
+
+              {/* Bottom Flashlight + Camera (iOS lock screen) */}
+              <div
+                className="absolute bottom-12 left-6 right-6 flex justify-between z-10"
+                aria-hidden="true"
+              >
+                <button
+                  type="button"
+                  className="flex items-center justify-center rounded-full"
+                  style={{
+                    width: 36, height: 36,
+                    background: 'rgba(0,0,0,0.45)',
+                    backdropFilter: 'blur(12px)',
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="white">
+                    <path d="M5 0h4l-1 4h2L6 14l1-6H4z" opacity="0.85" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  className="flex items-center justify-center rounded-full"
+                  style={{
+                    width: 36, height: 36,
+                    background: 'rgba(0,0,0,0.45)',
+                    backdropFilter: 'blur(12px)',
+                  }}
+                >
+                  <svg width="16" height="14" viewBox="0 0 16 14" fill="white" opacity="0.85">
+                    <path d="M5 1l-1 1.5H2a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-2L11 1H5zm3 3.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zm0 1.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
+                  </svg>
+                </button>
+              </div>
 
               {/* Home indicator */}
               <div
-                className="absolute bottom-1.5 left-1/2 -translate-x-1/2 rounded-full bg-white/40 z-30"
+                className="absolute bottom-1.5 left-1/2 -translate-x-1/2 rounded-full bg-white/55 z-30"
                 style={{ width: 110, height: 4 }}
               />
 
@@ -393,6 +446,8 @@ function HeroVisual() {
           </div>
           <div className="text-sm font-bold text-[var(--color-ink)]">«مبارك يا غالي 🌹»</div>
           <div className="text-[11px] text-[var(--color-ink-mute)] mt-1.5">قبل 3 دقائق · أبو فيصل</div>
+        </div>
+      </div>
         </div>
       </div>
     </div>
