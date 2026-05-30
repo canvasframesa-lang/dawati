@@ -172,60 +172,59 @@ function HeroVisual() {
         }}
       />
 
-      {/* iPhone 15 Pro-style mockup */}
-      <div className="relative mx-auto" style={{ width: 360 }}>
-        {/* Side buttons (right side: power) */}
+      {/* iPhone 17 Pro Max — Cosmic Orange (actual proportions) */}
+      <div className="relative mx-auto" style={{ width: 420 }}>
+        {/* Side buttons — vibrant Cosmic Orange anodized aluminum */}
         <span
           aria-hidden="true"
-          className="absolute -right-[3px] top-[180px] w-[3px] h-[80px] rounded-l-sm"
-          style={{ background: 'linear-gradient(180deg, #3a3a45, #1a1a25, #3a3a45)' }}
-        />
-        {/* Left side: action button + volume up + volume down */}
-        <span
-          aria-hidden="true"
-          className="absolute -left-[3px] top-[110px] w-[3px] h-[30px] rounded-r-sm"
-          style={{ background: 'linear-gradient(180deg, #3a3a45, #1a1a25, #3a3a45)' }}
+          className="absolute -right-[3px] top-[210px] w-[3px] h-[95px] rounded-l-sm"
+          style={{ background: 'linear-gradient(180deg, #ff7c3a, #c44a14, #ff7c3a)' }}
         />
         <span
           aria-hidden="true"
-          className="absolute -left-[3px] top-[170px] w-[3px] h-[55px] rounded-r-sm"
-          style={{ background: 'linear-gradient(180deg, #3a3a45, #1a1a25, #3a3a45)' }}
+          className="absolute -left-[3px] top-[130px] w-[3px] h-[35px] rounded-r-sm"
+          style={{ background: 'linear-gradient(180deg, #ff7c3a, #c44a14, #ff7c3a)' }}
         />
         <span
           aria-hidden="true"
-          className="absolute -left-[3px] top-[245px] w-[3px] h-[55px] rounded-r-sm"
-          style={{ background: 'linear-gradient(180deg, #3a3a45, #1a1a25, #3a3a45)' }}
+          className="absolute -left-[3px] top-[200px] w-[3px] h-[65px] rounded-r-sm"
+          style={{ background: 'linear-gradient(180deg, #ff7c3a, #c44a14, #ff7c3a)' }}
+        />
+        <span
+          aria-hidden="true"
+          className="absolute -left-[3px] top-[285px] w-[3px] h-[65px] rounded-r-sm"
+          style={{ background: 'linear-gradient(180deg, #ff7c3a, #c44a14, #ff7c3a)' }}
         />
 
-        {/* Titanium frame */}
+        {/* Cosmic Orange aluminum frame — iPhone 17 Pro Max */}
         <div
-          className="relative rounded-[58px] p-[3px]"
+          className="relative rounded-[64px] p-[3px]"
           style={{
             background:
-              'linear-gradient(135deg, #c8c8d0 0%, #4a4a55 25%, #2a2a35 50%, #4a4a55 75%, #c8c8d0 100%)',
+              'linear-gradient(135deg, #ffbf9b 0%, #ff8a4d 15%, #ff6320 35%, #d24a18 55%, #ff6320 75%, #ffbf9b 100%)',
             boxShadow:
-              '0 40px 90px rgba(15, 15, 30, 0.35), 0 10px 25px rgba(15, 15, 30, 0.18), inset 0 0 0 1px rgba(255,255,255,0.05)',
+              '0 50px 110px rgba(210, 74, 24, 0.42), 0 14px 30px rgba(180, 60, 18, 0.28), inset 0 0 0 1px rgba(255, 191, 155, 0.35)',
           }}
         >
-          {/* Inner black bezel */}
+          {/* Inner black bezel (thinner — iPhone 17 has the slimmest bezels yet) */}
           <div
-            className="rounded-[55px] p-[7px]"
-            style={{ background: '#0a0a14' }}
+            className="rounded-[61px] p-[5px]"
+            style={{ background: '#1a0e08' }}
           >
-            {/* Screen */}
+            {/* Screen — iPhone 17 Pro Max is 6.9", aspect ratio ~9:19.5 */}
             <div
-              className="rounded-[48px] overflow-hidden relative"
+              className="rounded-[56px] overflow-hidden relative"
               style={{
                 aspectRatio: '9 / 19.5',
                 background: '#020207',
               }}
             >
-              {/* Dynamic Island */}
+              {/* Dynamic Island — slightly larger on iPhone 17 Pro */}
               <div
-                className="absolute top-2.5 left-1/2 -translate-x-1/2 rounded-full z-30 flex items-center justify-end pr-2"
+                className="absolute top-3 left-1/2 -translate-x-1/2 rounded-full z-30 flex items-center justify-end pr-2.5"
                 style={{
-                  width: 110,
-                  height: 32,
+                  width: 128,
+                  height: 36,
                   background: '#000',
                 }}
               >
