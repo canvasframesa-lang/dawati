@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BrandMark, BrandWordmark } from '@/components/Brand';
 
 /**
  * Shared chrome for all marketing / info pages.
@@ -19,8 +20,8 @@ function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-[var(--color-line-soft)] bg-[rgba(250,250,247,0.85)] backdrop-blur-lg">
       <div className="mx-auto max-w-6xl px-5 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5" aria-label="دعوتي">
-          <BrandMark />
-          <span className="text-lg font-extrabold text-[var(--color-ink)]">دعوتي</span>
+          <BrandMark size={30} />
+          <BrandWordmark fontSize={22} />
         </Link>
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[var(--color-ink-soft)]">
           <Link href="/occasions" className="hover:text-[var(--color-ink)] transition">المناسبات</Link>
@@ -33,23 +34,6 @@ function SiteHeader() {
         </Link>
       </div>
     </header>
-  );
-}
-
-function BrandMark() {
-  return (
-    <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
-      <defs>
-        <linearGradient id="bm-shell" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0%" stopColor="#f4d56e" />
-          <stop offset="100%" stopColor="#8a6817" />
-        </linearGradient>
-      </defs>
-      <g transform="translate(16 16)">
-        <polygon points="0,-12 3.5,-3.5 12,0 3.5,3.5 0,12 -3.5,3.5 -12,0 -3.5,-3.5" fill="url(#bm-shell)" />
-        <polygon points="0,-12 3.5,-3.5 12,0 3.5,3.5 0,12 -3.5,3.5 -12,0 -3.5,-3.5" fill="url(#bm-shell)" transform="rotate(45)" opacity="0.55" />
-      </g>
-    </svg>
   );
 }
 
