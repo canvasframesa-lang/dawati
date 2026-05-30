@@ -23,10 +23,10 @@ function SiteHeader() {
           <span className="text-lg font-extrabold text-[var(--color-ink)]">دعوتي</span>
         </Link>
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[var(--color-ink-soft)]">
+          <Link href="/occasions" className="hover:text-[var(--color-ink)] transition">المناسبات</Link>
           <Link href="/how-it-works" className="hover:text-[var(--color-ink)] transition">كيف يشتغل</Link>
           <Link href="/examples" className="hover:text-[var(--color-ink)] transition">أمثلة</Link>
           <Link href="/pricing" className="hover:text-[var(--color-ink)] transition">الباقات</Link>
-          <Link href="/faq" className="hover:text-[var(--color-ink)] transition">الأسئلة</Link>
         </nav>
         <Link href="/order" className="btn-gold text-sm py-2.5 px-5">
           اطلب دعوتك

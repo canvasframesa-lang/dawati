@@ -16,6 +16,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <TrustBar />
+        <OccasionTeaser />
         <HowItWorks />
         <FeaturesShowcase />
         <SampleGallery />
@@ -40,6 +41,9 @@ function SiteHeader() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[var(--color-ink-soft)]">
+          <Link href="/occasions" className="hover:text-[var(--color-ink)] transition">
+            المناسبات
+          </Link>
           <Link href="/how-it-works" className="hover:text-[var(--color-ink)] transition">
             كيف يشتغل
           </Link>
@@ -48,9 +52,6 @@ function SiteHeader() {
           </Link>
           <Link href="/pricing" className="hover:text-[var(--color-ink)] transition">
             الباقات
-          </Link>
-          <Link href="/faq" className="hover:text-[var(--color-ink)] transition">
-            الأسئلة
           </Link>
         </nav>
 
@@ -317,6 +318,70 @@ function TrustBar() {
 }
 
 /* ============ How it works ============ */
+
+function OccasionTeaser() {
+  const cats = [
+    { emoji: '💍', label: 'الأعراس', n: 9, href: '/occasions#wedding', highlight: true },
+    { emoji: '🌙', label: 'الأعياد', n: 7, href: '/occasions' },
+    { emoji: '👨‍👩‍👧‍👦', label: 'الأسرة', n: 9, href: '/occasions' },
+    { emoji: '🎓', label: 'التخرّجات', n: 8, href: '/occasions' },
+    { emoji: '🏢', label: 'الأعمال', n: 6, href: '/occasions' },
+    { emoji: '🇸🇦', label: 'الوطنية', n: 4, href: '/occasions' },
+    { emoji: '🤝', label: 'اجتماعية', n: 8, href: '/occasions' },
+    { emoji: '✨', label: 'أخرى', n: 1, href: '/occasions' },
+  ];
+  return (
+    <section className="section bg-[var(--color-bg-alt)]">
+      <div className="mx-auto max-w-6xl px-5">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white border border-[var(--color-line)]">
+            <span className="text-[var(--color-gold-3)] text-sm">✦</span>
+            <span className="text-[var(--color-ink-soft)] text-sm font-semibold">٥٢ مناسبة في قائمتنا</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-3">
+            ليست مجرّد دعوات زواج
+          </h2>
+          <p className="text-lg text-[var(--color-ink-mute)] max-w-2xl mx-auto">
+            من ليلة الحنّاء إلى تخرّج الدكتوراة — لكل مناسبة بطاقة تليق بها.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+          {cats.map((c) => (
+            <Link
+              key={c.label}
+              href={c.href}
+              className="group flex flex-col items-center text-center p-5 rounded-2xl bg-white border transition-all hover:-translate-y-1"
+              style={{
+                borderColor: c.highlight ? 'var(--color-gold-2)' : 'var(--color-line)',
+                boxShadow: c.highlight ? '0 8px 22px rgba(184, 138, 30, 0.15)' : 'var(--shadow-xs)',
+              }}
+            >
+              <span className="text-4xl mb-2" aria-hidden="true">{c.emoji}</span>
+              <span className="text-base font-bold text-[var(--color-ink)] mb-0.5 group-hover:text-[var(--color-gold-4)] transition-colors">
+                {c.label}
+              </span>
+              <span className="text-xs text-[var(--color-ink-mute)]">
+                {c.n} مناسبة
+              </span>
+              {c.highlight && (
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-gold-3)] mt-2">
+                  الأكثر طلبًا
+                </span>
+              )}
+            </Link>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <Link href="/occasions" className="btn-ghost">
+            شف كل المناسبات (٥٢)  ←
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function HowItWorks() {
   const steps = [
