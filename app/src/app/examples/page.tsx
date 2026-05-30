@@ -117,7 +117,13 @@ export default function ExamplesPage() {
               <SampleCardTile data={s} />
               <div className="px-2">
                 <h3 className="text-base font-bold text-[var(--color-ink)] mb-1">{s.styleLabel}</h3>
-                <p className="text-sm text-[var(--color-ink-mute)] leading-relaxed">{s.styleNote}</p>
+                <p className="text-sm text-[var(--color-ink-mute)] leading-relaxed mb-2">{s.styleNote}</p>
+                <Link
+                  href={`/examples/${s.style}`}
+                  className="inline-flex items-center gap-1 text-sm font-bold text-[var(--color-ink)] hover:text-[var(--color-gold-3)] transition"
+                >
+                  شف التفاصيل الكاملة ←
+                </Link>
               </div>
             </div>
           ))}
