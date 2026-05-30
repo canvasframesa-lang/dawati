@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageShell, H1, Lead, PageContainer } from '@/components/PageShell';
+import { PageShell, PageBanner, PageContainer } from '@/components/PageShell';
 import { TIERS, ADD_ONS, formatPriceNumber } from '@/lib/tiers';
 
 export const metadata: Metadata = {
@@ -11,12 +11,13 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <PageShell>
+      <PageBanner
+        eyebrow="الباقات والأسعار"
+        emoji="💎"
+        title="اختر باقتك"
+        subtitle="ثلاث باقات تليق بكل ذوق وميزانية. كل الأسعار شاملة ضريبة القيمة المضافة 15٪. دفعة واحدة بلا اشتراك، مع لوحة تحكم احترافية في كل الباقات."
+      />
       <PageContainer>
-        <H1>اختر باقتك</H1>
-        <Lead>
-          ثلاث باقات تليق بكل ذوق وميزانية. كل الأسعار شامل ضريبة القيمة المضافة 15٪.
-          دفعة واحدة بدون اشتراك. مع لوحة تحكم احترافية في كل الباقات.
-        </Lead>
 
         {/* Tier comparison grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-24">

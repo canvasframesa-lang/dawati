@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageShell, H1, Lead, PageContainer } from '@/components/PageShell';
+import { PageShell, PageBanner, PageContainer } from '@/components/PageShell';
 import {
   WEDDING_OCCASIONS,
   RELIGIOUS_OCCASIONS,
@@ -21,20 +21,13 @@ export const metadata: Metadata = {
 export default function OccasionsPage() {
   return (
     <PageShell>
+      <PageBanner
+        eyebrow="52 مناسبة في قائمتنا"
+        emoji="🎉"
+        title="كل مناسباتك في مكان واحد"
+        subtitle="من أعراس العمر، إلى أعياد العائلة، إلى تخرّج أبنائك — نصمّم لك بطاقة تخصّ كل مناسبة، لا تقتصر على الأعراس وحدها."
+      />
       <PageContainer>
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-[var(--color-gold-bg)] border border-[#f4d56e]/40">
-            <span className="text-[var(--color-gold-3)] text-sm">✦</span>
-            <span className="text-[var(--color-gold-4)] text-sm font-semibold">
-              لكل مناسبة دعوة تليق بها
-            </span>
-          </div>
-        </div>
-        <H1>كل مناسباتك في مكان واحد</H1>
-        <Lead>
-          من أعراس العمر، إلى أعياد العائلة، إلى تخرّج طفلك —
-          نصمّم لك بطاقة تخصّ كل مناسبة، لا تقتصر على «الزواج فقط».
-        </Lead>
 
         {/* WEDDING SECTION — featured prominently */}
         <WeddingsSection />

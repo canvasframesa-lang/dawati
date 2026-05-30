@@ -403,13 +403,13 @@ export function OrderClient() {
             className="text-balance font-black tracking-tight text-[var(--color-ink)]"
             style={{ fontSize: 'clamp(28px, 5vw, 44px)', lineHeight: 1.25 }}
           >
-            احكِ لنا عن دعوتك<br className="sm:hidden" /> — ونحنا نسوّيها
+            صِف لنا تفاصيل دعوتك<br className="sm:hidden" /> — ونحن ننفّذها
           </h1>
           <p
             className="mt-5 mx-auto max-w-xl text-balance text-[var(--color-ink-mute)] leading-relaxed"
             style={{ fontSize: 'clamp(15px, 2vw, 17px)' }}
           >
-            املأ التفاصيل بهدوء — تقدر ترجع لها أيّ وقت. كل شيء يُحفظ تلقائيًّا.
+            املأ التفاصيل برويّة — يمكنك العودة إليها في أيّ وقت. جميع البيانات تُحفظ تلقائيًّا.
             بعد الدفع، فريقنا يصمّمها لك ويسلّمك خلال <strong>{tier.deliveryHours} ساعة</strong>.
           </p>
         </div>
@@ -417,7 +417,7 @@ export function OrderClient() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr,320px] gap-6">
           <div className="space-y-4">
             {/* Tier */}
-            <Section title="١ · اختر باقتك">
+            <Section number={1} title="اختر باقتك">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {TIERS.map((t) => (
                   <label key={t.id} className="cursor-pointer">
@@ -478,7 +478,7 @@ export function OrderClient() {
             </Section>
 
             {/* Occasion */}
-            <Section title="٢ · المناسبة">
+            <Section number={2} title="المناسبة">
               <Radios
                 name="occasion"
                 value={data.occasion}
@@ -506,7 +506,7 @@ export function OrderClient() {
             </Section>
 
             {/* People */}
-            <Section title="٣ · الأسماء والعائلات">
+            <Section number={3} title="الأسماء والعائلات">
               {(data.occasion === 'wedding' || data.occasion === 'engagement') && (
                 <>
                   <Field
@@ -554,7 +554,7 @@ export function OrderClient() {
             </Section>
 
             {/* Date & venue */}
-            <Section title="٤ · التاريخ والمكان">
+            <Section number={4} title="التاريخ والمكان">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Field
                   label="التاريخ (ميلادي)"
@@ -599,7 +599,7 @@ export function OrderClient() {
             </Section>
 
             {/* Guests breakdown */}
-            <Section title="٥ · توقّع عدد الضيوف" subtitle="يساعدنا نجهّز لوحتك بمعلومات أدقّ">
+            <Section number={5} title="عدد الضيوف المتوقّع" subtitle="يساعدنا على تجهيز لوحتك بمعلومات أدقّ">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Field
                   label="عدد البالغين المتوقّع"
@@ -632,7 +632,7 @@ export function OrderClient() {
             </Section>
 
             {/* Photography policy */}
-            <Section title="٦ · سياسة التصوير">
+            <Section number={6} title="سياسة التصوير">
               <p className="text-sm" style={{ color: 'var(--color-ink-light)', fontFamily: 'var(--font-body)' }}>
                 نُوضّح سياسة التصوير على الدعوة لضيوفك حتى يجيؤون مستعدّين
               </p>
@@ -658,7 +658,7 @@ export function OrderClient() {
 
             {/* Food preferences (Fakhira+) */}
             {(data.tier === 'fakhira' || data.tier === 'malakiyya') && (
-              <Section title="٧ · الطعام وتفضيلات الضيوف" subtitle="نسأل ضيوفك تلقائيًّا عند تأكيد الحضور — لتجهّز قائمتك بدقّة">
+              <Section number={7} title="الطعام وتفضيلات الضيوف" subtitle="نسأل ضيوفك تلقائيًّا عند تأكيد الحضور — لتجهيز قائمتك بدقّة">
                 <Toggle
                   label="اسأل الضيوف عن نوع الوجبة المفضّلة"
                   checked={data.collectMealPreferences}
@@ -731,7 +731,7 @@ export function OrderClient() {
 
             {/* Accommodations (Malakiyya) */}
             {data.tier === 'malakiyya' && (
-              <Section title="٨ · وسائل الراحة في القاعة" subtitle="نُعلنها لضيوفك ليأتوا مرتاحين">
+              <Section number={8} title="وسائل الراحة في القاعة" subtitle="نُعلنها لضيوفك ليأتوا مطمئنّين">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <Toggle label="♿ مدخل ووسائل وصول لذوي الاحتياجات الخاصة" checked={data.hasWheelchairAccess} onChange={(b) => dispatch({ type: 'set', patch: { hasWheelchairAccess: b } })} />
                   <Toggle label="🛐 غرفة صلاة" checked={data.hasPrayerRoom} onChange={(b) => dispatch({ type: 'set', patch: { hasPrayerRoom: b } })} />
@@ -744,14 +744,14 @@ export function OrderClient() {
                   label="ملاحظات إضافية عن وسائل الراحة"
                   value={data.accommodationNote}
                   onChange={(v) => dispatch({ type: 'set', patch: { accommodationNote: v } })}
-                  placeholder="أيّ تفاصيل إضافية تبي توضّحها لضيوفك..."
+                  placeholder="أيّ تفاصيل إضافية تريد توضيحها لضيوفك..."
                   rows={3}
                 />
               </Section>
             )}
 
             {/* Religious */}
-            <Section title="٩ · النص الديني">
+            <Section number={9} title="النص الديني">
               <p
                 className="text-sm"
                 style={{ color: 'var(--color-ink-light)', fontFamily: 'var(--font-body)' }}
@@ -807,8 +807,9 @@ export function OrderClient() {
 
             {/* Design brief */}
             <Section
-              title="١٠ · مواصفات التصميم"
-              subtitle="هذا أهم قسم — احكِ لنا اللي تشوفه في خيالك"
+              number={10}
+              title="مواصفات التصميم"
+              subtitle="القسم الأهم — صف لنا ما تتخيّله بأسلوبك"
             >
               <p
                 className="text-sm pb-1"
@@ -858,7 +859,7 @@ export function OrderClient() {
                 label="وصف تفصيلي للتصميم اللي تتخيّله ✨"
                 value={data.designDescription}
                 onChange={(v) => dispatch({ type: 'set', patch: { designDescription: v } })}
-                placeholder="احكِ بكلامك: العناصر اللي تحبّها، أيّ شيء يميّز مناسبتك، الإحساس اللي تبيه يوصل للضيوف، إن كان عندك ثيم خاص بالحفل (مثل: ثيم أندلسي، حديقة، صحراء، ...)، أيّ شيء يخطر في بالك — كلّما زادت التفاصيل، كانت الدعوة أقرب لتخيّلك."
+                placeholder="صف بأسلوبك: العناصر التي تحبّها، ما يميّز مناسبتك، الإحساس الذي تريد إيصاله للضيوف، إن كان لديك ثيم خاص بالحفل (أندلسي، حديقة، صحراء، ...)، أيّ تفصيل يخطر ببالك — كلّما زادت التفاصيل، كانت الدعوة أقرب لتخيّلك."
                 rows={6}
               />
 
@@ -873,7 +874,7 @@ export function OrderClient() {
 
             {/* Languages */}
             {(data.tier === 'fakhira' || data.tier === 'malakiyya') && (
-              <Section title="١١ · اللغات">
+              <Section number={11} title="اللغات">
                 <div className="flex flex-wrap gap-2">
                   {[
                     { v: 'ar', l: 'العربية (إلزامي)' },
@@ -906,7 +907,7 @@ export function OrderClient() {
 
             {/* Add-ons */}
             {eligibleAddons.length > 0 && (
-              <Section title="١٢ · إضافات اختيارية" subtitle="مطبوعات، تسليم سريع، خدمات إضافية">
+              <Section number={12} title="إضافات اختيارية" subtitle="مطبوعات، تسليم سريع، خدمات إضافية">
                 <div className="space-y-2">
                   {eligibleAddons.map((a) => (
                     <label
@@ -966,7 +967,7 @@ export function OrderClient() {
             )}
 
             {/* Contact */}
-            <Section title="١٣ · تواصلنا معك">
+            <Section number={13} title="تواصلنا معك">
               <Field
                 label="اسمك"
                 value={data.yourName}
@@ -999,7 +1000,7 @@ export function OrderClient() {
             </Section>
 
             {/* Notes */}
-            <Section title="١٤ · ملاحظات إضافية" subtitle="أيّ شيء آخر تبي تخبرنا به">
+            <Section number={14} title="ملاحظات إضافية" subtitle="أيّ تفاصيل أخرى تودّ إخبارنا بها">
               <Field
                 label="تاريخ الحاجة للدعوة (اختياري)"
                 type="date"
@@ -1081,10 +1082,12 @@ export function OrderClient() {
 /* ============================================================ */
 
 function Section({
+  number,
   title,
   subtitle,
   children,
 }: {
+  number?: number;
   title: string;
   subtitle?: string;
   children: React.ReactNode;
@@ -1095,23 +1098,43 @@ function Section({
       className="rounded-2xl bg-white border border-[var(--color-line)] overflow-hidden group"
       style={{ boxShadow: 'var(--shadow-xs)' }}
     >
-      <summary className="cursor-pointer px-6 py-5 flex items-center justify-between list-none select-none border-b border-transparent group-open:border-[var(--color-line-soft)]">
-        <div>
-          <div className="text-base font-extrabold text-[var(--color-ink)]">{title}</div>
-          {subtitle && (
-            <div className="text-xs mt-1 text-[var(--color-ink-mute)] leading-relaxed">
-              {subtitle}
-            </div>
+      <summary className="cursor-pointer px-5 py-4 flex items-center justify-between gap-3 list-none select-none border-b border-transparent group-open:border-[var(--color-line-soft)] hover:bg-[var(--color-bg-alt)] transition-colors">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
+          {number != null && (
+            <span
+              className="shrink-0 inline-flex items-center justify-center rounded-full font-extrabold"
+              style={{
+                width: 32,
+                height: 32,
+                background: 'linear-gradient(180deg, #fdf6e3 0%, #f4d56e 100%)',
+                color: '#4a2c0a',
+                fontSize: 13,
+                border: '1px solid #d4a93a',
+                fontFamily: 'var(--font-latin)',
+              }}
+            >
+              {number}
+            </span>
           )}
+          <div className="min-w-0">
+            <div className="text-base font-extrabold text-[var(--color-ink)] leading-tight">
+              {title}
+            </div>
+            {subtitle && (
+              <div className="text-xs mt-0.5 text-[var(--color-ink-mute)] leading-relaxed">
+                {subtitle}
+              </div>
+            )}
+          </div>
         </div>
         <span
           aria-hidden="true"
-          className="text-[var(--color-ink-faint)] group-open:rotate-180 transition-transform"
+          className="text-[var(--color-ink-faint)] group-open:rotate-180 transition-transform shrink-0"
         >
           ▾
         </span>
       </summary>
-      <div className="px-6 py-5 space-y-5 bg-[var(--color-bg)]">{children}</div>
+      <div className="px-5 py-5 space-y-5 bg-[var(--color-bg)]">{children}</div>
     </details>
   );
 }

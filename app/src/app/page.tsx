@@ -45,7 +45,7 @@ function SiteHeader() {
             المناسبات
           </Link>
           <Link href="/how-it-works" className="hover:text-[var(--color-ink)] transition">
-            كيف يشتغل
+            آلية العمل
           </Link>
           <Link href="/examples" className="hover:text-[var(--color-ink)] transition">
             أمثلة
@@ -123,7 +123,7 @@ function Hero() {
             className="text-balance font-black tracking-tight text-[var(--color-ink)]"
             style={{ fontSize: 'clamp(36px, 6vw, 64px)', lineHeight: 1.15 }}
           >
-            احنا نصمّم دعوتك،
+            نحن نُصمّم دعوتك،
             <br />
             <span className="text-gradient-gold">وأنت تستقبل ضيوفك.</span>
           </h1>
@@ -132,8 +132,8 @@ function Hero() {
             className="mt-7 mx-auto max-w-2xl text-balance text-[var(--color-ink-mute)] leading-relaxed"
             style={{ fontSize: 'clamp(16px, 2vw, 19px)' }}
           >
-            بطاقات دعوة إلكترونية فاخرة، يصمّمها فريقنا حسب طلبك.
-            تشاركها على واتساب، وتتابع ضيوفك من لوحة احترافية — كل التفاصيل في مكان واحد.
+            بطاقات دعوة إلكترونية فاخرة، يُصمّمها فريقنا وفقًا لتفاصيل طلبك.
+            شاركها عبر واتساب، وتابع حضور ضيوفك من لوحة تحكم احترافية — كل التفاصيل في مكان واحد.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -141,12 +141,12 @@ function Hero() {
               اطلب دعوتك الآن ←
             </Link>
             <Link href="/examples" className="btn-ghost w-full sm:w-auto">
-              شف الأمثلة
+              استعرض الأمثلة
             </Link>
           </div>
 
           <p className="mt-6 text-sm text-[var(--color-ink-faint)]">
-            تسليم خلال ١٢–٤٨ ساعة · استرداد كامل قبل بدء التصميم
+            تسليم خلال 12–48 ساعة · استرداد كامل قبل بدء التصميم
           </p>
         </div>
 
@@ -390,8 +390,8 @@ function HeroVisual() {
           <div className="text-[10px] uppercase tracking-widest text-[var(--color-ink-mute)] mb-1 font-bold">
             أكّدوا الحضور
           </div>
-          <div className="text-2xl font-black text-[var(--color-success-dark)] leading-none">142</div>
-          <div className="text-[11px] text-[var(--color-ink-mute)] mt-1.5">من أصل ٢٠٠</div>
+          <div className="text-2xl font-black text-[var(--color-success-dark)] leading-none" dir="ltr" style={{ fontFamily: 'var(--font-latin)' }}>142</div>
+          <div className="text-[11px] text-[var(--color-ink-mute)] mt-1.5" dir="ltr" style={{ fontFamily: 'var(--font-latin)' }}>من أصل 200</div>
           <div className="mt-2 h-1 rounded-full bg-[var(--color-line)] overflow-hidden">
             <div className="h-full bg-[var(--color-success)]" style={{ width: '71%' }} />
           </div>
@@ -410,7 +410,7 @@ function HeroVisual() {
             رسالة جديدة
           </div>
           <div className="text-sm font-bold text-[var(--color-ink)]">«مبارك يا غالي 🌹»</div>
-          <div className="text-[11px] text-[var(--color-ink-mute)] mt-1.5">قبل ٣ دقائق · أبو فيصل</div>
+          <div className="text-[11px] text-[var(--color-ink-mute)] mt-1.5">قبل 3 دقائق · أبو فيصل</div>
         </div>
       </div>
     </div>
@@ -459,13 +459,13 @@ function OccasionTeaser() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white border border-[var(--color-line)]">
             <span className="text-[var(--color-gold-3)] text-sm">✦</span>
-            <span className="text-[var(--color-ink-soft)] text-sm font-semibold">٥٢ مناسبة في قائمتنا</span>
+            <span className="text-[var(--color-ink-soft)] text-sm font-semibold">52 مناسبة في قائمتنا</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-3">
-            ليست مجرّد دعوات زواج
+            ليست مجرّد دعوات زفاف
           </h2>
           <p className="text-lg text-[var(--color-ink-mute)] max-w-2xl mx-auto">
-            من ليلة الحنّاء إلى تخرّج الدكتوراة — لكل مناسبة بطاقة تليق بها.
+            من ليلة الحنّاء إلى حفلات التخرّج — لكل مناسبة بطاقة تليق بها.
           </p>
         </div>
 
@@ -484,7 +484,7 @@ function OccasionTeaser() {
               <span className="text-base font-bold text-[var(--color-ink)] mb-0.5 group-hover:text-[var(--color-gold-4)] transition-colors">
                 {c.label}
               </span>
-              <span className="text-xs text-[var(--color-ink-mute)]">
+              <span className="text-xs text-[var(--color-ink-mute)]" dir="ltr" style={{ fontFamily: 'var(--font-latin)' }}>
                 {c.n} مناسبة
               </span>
               {c.highlight && (
@@ -498,7 +498,7 @@ function OccasionTeaser() {
 
         <div className="text-center">
           <Link href="/occasions" className="btn-ghost">
-            شف كل المناسبات (٥٢)  ←
+            استعرض كل المناسبات (52) ←
           </Link>
         </div>
       </div>
@@ -510,26 +510,26 @@ function HowItWorks() {
   const steps = [
     {
       n: '01',
-      t: 'ارفع طلبك',
-      d: 'املأ نموذج بسيط — التفاصيل اللي تخصّ مناسبتك ووصف اللي تتخيّله.',
+      t: 'قدّم طلبك',
+      d: 'املأ نموذجًا موجزًا يتضمّن تفاصيل مناسبتك ووصف التصميم الذي تتخيّله.',
       icon: '📝',
     },
     {
       n: '02',
-      t: 'نتواصل ونصمّم',
-      d: 'فريق المصمّمين يبدأ على طلبك فورًا — تصميم مخصّص يليق بمناسبتك.',
+      t: 'نتواصل ونُصمّم',
+      d: 'يبدأ فريق المصمّمين فور تأكيد طلبك — تصميم مخصّص يليق بمناسبتك.',
       icon: '🎨',
     },
     {
       n: '03',
-      t: 'استلم وراجِع',
-      d: 'تشوف المعاينة، تطلب تعديل إن أحببت، ثم تعتمد التصميم النهائي.',
+      t: 'استلم وراجع',
+      d: 'تستعرض المعاينة، تطلب التعديل إن لزم، ثم تعتمد التصميم النهائي.',
       icon: '✓',
     },
     {
       n: '04',
-      t: 'شاركها وتابع',
-      d: 'تشاركها على واتساب، ولوحة تحكمك تعرض كل ضيوفك ورسائلهم لحظيًّا.',
+      t: 'شارك وتابع',
+      d: 'تشارك الدعوة عبر واتساب، ولوحة التحكم تعرض حضور ضيوفك ورسائلهم لحظيًّا.',
       icon: '📊',
     },
   ];
@@ -538,7 +538,7 @@ function HowItWorks() {
       <div className="mx-auto max-w-6xl px-5">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-3">
-            بسيطة وما تستهلك وقتك
+            عملية مبسّطة لا تستهلك وقتك
           </h2>
           <p className="text-lg text-[var(--color-ink-mute)] max-w-xl mx-auto">
             أربع خطوات تفصلك عن دعوة تليق بمناسبتك.
@@ -582,10 +582,10 @@ function FeaturesShowcase() {
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-3">
-            كل اللي تحتاجه لإدارة ضيوفك
+            كل ما تحتاجه لإدارة ضيوفك
           </h2>
           <p className="text-lg text-[var(--color-ink-mute)] max-w-2xl mx-auto">
-            ما هي مجرد دعوة — هي تجربة كاملة لك ولضيوفك.
+            ليست مجرّد دعوة — بل تجربة متكاملة لك ولضيوفك.
           </p>
         </div>
 
@@ -608,15 +608,15 @@ function FeaturesShowcase() {
 }
 
 const FEATURES = [
-  { icon: '📊', t: 'عدّاد لحظي', d: 'كم ضيف أكّد، كم اعتذر، كم لسّا ما رد — مُحدّث آنيًّا.' },
-  { icon: '💬', t: 'رسائل الضيوف', d: 'كل دعاء أو رسالة من ضيف تصلك في لوحتك مرتّبة.' },
-  { icon: '🎟', t: 'باركود لكل ضيف', d: 'تسجيل دخول بمسح الباركود عند مدخل القاعة.' },
-  { icon: '🍽', t: 'تفضيلات الطعام', d: 'الضيف يختار نوع الوجبة وحساسياته عند تأكيد الحضور.' },
-  { icon: '👶', t: 'عدد الأطفال', d: 'تعرف مسبقًا كم طفل بيحضر مع كل ضيف.' },
-  { icon: '♿', t: 'احتياجات خاصة', d: 'تجهّز القاعة بناءً على متطلبات ضيوفك.' },
-  { icon: '📥', t: 'تصدير القائمة', d: 'Excel و PDF — لمنظّم الحفل أو لطباعة قائمة الدخول.' },
-  { icon: '⏰', t: 'تذكير تلقائي', d: 'يصل لضيوفك قبل الحفل بـ ٢٤ ساعة تلقائيًّا.' },
-  { icon: '🌍', t: 'إحصاءات ذكية', d: 'من أيّ مدينة فتح الضيوف الدعوة، ومتى ذروة المشاركة.' },
+  { icon: '📊', t: 'عدّاد لحظي', d: 'عدد المؤكّدين والمعتذرين ومن لم يردّ بعد — تحديث آنيّ مستمر.' },
+  { icon: '💬', t: 'رسائل الضيوف', d: 'كل دعاء أو رسالة من ضيف تصل إلى لوحتك مرتّبة بالاسم.' },
+  { icon: '🎟', t: 'باركود لكل ضيف', d: 'تسجيل دخول الضيوف بمسح الباركود عند مدخل القاعة.' },
+  { icon: '🍽', t: 'تفضيلات الطعام', d: 'يختار الضيف نوع الوجبة والحساسيات عند تأكيد الحضور.' },
+  { icon: '👶', t: 'عدد المرافقين', d: 'تعرف مسبقًا عدد الأطفال المرافقين لكل ضيف.' },
+  { icon: '♿', t: 'احتياجات خاصة', d: 'تجهّز القاعة وفقًا لمتطلبات ضيوفك من ذوي الاحتياجات.' },
+  { icon: '📥', t: 'تصدير القائمة', d: 'بصيغة Excel أو PDF — لمنظّم الحفل أو لقائمة الدخول.' },
+  { icon: '⏰', t: 'تذكير تلقائي', d: 'تذكير ضيوفك يصلهم قبل الحفل بـ 24 ساعة بشكل تلقائي.' },
+  { icon: '🌍', t: 'إحصاءات ذكية', d: 'تعرف من أيّ مدينة فتح الضيوف الدعوة، ومتى ذروة المشاركة.' },
 ];
 
 /* ============ Sample gallery ============ */
@@ -738,10 +738,10 @@ function Cta() {
           />
 
           <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gradient-gold relative">
-            جاهز تبدأ؟
+            جاهز للبدء؟
           </h2>
           <p className="text-lg text-white/80 mb-8 max-w-md mx-auto relative">
-            ما يحتاج تسجّل دخول — جرّب النموذج، إذا عجبك ادفع، وفريقنا يصمّمها لك.
+            دون حاجة لتسجيل الدخول — جرّب النموذج، وادفع عند الاعتماد، ليبدأ فريقنا بالتصميم.
           </p>
           <Link
             href="/order"
@@ -769,7 +769,7 @@ function SiteFooter() {
             </div>
             <p className="text-sm text-[var(--color-ink-mute)] leading-relaxed max-w-sm">
               منصّة سعودية لبطاقات الدعوة الإلكترونية الفاخرة.
-              نصمّمها لك، وتشاركها مع ضيوفك بضغطة.
+              نُصمّمها لك، وتشاركها مع ضيوفك بنقرة واحدة.
             </p>
           </div>
           <FooterCol
@@ -785,10 +785,10 @@ function SiteFooter() {
           <FooterCol
             title="معلومات"
             links={[
-              ['كيف يشتغل', '/how-it-works'],
+              ['آلية العمل', '/how-it-works'],
               ['الباقات', '/pricing'],
               ['أمثلة', '/examples'],
-              ['الأسئلة', '/faq'],
+              ['الأسئلة الشائعة', '/faq'],
               ['تواصل معنا', '/contact'],
             ]}
           />
@@ -800,7 +800,7 @@ function SiteFooter() {
             <Link href="/terms" className="hover:text-[var(--color-ink-mute)] transition">الشروط</Link>
           </div>
           <p className="text-xs text-[var(--color-ink-faint)]">
-            © {new Date().getFullYear()} دعوتي · صُنع بحب في الرياض
+            © {new Date().getFullYear()} دعوتي · صُنع بشغفٍ في الرياض
           </p>
         </div>
       </div>

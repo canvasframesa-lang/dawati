@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { PageShell, H1, Lead, H2, Cta } from '@/components/PageShell';
+import { PageShell, PageBanner, PageContainer, H2, Cta } from '@/components/PageShell';
 
 export const metadata: Metadata = {
   title: 'الأسئلة الشائعة',
@@ -78,10 +78,14 @@ const SECTIONS = [
 export default function FaqPage() {
   return (
     <PageShell>
-      <H1>الأسئلة الشائعة</H1>
-      <Lead>كل ما تحتاج تعرفه عن دعوتي — قبل ما تطلب، وبعد ما تستلم.</Lead>
-
-      <div className="space-y-12 max-w-3xl mx-auto">
+      <PageBanner
+        eyebrow="الأسئلة الشائعة"
+        emoji="❓"
+        title="كل ما تحتاج معرفته"
+        subtitle="إجابات تفصيلية على كل سؤال محتمل — قبل الطلب، وبعد التسليم."
+      />
+      <PageContainer>
+        <div className="space-y-12 max-w-3xl mx-auto">
         {SECTIONS.map((sec) => (
           <section key={sec.title}>
             <H2>{sec.title}</H2>
@@ -89,20 +93,16 @@ export default function FaqPage() {
               {sec.items.map(([q, a]) => (
                 <details
                   key={q}
-                  className="group rounded-2xl p-5 border cursor-pointer"
-                  style={{
-                    borderColor: 'rgba(184, 138, 30, 0.3)',
-                    background: 'rgba(20, 14, 39, 0.4)',
-                    backdropFilter: 'blur(10px)',
-                  }}
+                  className="group rounded-2xl p-5 bg-white border border-[var(--color-line)] hover:border-[var(--color-gold-2)] cursor-pointer transition"
+                  style={{ boxShadow: 'var(--shadow-xs)' }}
                 >
-                  <summary className="flex items-center justify-between list-none" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-gold-1)', fontSize: 16, fontWeight: 700 }}>
+                  <summary className="flex items-center justify-between list-none text-base font-bold text-[var(--color-ink)]">
                     <span>{q}</span>
-                    <span className="text-2xl transition-transform group-open:rotate-45" style={{ color: 'var(--color-gold-2)' }} aria-hidden="true">
+                    <span className="text-2xl transition-transform group-open:rotate-45 text-[var(--color-gold-3)]" aria-hidden="true">
                       +
                     </span>
                   </summary>
-                  <p className="mt-4 leading-relaxed" style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink-light)', fontSize: 15 }}>
+                  <p className="mt-4 leading-relaxed text-[var(--color-ink-soft)] text-sm">
                     {a}
                   </p>
                 </details>
@@ -112,7 +112,8 @@ export default function FaqPage() {
         ))}
       </div>
 
-      <Cta href="/order" label="مازال عندك سؤال؟ تواصل معنا" />
+        <Cta href="/order" label="بقي لديك سؤال؟ تواصل معنا" />
+      </PageContainer>
     </PageShell>
   );
 }
