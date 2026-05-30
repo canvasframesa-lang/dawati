@@ -10,6 +10,13 @@ motion/
 │                                  (cosmos → star draws on → families fade in
 │                                  → date → white-out handoff).
 │
+├── explainer/
+│   └── dawati-notifications.jsx  AE script: builds an 18s "live notifications"
+│                                  explainer (intro → Cosmic Orange iPhone slides
+│                                  in → 5 RSVP notifications cascade with side
+│                                  captions → CTA outro). Mirrors the live
+│                                  hero on dawati.sa — use for ads & socials.
+│
 ├── lottie/
 │   └── najmah-star.json          The 8-pointed Dawati star, spinning + glowing.
 │                                  Preview on https://lottiefiles.com/preview
@@ -50,7 +57,14 @@ motion/
    <Player autoplay loop src={star} style={{ width: 200, height: 200 }} />
    ```
 
-### 3. Batch render per guest
+### 3. Notifications explainer
+1. Open After Effects.
+2. `File → Scripts → Run Script File…` → pick `explainer/dawati-notifications.jsx`.
+3. A comp called **Dawati_Notifications_Main** appears (1920×1080, 18s).
+4. Spacebar to preview, then **Composition → Add to Render Queue** for the MP4.
+5. Same CONFIG block — edit the 5 notification rows, brand line, CTA, and re-run.
+
+### 4. Batch render per guest
 1. Run `intro/dawati-intro.jsx` first so the **Dawati_Intro** comp exists.
 2. In that comp, rename one text layer to exactly `Guest Name`
    (or update `CONFIG.nameLayerName` in `batch-render.jsx`).

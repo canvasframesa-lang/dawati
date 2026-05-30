@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { serviceLd } from '@/lib/seo';
 import { SampleCardTile, type SampleStyle } from '@/components/SampleCardTile';
+import { LiveNotifications } from '@/components/LiveNotifications';
 
 export default function HomePage() {
   return (
@@ -355,6 +356,9 @@ function HeroVisual() {
                   </div>
                 </div>
               </div>
+
+              {/* Live RSVP notifications — cycle every 3.2s */}
+              <LiveNotifications />
 
               {/* Home indicator */}
               <div
