@@ -26,32 +26,65 @@ export interface SampleTileData {
 }
 
 export function SampleCardTile({ data }: { data: SampleTileData }) {
+  // Whole card → deep animated preview at /examples/<style>. The order
+  // CTA still exists inside the detail page; keeping it off the tile
+  // removes the "which thing do I click?" hesitation.
+  const previewHref = `/examples/${data.style}`;
   return (
-    <article
-      className="group rounded-2xl overflow-hidden bg-white border border-[var(--color-line)] hover:shadow-lg transition-all hover:-translate-y-0.5"
+    <Link
+      href={previewHref}
+      className="group block rounded-2xl overflow-hidden bg-white border border-[var(--color-line)] transition-all hover:-translate-y-1 hover:border-[var(--color-gold-2)]"
       style={{ boxShadow: 'var(--shadow-sm)' }}
     >
-      <div className="aspect-[3/4]">
+      <div className="aspect-[3/4] relative">
         {data.style === 'royal-cosmos' && <RoyalCosmosTile data={data} />}
         {data.style === 'modern-minimal' && <ModernMinimalTile data={data} />}
         {data.style === 'andalusian-arch' && <AndalusianTile data={data} />}
         {data.style === 'classical-manuscript' && <ManuscriptTile data={data} />}
         {data.style === 'botanical-rose' && <BotanicalRoseTile data={data} />}
         {data.style === 'geometric-kufic' && <GeometricKuficTile data={data} />}
+
+        {/* Hover overlay — surfaces the click intent */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.55) 100%)',
+          }}
+        >
+          <span
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-transform duration-300 group-hover:scale-105"
+            style={{
+              background: 'linear-gradient(180deg, #f4d56e 0%, #d4a93a 100%)',
+              color: '#2a1505',
+              boxShadow: '0 8px 24px rgba(184, 138, 30, 0.45)',
+            }}
+          >
+            <PlayIcon /> شاهدها بالحركة
+          </span>
+        </div>
       </div>
       <div className="p-4 flex items-center justify-between gap-3">
         <div className="flex flex-col">
           <span className="text-xs font-bold text-[var(--color-ink)]">{data.occasion}</span>
           <span className="text-[10px] text-[var(--color-ink-mute)]">{data.tierLabel}</span>
         </div>
-        <Link
-          href={data.href}
-          className="text-xs font-bold text-[var(--color-ink)] hover:text-[var(--color-gold-3)] transition"
-        >
-          مثل هذي ←
-        </Link>
+        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[var(--color-ink-mute)] group-hover:text-[var(--color-gold-3)] transition-colors">
+          <PlayIcon small /> معاينة بالمؤثرات ←
+        </span>
       </div>
-    </article>
+    </Link>
+  );
+}
+
+function PlayIcon({ small = false }: { small?: boolean }) {
+  const s = small ? 10 : 14;
+  return (
+    <svg width={s} height={s} viewBox="0 0 14 14" aria-hidden="true">
+      <circle cx="7" cy="7" r="6" fill="currentColor" opacity="0.15" />
+      <polygon points="5.5,4 5.5,10 10,7" fill="currentColor" />
+    </svg>
   );
 }
 
