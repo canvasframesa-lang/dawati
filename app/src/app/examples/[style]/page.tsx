@@ -112,8 +112,8 @@ function Hero({ detail }: { detail: typeof STYLE_DETAILS[keyof typeof STYLE_DETA
             brideName: detail.sampleBride,
             date: detail.sampleDate,
             venue: detail.sampleVenue,
-            tierLabel: TIER_BY_ID[detail.tiers[0]].name,
-            href: `/order?tier=${detail.tiers[0]}`,
+            tierLabel: TIER_BY_ID[detail.tiers[0]!].name,
+            href: `/order?tier=${detail.tiers[0]!}`,
           }}
         />
       </div>
@@ -340,7 +340,7 @@ function CtaSection({
 }: {
   detail: typeof STYLE_DETAILS[keyof typeof STYLE_DETAILS];
 }) {
-  const primaryTier = detail.tiers[0];
+  const primaryTier = detail.tiers[0]!;
   const tierDef = TIER_BY_ID[primaryTier];
   return (
     <section className="mb-12">
