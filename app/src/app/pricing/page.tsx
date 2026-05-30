@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import { pageMetadata } from '@/lib/seo';
-import { PageShell, PageBanner, PageContainer } from '@/components/PageShell';
-import { TIERS, ADD_ONS, formatPriceNumber } from '@/lib/tiers';
+import { PageShell } from '@/components/PageShell';
+import {
+  TIERS,
+  ADD_ONS,
+  ADD_ON_CATEGORIES,
+  formatPriceNumber,
+  type AddOnCategory,
+  type AddOn,
+} from '@/lib/tiers';
 
 export const metadata = pageMetadata({
   title: 'الباقات والأسعار',
@@ -20,86 +27,120 @@ export const metadata = pageMetadata({
 export default function PricingPage() {
   return (
     <PageShell>
-      <PageBanner
-        eyebrow="الباقات والأسعار"
-        emoji="💎"
-        title="اختر باقتك"
-        subtitle="ثلاث باقات تليق بكل ذوق وميزانية. كل الأسعار شاملة ضريبة القيمة المضافة 15٪. دفعة واحدة بلا اشتراك، مع لوحة تحكم احترافية في كل الباقات."
-      />
-      <PageContainer>
-
-        {/* Tier comparison grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-24">
-          {TIERS.map((tier) => (
-            <TierCard key={tier.id} tier={tier} />
-          ))}
-        </div>
-
-        {/* Add-ons */}
-        <h2 className="text-center text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-3">
-          الإضافات الاختيارية
-        </h2>
-        <p className="text-center max-w-2xl mx-auto mb-10 text-[var(--color-ink-mute)] leading-relaxed">
-          المطبوعات الفيزيائية وخدمات إضافية تختارها عند تعبئة طلبك — مستقلّة عن سعر الباقة.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-4xl mx-auto mb-12">
-          {ADD_ONS.map((a) => (
-            <AddOnRow key={a.id} addon={a} />
-          ))}
-        </div>
-
-        <div className="text-center mt-16">
-          <Link href="/order" className="btn-gold">
-            ابدأ طلبك الآن ←
-          </Link>
-        </div>
-      </PageContainer>
+      <PricingHero />
+      <main className="mx-auto max-w-6xl px-5">
+        <TierGrid />
+        <TrustBar />
+        <AddOnsSection />
+        <FinalCta />
+      </main>
     </PageShell>
   );
 }
 
-/* ============ Tier Card ============ */
+/* ============ Cosmic hero ============ */
 
-function TierCard({ tier }: { tier: (typeof TIERS)[number] }) {
+function PricingHero() {
+  return (
+    <section className="hero-cosmos relative pt-16 pb-16 sm:pt-20 sm:pb-20 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute -top-40 -right-20 w-[600px] h-[600px] rounded-full opacity-50 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(244,213,110,0.30) 0%, transparent 65%)',
+          filter: 'blur(60px)',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-32 -left-20 w-[600px] h-[600px] rounded-full opacity-50 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(160, 90, 200, 0.25) 0%, transparent 65%)',
+          filter: 'blur(60px)',
+        }}
+      />
+
+      <div className="relative mx-auto max-w-3xl px-5 text-center">
+        <div
+          className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full"
+          style={{
+            background: 'rgba(244, 213, 110, 0.10)',
+            border: '1px solid rgba(244, 213, 110, 0.35)',
+            backdropFilter: 'blur(8px)',
+          }}
+        >
+          <span className="text-[#f4d56e] text-sm">✦</span>
+          <span className="text-[#fff8d8] text-sm font-semibold">الباقات والأسعار</span>
+        </div>
+        <h1
+          className="text-balance font-black tracking-tight text-white mb-5"
+          style={{ fontSize: 'clamp(30px, 5vw, 52px)', lineHeight: 1.2 }}
+        >
+          اختر الباقة التي{' '}
+          <span className="text-gradient-gold">تليق بمناسبتك</span>
+        </h1>
+        <p className="text-base sm:text-lg text-white/75 leading-relaxed max-w-2xl mx-auto">
+          ثلاث باقات مدروسة، دفعة واحدة بلا اشتراك، شاملة ضريبة القيمة المضافة ١٥٪ — ولوحة تحكم احترافية في كل باقة.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ============ Tier grid ============ */
+
+function TierGrid() {
+  return (
+    <section className="relative -mt-12 sm:-mt-16 mb-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+        {TIERS.map((tier, i) => (
+          <TierCard key={tier.id} tier={tier} index={i} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function TierCard({ tier, index }: { tier: (typeof TIERS)[number]; index: number }) {
+  const recommended = !!tier.recommended;
   return (
     <article
-      className="relative bg-white rounded-3xl flex flex-col overflow-hidden"
+      className="relative bg-white rounded-3xl flex flex-col overflow-hidden ai-rise"
       style={{
-        border: tier.recommended ? '1.5px solid #f4d56e' : '1px solid var(--color-line)',
-        boxShadow: tier.recommended ? 'var(--shadow-lg)' : 'var(--shadow-sm)',
-        transform: tier.recommended ? 'translateY(-8px)' : undefined,
+        border: recommended ? '1.5px solid #f4d56e' : '1px solid var(--color-line)',
+        boxShadow: recommended
+          ? '0 24px 48px rgba(184, 138, 30, 0.22), 0 4px 12px rgba(15, 15, 30, 0.05)'
+          : '0 12px 32px rgba(15, 15, 30, 0.08)',
+        animationDelay: `${0.05 + index * 0.08}s`,
       }}
     >
-      {tier.recommended && (
+      {recommended && (
         <div
-          className="text-center py-2 text-xs font-bold uppercase tracking-[4px]"
+          className="text-center py-2 text-[11px] font-bold uppercase tracking-[4px]"
           style={{
             background: 'linear-gradient(180deg, #f4d56e 0%, #d4a93a 100%)',
             color: '#2a1505',
             fontFamily: 'var(--font-latin)',
           }}
         >
-          ⭐ الأكثر طلبًا
+          الأكثر طلبًا
         </div>
       )}
 
-      <div className="p-7 flex flex-col flex-1">
-        {/* Tier name */}
+      <div className="p-6 sm:p-8 flex flex-col flex-1">
         <h3
           className="text-center text-[var(--color-ink)] mb-1"
-          style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}
+          style={{ fontSize: 26, fontWeight: 800, letterSpacing: -0.5 }}
         >
           {tier.name}
         </h3>
 
-        {/* Tagline */}
-        <p className="text-center mb-7 text-sm leading-relaxed text-[var(--color-ink-mute)]">
+        <p className="text-center mb-6 text-sm leading-relaxed text-[var(--color-ink-mute)] min-h-[42px]">
           {tier.tagline}
         </p>
 
         {/* Price block */}
-        <div className="text-center mb-2">
+        <div className="text-center mb-1">
           <div
             className="inline-flex items-baseline gap-2"
             dir="ltr"
@@ -107,60 +148,187 @@ function TierCard({ tier }: { tier: (typeof TIERS)[number] }) {
           >
             <span
               className="text-gradient-gold font-black"
-              style={{ fontSize: 56, lineHeight: 1, letterSpacing: -1 }}
+              style={{
+                fontSize: 'clamp(44px, 7vw, 60px)',
+                lineHeight: 1,
+                letterSpacing: -1,
+              }}
             >
               {formatPriceNumber(tier.price)}
             </span>
-            <span
-              className="font-extrabold text-[var(--color-gold-3)]"
-              style={{ fontSize: 24 }}
-            >
+            <span className="font-extrabold text-[var(--color-gold-3)]" style={{ fontSize: 26 }}>
               ﷼
             </span>
           </div>
         </div>
-        <div className="text-center mb-7 text-xs text-[var(--color-ink-mute)] uppercase tracking-[3px] font-semibold">
+        <div className="text-center mb-6 text-[11px] text-[var(--color-ink-mute)] uppercase tracking-[3px] font-semibold">
           تسليم خلال {tier.deliveryHours} ساعة · شامل الضريبة
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-[var(--color-line)] mb-6" />
+        <div className="border-t border-[var(--color-line)] mb-5" />
 
-        {/* Features list */}
-        <ul className="space-y-3 mb-8 flex-1 text-sm">
+        <ul className="space-y-2.5 mb-7 flex-1 text-sm">
           {tier.features.map((f) => {
             const isHeader = f.startsWith('كل ما في');
             return (
               <li
                 key={f}
                 className="flex gap-2.5 items-start leading-relaxed"
-                style={isHeader ? { color: 'var(--color-gold-4)', fontWeight: 700, marginBottom: 8 } : { color: 'var(--color-ink-soft)' }}
+                style={
+                  isHeader
+                    ? { color: 'var(--color-gold-4)', fontWeight: 700, marginBottom: 4 }
+                    : { color: 'var(--color-ink-soft)' }
+                }
               >
-                <span className="shrink-0 mt-0.5" style={{ color: isHeader ? 'var(--color-gold-3)' : 'var(--color-success)' }}>
-                  {isHeader ? '⇡' : '✓'}
-                </span>
+                {isHeader ? (
+                  <span
+                    className="shrink-0 mt-0.5 text-[var(--color-gold-3)]"
+                    aria-hidden="true"
+                  >
+                    ⇡
+                  </span>
+                ) : (
+                  <CheckIcon />
+                )}
                 <span>{f}</span>
               </li>
             );
           })}
         </ul>
 
-        {/* CTA */}
         <Link
           href={`/order?tier=${tier.id}`}
-          className={tier.recommended ? 'btn-gold' : 'btn-ghost'}
+          className={recommended ? 'btn-gold' : 'btn-ghost'}
           style={{ width: '100%' }}
         >
-          اطلب باقة {tier.name}  ←
+          اطلب باقة {tier.name} ←
         </Link>
       </div>
     </article>
   );
 }
 
-/* ============ Add-on Row ============ */
+function CheckIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      className="shrink-0 mt-0.5"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="pchk" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#f4d56e" />
+          <stop offset="100%" stopColor="#8a6817" />
+        </linearGradient>
+      </defs>
+      <circle cx="9" cy="9" r="8" fill="url(#pchk)" opacity="0.18" />
+      <path
+        d="M5 9.2 L8 12 L13.5 6"
+        fill="none"
+        stroke="url(#pchk)"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
-function AddOnRow({ addon }: { addon: (typeof ADD_ONS)[number] }) {
+/* ============ Trust bar ============ */
+
+function TrustBar() {
+  const items = [
+    { t: 'بوّابة دفع آمنة معتمدة',  d: 'مدى · Apple Pay · فيزا · ماستركارد' },
+    { t: 'دفعة واحدة، لا اشتراك',     d: 'تدفع مرّة وتمتلك كل ما في الباقة' },
+    { t: 'استرداد قبل بدء التصميم',  d: '١٠٠٪ — قبل ما يلمس فريقنا التصميم' },
+    { t: 'فاتورة ضريبية رسمية',      d: 'تصلك بالبريد خلال يوم من الدفع' },
+  ];
+  return (
+    <section className="mb-24">
+      <div
+        className="rounded-3xl p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+        style={{
+          background:
+            'linear-gradient(180deg, var(--color-bg-alt) 0%, #ffffff 100%)',
+          border: '1px solid var(--color-line)',
+        }}
+      >
+        {items.map((it) => (
+          <div key={it.t} className="text-center sm:text-right">
+            <div className="text-sm font-extrabold text-[var(--color-ink)] mb-1">{it.t}</div>
+            <div className="text-xs text-[var(--color-ink-mute)] leading-relaxed">{it.d}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ============ Add-ons ============ */
+
+function AddOnsSection() {
+  const orderedCategories: AddOnCategory[] = ['print', 'premium', 'event', 'digital'];
+  const grouped: Record<AddOnCategory, AddOn[]> = {
+    print: [], premium: [], event: [], digital: [],
+  };
+  for (const a of ADD_ONS) grouped[a.category].push(a);
+
+  return (
+    <section className="mb-20">
+      <div className="text-center mb-12 max-w-2xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-3">
+          الإضافات الاختيارية
+        </h2>
+        <p className="text-[var(--color-ink-mute)] leading-relaxed">
+          المطبوعات الفيزيائية والخدمات الإضافية — مستقلّة عن سعر الباقة، تختارها عند تعبئة طلبك.
+        </p>
+      </div>
+
+      <div className="space-y-12">
+        {orderedCategories.map((cat) => (
+          <AddOnCategoryBlock key={cat} category={cat} addons={grouped[cat]} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AddOnCategoryBlock({
+  category,
+  addons,
+}: {
+  category: AddOnCategory;
+  addons: AddOn[];
+}) {
+  if (addons.length === 0) return null;
+  const meta = ADD_ON_CATEGORIES[category];
+  return (
+    <div>
+      <div className="mb-5 flex items-baseline justify-between gap-4 flex-wrap">
+        <div>
+          <h3 className="text-xl sm:text-2xl font-extrabold text-[var(--color-ink)] mb-1">
+            {meta.label}
+          </h3>
+          <p className="text-sm text-[var(--color-ink-mute)] leading-relaxed">
+            {meta.description}
+          </p>
+        </div>
+        <span className="text-xs text-[var(--color-ink-faint)] font-semibold">
+          {addons.length} {addons.length === 1 ? 'إضافة' : 'إضافات'}
+        </span>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {addons.map((a) => (
+          <AddOnRow key={a.id} addon={a} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AddOnRow({ addon }: { addon: AddOn }) {
   const tierNames: Record<string, string> = {
     mumayyaza: 'المميّزة',
     fakhira: 'الفاخرة',
@@ -168,13 +336,13 @@ function AddOnRow({ addon }: { addon: (typeof ADD_ONS)[number] }) {
   };
   return (
     <div
-      className="p-5 rounded-2xl bg-white border border-[var(--color-line)]"
+      className="p-5 rounded-2xl bg-white border border-[var(--color-line)] hover:border-[var(--color-gold-2)] transition-colors"
       style={{ boxShadow: 'var(--shadow-xs)' }}
     >
       <div className="flex justify-between items-start gap-3 mb-2">
-        <h3 className="text-sm font-bold text-[var(--color-ink)] leading-snug">
+        <h4 className="text-sm font-bold text-[var(--color-ink)] leading-snug">
           {addon.name}
-        </h3>
+        </h4>
         {addon.price > 0 ? (
           <div
             className="text-base font-extrabold text-[var(--color-ink)] whitespace-nowrap shrink-0"
@@ -204,5 +372,39 @@ function AddOnRow({ addon }: { addon: (typeof ADD_ONS)[number] }) {
         ))}
       </div>
     </div>
+  );
+}
+
+/* ============ Final CTA ============ */
+
+function FinalCta() {
+  return (
+    <section className="mb-24">
+      <div
+        className="rounded-3xl p-10 sm:p-14 text-center text-white relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #0a0a14 0%, #1a1a25 50%, #2a1505 100%)',
+          boxShadow: 'var(--shadow-xl)',
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute -top-20 -right-20 w-80 h-80 rounded-full pointer-events-none opacity-30"
+          style={{
+            background: 'radial-gradient(circle, rgba(244,213,110,0.6) 0%, transparent 70%)',
+            filter: 'blur(40px)',
+          }}
+        />
+        <h2 className="text-2xl sm:text-3xl font-extrabold mb-3 text-gradient-gold relative">
+          جاهز للبدء؟
+        </h2>
+        <p className="text-base sm:text-lg text-white/75 mb-7 max-w-lg mx-auto relative">
+          املأ نموذج طلبك في دقيقتَين — وادفع عند اعتماد التفاصيل ليبدأ فريقنا التصميم.
+        </p>
+        <Link href="/order" className="btn-gold relative">
+          اطلب دعوتك الآن ←
+        </Link>
+      </div>
+    </section>
   );
 }
