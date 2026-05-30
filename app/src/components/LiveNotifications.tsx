@@ -12,7 +12,11 @@ const FEED: Notif[] = [
   { id: 5, title: 'اعتذار',      body: 'محمد السبيعي يعتذر، مع تمنياته بالتوفيق' },
 ];
 
-/* ============ The notification stack inside the phone ============ */
+/* ============ The notification feed inside the phone ============ */
+
+const CARD_HEIGHT = 64;
+const CARD_GAP = 6;
+const CARD_STEP = CARD_HEIGHT + CARD_GAP;
 
 export function NotificationStack() {
   const { cycle, arrivedCount, isFading } = useHeroTick();
@@ -21,37 +25,31 @@ export function NotificationStack() {
     <div
       aria-hidden="true"
       className="absolute z-30 pointer-events-none"
-      style={{ top: 240, left: 12, right: 12 }}
+      style={{ top: 230, left: 12, right: 12 }}
     >
-      <div className="relative" style={{ height: 200 }}>
+      <div className="relative" style={{ height: CARD_STEP * TOTAL_NOTIFS }}>
         {FEED.slice(0, arrivedCount).map((notif, idx) => {
-          // depth = how many cards arrived after this one (0 = newest)
+          // depth = 0 means newest (top); each older card sits one slot below.
           const depth = arrivedCount - 1 - idx;
-          const yOffset = depth * 12;
-          const scale = 1 - depth * 0.05;
-          const restingOpacity = 1 - depth * 0.22;
-          const blur = depth >= 2 ? `blur(${(depth - 1) * 0.5}px)` : 'none';
+          const yPos = depth * CARD_STEP;
+          // Subtle dim so the eye reads newest-first without losing legibility.
+          const restingOpacity = depth === 0 ? 1 : depth === 1 ? 0.92 : 0.82;
 
           return (
             <div
               key={`${cycle}-${notif.id}`}
               className="absolute left-0 right-0"
               style={{
-                top: yOffset,
-                transform: `scale(${scale})`,
-                transformOrigin: 'top center',
+                top: yPos,
                 opacity: isFading ? 0 : restingOpacity,
-                filter: blur,
                 zIndex: 100 - depth,
                 transition:
                   'top 380ms cubic-bezier(0.4, 0, 0.2, 1), ' +
-                  'transform 380ms cubic-bezier(0.4, 0, 0.2, 1), ' +
-                  'opacity 400ms ease, ' +
-                  'filter 380ms ease',
+                  'opacity 400ms ease',
               }}
             >
-              {/* Inner wrapper: entrance animation that doesn't fight
-                  the outer scale/opacity transitions. */}
+              {/* Inner wrapper: entrance animation isolated from
+                  parent's top/opacity transitions. */}
               <div className="notif-enter">
                 <NotifBubble notif={notif} />
               </div>
