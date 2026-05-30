@@ -59,7 +59,7 @@ export const WEDDING_OCCASIONS: Occasion[] = [
   {
     id: 'henna',
     label: 'ليلة الحنّاء',
-    description: 'الليلة النسائية الفاخرة قبل العرس بيوم أو يومين.',
+    description: 'احتفاء نسائي بالعروس بالنقوش والأهازيج، قبل العرس بليلة.',
     category: 'wedding',
     emoji: '🌹',
     popular: true,

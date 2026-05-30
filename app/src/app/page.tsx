@@ -7,7 +7,7 @@ import {
   LatestMessageCard,
 } from '@/components/LiveNotifications';
 import { BrandMark, BrandWordmark } from '@/components/Brand';
-import { CategoryIcon, type CategoryName } from '@/components/CategoryIcon';
+import { CategoryIcon, type CategoryName, type IconName } from '@/components/CategoryIcon';
 
 export default function HomePage() {
   return (
@@ -536,30 +536,30 @@ function OccasionTeaser() {
 }
 
 function HowItWorks() {
-  const steps = [
+  const steps: Array<{ n: string; t: string; d: string; icon: IconName }> = [
     {
       n: '01',
       t: 'قدّم طلبك',
       d: 'املأ نموذجًا موجزًا يتضمّن تفاصيل مناسبتك ووصف التصميم الذي تتخيّله.',
-      icon: '📝',
+      icon: 'form',
     },
     {
       n: '02',
       t: 'نتواصل ونُصمّم',
       d: 'يبدأ فريق المصمّمين فور تأكيد طلبك — تصميم مخصّص يليق بمناسبتك.',
-      icon: '🎨',
+      icon: 'design',
     },
     {
       n: '03',
       t: 'استلم وراجع',
       d: 'تستعرض المعاينة، تطلب التعديل إن لزم، ثم تعتمد التصميم النهائي.',
-      icon: '✓',
+      icon: 'check',
     },
     {
       n: '04',
       t: 'شارك وتابع',
       d: 'تشارك الدعوة عبر واتساب، ولوحة التحكم تعرض حضور ضيوفك ورسائلهم لحظيًّا.',
-      icon: '📊',
+      icon: 'share',
     },
   ];
   return (
@@ -585,7 +585,7 @@ function HowItWorks() {
                 <span className="text-xs font-mono text-[var(--color-ink-faint)] tracking-widest">
                   {s.n}
                 </span>
-                <span className="text-2xl" aria-hidden="true">{s.icon}</span>
+                <CategoryIcon name={s.icon} size={28} />
               </div>
               <h3 className="text-lg font-bold text-[var(--color-ink)] mb-2">{s.t}</h3>
               <p className="text-sm text-[var(--color-ink-mute)] leading-relaxed">{s.d}</p>
@@ -625,7 +625,9 @@ function FeaturesShowcase() {
               className="bg-white rounded-2xl p-6 border border-[var(--color-line)] hover:shadow-lg transition-all hover:-translate-y-0.5"
               style={{ boxShadow: 'var(--shadow-xs)' }}
             >
-              <div className="text-3xl mb-4" aria-hidden="true">{f.icon}</div>
+              <div className="mb-4">
+                <CategoryIcon name={f.icon} size={32} />
+              </div>
               <h3 className="text-base font-bold text-[var(--color-ink)] mb-2">{f.t}</h3>
               <p className="text-sm text-[var(--color-ink-mute)] leading-relaxed">{f.d}</p>
             </div>
@@ -636,16 +638,16 @@ function FeaturesShowcase() {
   );
 }
 
-const FEATURES = [
-  { icon: '📊', t: 'عدّاد لحظي', d: 'عدد المؤكّدين والمعتذرين ومن لم يردّ بعد — تحديث آنيّ مستمر.' },
-  { icon: '💬', t: 'رسائل الضيوف', d: 'كل دعاء أو رسالة من ضيف تصل إلى لوحتك مرتّبة بالاسم.' },
-  { icon: '🎟', t: 'باركود لكل ضيف', d: 'تسجيل دخول الضيوف بمسح الباركود عند مدخل القاعة.' },
-  { icon: '🍽', t: 'تفضيلات الطعام', d: 'يختار الضيف نوع الوجبة والحساسيات عند تأكيد الحضور.' },
-  { icon: '👶', t: 'عدد المرافقين', d: 'تعرف مسبقًا عدد الأطفال المرافقين لكل ضيف.' },
-  { icon: '♿', t: 'احتياجات خاصة', d: 'تجهّز القاعة وفقًا لمتطلبات ضيوفك من ذوي الاحتياجات.' },
-  { icon: '📥', t: 'تصدير القائمة', d: 'بصيغة Excel أو PDF — لمنظّم الحفل أو لقائمة الدخول.' },
-  { icon: '⏰', t: 'تذكير تلقائي', d: 'تذكير ضيوفك يصلهم قبل الحفل بـ 24 ساعة بشكل تلقائي.' },
-  { icon: '🌍', t: 'إحصاءات ذكية', d: 'تعرف من أيّ مدينة فتح الضيوف الدعوة، ومتى ذروة المشاركة.' },
+const FEATURES: Array<{ icon: IconName; t: string; d: string }> = [
+  { icon: 'counter',       t: 'عدّاد لحظي',       d: 'عدد المؤكّدين والمعتذرين ومن لم يردّ بعد — تحديث آنيّ مستمر.' },
+  { icon: 'messages',      t: 'رسائل الضيوف',     d: 'كل دعاء أو رسالة من ضيف تصل إلى لوحتك مرتّبة بالاسم.' },
+  { icon: 'barcode',       t: 'باركود لكل ضيف',   d: 'تسجيل دخول الضيوف بمسح الباركود عند مدخل القاعة.' },
+  { icon: 'food',          t: 'تفضيلات الطعام',   d: 'يختار الضيف نوع الوجبة والحساسيات عند تأكيد الحضور.' },
+  { icon: 'kids',          t: 'عدد المرافقين',    d: 'تعرف مسبقًا عدد الأطفال المرافقين لكل ضيف.' },
+  { icon: 'accessibility', t: 'احتياجات خاصة',    d: 'تجهّز القاعة وفقًا لمتطلبات ضيوفك من ذوي الاحتياجات.' },
+  { icon: 'export',        t: 'تصدير القائمة',    d: 'بصيغة Excel أو PDF — لمنظّم الحفل أو لقائمة الدخول.' },
+  { icon: 'reminder',      t: 'تذكير تلقائي',     d: 'تذكير ضيوفك يصلهم قبل الحفل بـ 24 ساعة بشكل تلقائي.' },
+  { icon: 'stats',         t: 'إحصاءات ذكية',     d: 'تعرف من أيّ مدينة فتح الضيوف الدعوة، ومتى ذروة المشاركة.' },
 ];
 
 /* ============ Sample gallery ============ */
