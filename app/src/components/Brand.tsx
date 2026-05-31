@@ -1,17 +1,19 @@
 /**
  * Dawati brand marks.
  *
- *   <BrandMark />       Just the seal — a layered 8-point najmah star
- *                       containing an octagonal frame, an inner star,
- *                       and a jewelled center. Works at 16×16 (favicon)
- *                       and at 200×200 (hero). Defaults to 28×28.
+ *   <BrandMark />       The seal — a black octagonal medallion with a
+ *                       gold 8-point najmah inside and a tiny gem at its
+ *                       center. Bold by design: high-contrast even at
+ *                       favicon size (16×16) and presidential at hero
+ *                       size (200×200). Defaults to 28×28.
  *
  *   <BrandWordmark />   The Arabic wordmark "دعوتي" set in Aref Ruqaa
- *                       with a soft gold gradient. Standalone, no mark.
+ *                       in luxury deep-ink black with a single gold
+ *                       diamond accent dot — confidence over decoration.
  *
- *   <BrandLockup />     Mark + wordmark side by side (RTL: mark on
- *                       the right, wordmark on the left). The default
- *                       used in the header and footer.
+ *   <BrandLockup />     Mark + wordmark side by side (RTL: mark on the
+ *                       right, wordmark on the left). Default used in
+ *                       the header and footer.
  */
 
 type Size = number | string;
@@ -27,8 +29,6 @@ export function BrandMark({
   ariaHidden?: boolean;
   title?: string;
 }) {
-  // Stable gradient IDs scoped to a single SVG — duplicating them in
-  // the same document is fine (browsers de-duplicate by lookup order).
   return (
     <svg
       viewBox="0 0 64 64"
@@ -40,50 +40,57 @@ export function BrandMark({
       aria-label={ariaHidden ? undefined : title || 'دعوتي'}
     >
       <defs>
+        <linearGradient id="bm-coal" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#1a1a25" />
+          <stop offset="55%" stopColor="#0e0e14" />
+          <stop offset="100%" stopColor="#000000" />
+        </linearGradient>
         <linearGradient id="bm-gold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%"   stopColor="#fff8d8" />
-          <stop offset="35%"  stopColor="#f4d56e" />
-          <stop offset="70%"  stopColor="#c9a23d" />
+          <stop offset="0%" stopColor="#fff8d8" />
+          <stop offset="35%" stopColor="#f4d56e" />
+          <stop offset="70%" stopColor="#c9a23d" />
           <stop offset="100%" stopColor="#8a6817" />
         </linearGradient>
-        <linearGradient id="bm-gold-rim" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%"   stopColor="#f4d56e" />
-          <stop offset="100%" stopColor="#5a4310" />
-        </linearGradient>
         <radialGradient id="bm-jewel" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%"   stopColor="#fffce5" />
-          <stop offset="60%"  stopColor="#f4d56e" />
+          <stop offset="0%" stopColor="#fffce5" />
+          <stop offset="55%" stopColor="#f4d56e" />
           <stop offset="100%" stopColor="#8a6817" />
         </radialGradient>
       </defs>
 
-      {/* Envelope outline — gold line art */}
-      <g
-        stroke="url(#bm-gold)"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+      {/* Octagonal black medallion — geometric, Islamic, instantly readable */}
+      <polygon points="18,1 46,1 63,18 63,46 46,63 18,63 1,46 1,18" fill="url(#bm-coal)" />
+
+      {/* Inset gold rim — couture detail, only visible at large sizes */}
+      <polygon
+        points="20,4 44,4 60,20 60,44 44,60 20,60 4,44 4,20"
         fill="none"
-      >
-        <rect x="6" y="14" width="52" height="40" rx="4" />
-        {/* Flap V — top corners meeting at the seal */}
-        <path d="M6 14 L32 34 L58 14" />
+        stroke="url(#bm-gold)"
+        strokeWidth="0.7"
+        opacity="0.55"
+      />
+
+      {/* 8-point najmah in gold — the brand signature, scaled to fill */}
+      <g transform="translate(32 32)" fill="url(#bm-gold)">
+        <polygon points="0,-19 5,-5 19,0 5,5 0,19 -5,5 -19,0 -5,-5" />
+        <polygon
+          points="0,-19 5,-5 19,0 5,5 0,19 -5,5 -19,0 -5,-5"
+          transform="rotate(22.5)"
+          opacity="0.5"
+        />
       </g>
 
-      {/* Gold wax seal on the flap, with najmah star */}
-      <g transform="translate(32 34)">
-        <circle r="10" fill="url(#bm-jewel)" />
-        <circle r="10" fill="none" stroke="url(#bm-gold-rim)" strokeWidth="0.8" />
-        {/* 8-point najmah inside the seal */}
-        <g fill="#1a0f06">
-          <polygon points="0,-6.5 1.7,-1.7 6.5,0 1.7,1.7 0,6.5 -1.7,1.7 -6.5,0 -1.7,-1.7" />
-          <polygon
-            points="0,-5.5 1.4,-1.4 5.5,0 1.4,1.4 0,5.5 -1.4,1.4 -5.5,0 -1.4,-1.4"
-            transform="rotate(22.5)"
-            opacity="0.55"
-          />
-        </g>
-      </g>
+      {/* Central jewel — the seal's drop of wax */}
+      <circle cx="32" cy="32" r="3.4" fill="url(#bm-jewel)" />
+      <circle
+        cx="32"
+        cy="32"
+        r="3.4"
+        fill="none"
+        stroke="#1a0f06"
+        strokeWidth="0.5"
+        opacity="0.8"
+      />
     </svg>
   );
 }
@@ -99,20 +106,30 @@ export function BrandWordmark({
     <span
       className={className}
       style={{
+        display: 'inline-flex',
+        alignItems: 'baseline',
+        gap: Math.max(2, fontSize * 0.1),
         fontFamily: 'var(--font-aref-ruqaa), serif',
         fontSize,
         fontWeight: 700,
         lineHeight: 1,
-        background:
-          'linear-gradient(135deg, #fff8d8 0%, #f4d56e 35%, #c9a23d 70%, #8a6817 100%)',
-        WebkitBackgroundClip: 'text',
-        backgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        color: 'transparent',
+        color: '#0e0e14',
         letterSpacing: '-0.01em',
       }}
     >
       دعوتي
+      <span
+        aria-hidden="true"
+        style={{
+          display: 'inline-block',
+          width: Math.max(4, fontSize * 0.18),
+          height: Math.max(4, fontSize * 0.18),
+          background: 'linear-gradient(135deg, #f4d56e 0%, #c9a23d 60%, #8a6817 100%)',
+          transform: 'rotate(45deg)',
+          boxShadow: '0 1px 2px rgba(138, 104, 23, 0.30)',
+          alignSelf: 'center',
+        }}
+      />
     </span>
   );
 }
@@ -129,10 +146,7 @@ export function BrandLockup({
   className?: string;
 }) {
   return (
-    <span
-      className={className}
-      style={{ display: 'inline-flex', alignItems: 'center', gap }}
-    >
+    <span className={className} style={{ display: 'inline-flex', alignItems: 'center', gap }}>
       <BrandMark size={size} />
       <BrandWordmark fontSize={fontSize} />
     </span>
