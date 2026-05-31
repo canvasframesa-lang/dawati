@@ -85,14 +85,14 @@ export const baseMetadata: Metadata = {
     title: `${SITE_NAME} · بطاقات دعوة إلكترونية فاخرة`,
     description: 'صمّم دعوتك في دقائق وأرسلها على واتساب',
     images: [
-      { url: '/og.png', width: 1200, height: 630, alt: 'دعوتي — بطاقات دعوة إلكترونية فاخرة' },
+      { url: '/og/default.png', width: 1200, height: 630, alt: 'دعوتي — بطاقات دعوة إلكترونية فاخرة' },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${SITE_NAME} · بطاقات دعوة إلكترونية فاخرة`,
     description: 'صمّم دعوتك في دقائق وأرسلها على واتساب',
-    images: ['/og.png'],
+    images: ['/og/default.png'],
   },
   robots: {
     index: true,
@@ -130,6 +130,27 @@ export const cardPageMetadata: Metadata = {
  * tuned keyword list. Always merges with the global Najdi+MSA bank
  * so every page carries the full search surface.
  */
+/**
+ * Map a route path to its pre-generated OG image under /public/og/.
+ * Falls back to the default branded card if no per-route image exists.
+ * Keep this list in sync with scripts/generate-og.mjs ROUTES.
+ */
+const OG_BY_PATH: Record<string, string> = {
+  '/':                '/og/default.png',
+  '/pricing':         '/og/pricing.png',
+  '/examples':        '/og/examples.png',
+  '/faq':             '/og/faq.png',
+  '/contact':         '/og/contact.png',
+  '/how-it-works':    '/og/how-it-works.png',
+  '/brand-kit':       '/og/brand-kit.png',
+  '/dashboard-demo':  '/og/dashboard-demo.png',
+  '/preview':         '/og/preview.png',
+};
+
+function ogImageFor(path: string): string {
+  return OG_BY_PATH[path] ?? '/og/default.png';
+}
+
 export function pageMetadata({
   title,
   description,
@@ -141,6 +162,7 @@ export function pageMetadata({
   path: string;
   extraKeywords?: string[];
 }): Metadata {
+  const ogImage = ogImageFor(path);
   return {
     title,
     description,
@@ -150,15 +172,13 @@ export function pageMetadata({
       title,
       description,
       url: path,
-      images: [
-        { url: '/og.png', width: 1200, height: 630, alt: title },
-      ],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: ['/og.png'],
+      images: [ogImage],
     },
   };
 }

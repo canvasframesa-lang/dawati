@@ -10,9 +10,13 @@
     "lint": "biome check .",
     "format": "biome format --write .",
     "typecheck": "tsc --noEmit",
+    "og:gen": "node scripts/generate-og.mjs",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["sharp"]
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -38,14 +42,15 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@tailwindcss/postcss": "^4.0.0-beta.7",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.10.2",
     "@types/qrcode": "^1.5.5",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "drizzle-kit": "^0.30.1",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.0.0-beta.7",
-    "@tailwindcss/postcss": "^4.0.0-beta.7",
     "typescript": "^5.7.2"
   },
   "packageManager": "pnpm@10.0.0",
