@@ -704,7 +704,7 @@ function SampleGallery() {
             href="/examples"
             className="text-sm font-semibold text-[var(--color-ink)] hover:text-[var(--color-gold-3)] transition"
           >
-            شف كل الأمثلة ←
+            استعرض كل الأمثلة ←
           </Link>
         </div>
 

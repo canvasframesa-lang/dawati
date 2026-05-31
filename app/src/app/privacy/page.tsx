@@ -13,7 +13,7 @@ export default function PrivacyPage() {
     <PageShell>
       <H1>سياسة الخصوصية</H1>
       <Lead>
-        خصوصيّتك أمانة. هذي السياسة تشرح بلغة بسيطة ما الذي نجمع، وما لا نجمع، وكيف نحمي بيانات
+        خصوصيّتك أمانة. هذه السياسة تشرح بلغة بسيطة ما الذي نجمع، وما لا نجمع، وكيف نحمي بيانات
         ضيوفك. متوافقون مع نظام حماية البيانات الشخصية السعودي (PDPL).
       </Lead>
 
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
           <ul className="list-disc pr-6 space-y-2">
             <li>الاسم وحالة التأكيد (سيحضر/معتذر).</li>
             <li>الرسالة الاختيارية للعروسَين أو المُضيف.</li>
-            <li>تفضيلات الوجبة والحساسيات (إن فعّلت هذي الخيارات في باقة الفاخرة فأعلى).</li>
+            <li>تفضيلات الوجبة والحساسيات (إن فعّلت هذه الخيارات في باقة الفاخرة فأعلى).</li>
             <li>وقت تأكيد الحضور والدولة (للإحصاءات في لوحتك فقط).</li>
             <li>عنوان IP للحماية من البريد المزعج، يُحذف بعد ٣٠ يومًا.</li>
           </ul>
@@ -51,8 +51,8 @@ export default function PrivacyPage() {
 
         <Section title="حقّك في التحكّم">
           <ul className="list-disc pr-6 space-y-2">
-            <li><strong style={{ color: 'var(--color-gold-1)' }}>الحذف الفوري:</strong> تقدر تحذف الدعوة وكل بياناتها بنقرة من لوحتك. الحذف نهائي ولا يُسترجع.</li>
-            <li><strong style={{ color: 'var(--color-gold-1)' }}>التصدير:</strong> تقدر تصدّر قائمة ضيوفك بصيغة Excel أو PDF أيّ وقت من اللوحة.</li>
+            <li><strong style={{ color: 'var(--color-gold-1)' }}>الحذف الفوري:</strong> يمكنك حذف الدعوة وكل بياناتها بنقرة من لوحتك. الحذف نهائي ولا يُسترجع.</li>
+            <li><strong style={{ color: 'var(--color-gold-1)' }}>التصدير:</strong> يمكنك تصدير قائمة ضيوفك بصيغة Excel أو PDF في أيّ وقت من اللوحة.</li>
             <li><strong style={{ color: 'var(--color-gold-1)' }}>الاستعلام:</strong> تواصل معنا على privacy@da3wati.com لأي طلب يخصّ بياناتك.</li>
           </ul>
         </Section>
@@ -67,7 +67,7 @@ export default function PrivacyPage() {
         </Section>
 
         <Section title="مشاركة البيانات مع أطراف ثالثة">
-          <p>نشارك الحد الأدنى من البيانات مع هذي الجهات فقط لتقديم الخدمة:</p>
+          <p>نشارك الحد الأدنى من البيانات مع هذه الجهات فقط لتقديم الخدمة:</p>
           <ul className="list-disc pr-6 space-y-2 mt-3">
             <li><strong style={{ color: 'var(--color-gold-1)' }}>بوّابة الدفع المعتمدة:</strong> اسمك ومبلغ الفاتورة فقط، لا تفاصيل الطلب.</li>
             <li><strong style={{ color: 'var(--color-gold-1)' }}>Cloudflare</strong> (استضافة): يمرّ بياناتك بحماية WAF — لا يخزّنها.</li>
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
         </Section>
 
         <Section title="ملفات تعريف الارتباط (Cookies)">
-          <p>نستخدم cookies تقنية فقط (للجلسات وحفظ التفضيلات). لا نستخدم cookies تتبّع. لذلك ما تحتاج تضغط زرّ موافقة على cookies — مافي شيء يحتاج موافقة.</p>
+          <p>نستخدم cookies تقنية فقط (للجلسات وحفظ التفضيلات). لا نستخدم cookies تتبّع. لذلك لا تحتاج إلى الضغط على زرّ موافقة على cookies — فلا يوجد شيء يستدعي الموافقة.</p>
         </Section>
 
         <Section title="الأطفال">
@@ -85,12 +85,12 @@ export default function PrivacyPage() {
         </Section>
 
         <Section title="تغييرات على السياسة">
-          <p>إن طوّرنا هذي السياسة، نُعلمك بالإيميل قبل ٣٠ يومًا من سريانها. النسخة الحالية محدّثة في ٢٠٢٦/٠٥/٢٩.</p>
+          <p>إن طوّرنا هذه السياسة، نُعلمك بالإيميل قبل ٣٠ يومًا من سريانها. النسخة الحالية محدّثة في ٢٠٢٦/٠٥/٢٩.</p>
         </Section>
 
         <Section title="التواصل بشأن الخصوصية">
           <p>أيّ استفسار أو شكوى تخصّ بياناتك: <a href="mailto:privacy@da3wati.com" style={{ color: 'var(--color-gold-2)', textDecoration: 'underline' }}>privacy@da3wati.com</a></p>
-          <p className="mt-2">للشكاوى الرسمية: تقدر أيضًا تتواصل مع الهيئة السعودية للبيانات والذكاء الاصطناعي (سدايا).</p>
+          <p className="mt-2">للشكاوى الرسمية: يمكنك أيضًا التواصل مع الهيئة السعودية للبيانات والذكاء الاصطناعي (سدايا).</p>
         </Section>
       </div>
     </PageShell>

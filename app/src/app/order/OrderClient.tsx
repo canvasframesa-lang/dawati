@@ -344,12 +344,12 @@ export function OrderClient() {
               فتحنا لك واتساب — أرسل الطلب
             </h1>
             <p className="mb-6 text-[var(--color-ink-soft)] leading-relaxed text-base sm:text-lg">
-              راح يفتح لك واتساب مع طلبك جاهز — كل اللي عليك تضغط «إرسال».
+              سيفتح لك واتساب وطلبك جاهز — كل ما عليك هو الضغط على «إرسال».
               فريقنا يراجع طلبك خلال ساعة ويرسل لك رابط الدفع، ثم نبدأ التصميم
               ونسلّم خلال {tier.deliveryHours} ساعة.
             </p>
             <p className="text-sm mb-2 text-[var(--color-ink-mute)]">
-              ما فتح واتساب؟ اضغط الزر تحت
+              لم يفتح واتساب؟ اضغط الزرّ بالأسفل
             </p>
             <button
               type="button"
@@ -856,7 +856,7 @@ export function OrderClient() {
               />
 
               <Textarea
-                label="وصف تفصيلي للتصميم اللي تتخيّله ✨"
+                label="وصف تفصيلي للتصميم الذي تتخيّله ✨"
                 value={data.designDescription}
                 onChange={(v) => dispatch({ type: 'set', patch: { designDescription: v } })}
                 placeholder="صف بأسلوبك: العناصر التي تحبّها، ما يميّز مناسبتك، الإحساس الذي تريد إيصاله للضيوف، إن كان لديك ثيم خاص بالحفل (أندلسي، حديقة، صحراء، ...)، أيّ تفصيل يخطر ببالك — كلّما زادت التفاصيل، كانت الدعوة أقرب لتخيّلك."
@@ -1063,7 +1063,7 @@ export function OrderClient() {
                   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.35), 0 8px 22px rgba(37, 211, 102, 0.4)',
                 }}
               >
-                💬 ودّ طلبك لنا على واتساب
+                💬 أرسل طلبك لنا على واتساب
               </button>
 
               <p className="text-xs mt-3 text-center text-[var(--color-ink-mute)] leading-relaxed">

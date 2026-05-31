@@ -14,7 +14,7 @@ export default function ContactPage() {
   return (
     <PageShell>
       <H1>تواصل معنا</H1>
-      <Lead>نسعد بسماعك. اختر القناة اللي تريحك — نردّ خلال ساعات.</Lead>
+      <Lead>نسعد بسماعك. اختر القناة التي تريحك — نردّ خلال ساعات.</Lead>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
         <Method
@@ -28,12 +28,12 @@ export default function ContactPage() {
           title="البريد الإلكتروني"
           subtitle="للأسئلة التفصيلية والمرفقات"
           href="mailto:hello@da3wati.com"
-          cta="ودّ إيميل"
+          cta="أرسل إيميل"
           icon="✉️"
         />
         <Method
           title="ابدأ طلبًا"
-          subtitle="إن كنت جاهزًا، عبّ النموذج مباشرة"
+          subtitle="إن كنت جاهزًا، املأ النموذج مباشرة"
           href="/order"
           cta="نموذج الطلب"
           icon="🌙"

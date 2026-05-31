@@ -217,7 +217,7 @@ function NotFoundCta() {
       >
         <div className="text-4xl mb-3" aria-hidden="true">✨</div>
         <h2 className="text-xl sm:text-2xl font-extrabold text-[var(--color-ink)] mb-2">
-          ما لقيت مناسبتك؟
+          لم تجد مناسبتك؟
         </h2>
         <p className="text-[var(--color-ink-mute)] mb-6 max-w-md mx-auto">
           كل مناسبة لها قصّة. اطلب دعوتك واكتب لنا تفاصيلها — نصمّمها لك من الصفر.

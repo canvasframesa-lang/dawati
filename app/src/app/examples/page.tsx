@@ -118,7 +118,7 @@ export default function ExamplesPage() {
         <H1>ستة أنماط · ستة أذواق</H1>
         <Lead>
           لكل مناسبة لمستها الخاصة. اختر النمط الذي يعكس روح حفلك، ووصِفه لنا — ونحن ننفّذه.
-          هذي عيّنات توضّح المدى، لكن كل بطاقة فعليّة تُصمَّم خصّيصًا لطلبك.
+          هذه عيّنات توضّح المدى، لكن كل بطاقة فعليّة تُصمَّم خصّيصًا لطلبك.
         </Lead>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -132,7 +132,7 @@ export default function ExamplesPage() {
                   href={`/examples/${s.style}`}
                   className="inline-flex items-center gap-1 text-sm font-bold text-[var(--color-ink)] hover:text-[var(--color-gold-3)] transition"
                 >
-                  شف التفاصيل الكاملة ←
+                  استعرض التفاصيل الكاملة ←
                 </Link>
               </div>
             </div>
@@ -141,7 +141,7 @@ export default function ExamplesPage() {
 
         <div className="text-center mt-20">
           <p className="text-[var(--color-ink-mute)] mb-6">
-            ما لقيت النمط اللي يناسبك؟ احكِ لنا في طلبك وسنُصمّم نمطًا خاصًّا بك.
+            لم تجد النمط الذي يناسبك؟ أخبرنا في طلبك وسنُصمّم نمطًا خاصًّا بك.
           </p>
           <Link href="/order" className="btn-gold">
             ابدأ طلبك ←

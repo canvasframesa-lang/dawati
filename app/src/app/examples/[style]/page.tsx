@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { PageShell, PageContainer } from '@/components/PageShell';
 import { SampleCardTile } from '@/components/SampleCardTile';
 import { AnimatedInvitation } from '@/components/AnimatedInvitation';
+import { GuestInteractionShowcase } from '@/components/GuestInteractionShowcase';
 import { STYLE_DETAILS, ALL_STYLE_SLUGS } from '@/lib/style-details';
 import { TIER_BY_ID, formatPrice } from '@/lib/tiers';
 import { pageMetadata, breadcrumbLd } from '@/lib/seo';
@@ -60,6 +61,7 @@ export default async function StyleDetailPage({
         <Hero detail={detail} />
         <PhilosophySection detail={detail} />
         <FeaturesSection detail={detail} />
+        <GuestInteractionShowcase style={detail.slug} />
         <PaletteAndFontSection detail={detail} />
         <WhenSection detail={detail} />
         <TestimonialSection detail={detail} />
@@ -165,7 +167,7 @@ function FeaturesSection({
   return (
     <section className="mb-20">
       <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-ink)] mb-2 text-center">
-        وش يميّز هذا النمط؟
+        ما الذي يميّز هذا النمط؟
       </h2>
       <p className="text-center text-[var(--color-ink-mute)] mb-10">
         ست تفاصيل تجتمع لتصنع شخصيّته
@@ -314,9 +316,9 @@ function WhenSection({
           ))}
         </ul>
         <p className="mt-5 text-sm text-[var(--color-ink-mute)] italic">
-          نوصّيك في هذي الحالات بنمط آخر —{' '}
+          نوصّيك في هذه الحالات بنمط آخر —{' '}
           <Link href="/examples" className="text-[var(--color-gold-3)] underline">
-            شف الستة كلهم
+            استعرض الستة كاملة
           </Link>
           .
         </p>
@@ -389,7 +391,7 @@ function CtaSection({
             href="/examples"
             className="text-[var(--color-gold-1)] underline text-sm hover:text-white transition"
           >
-            ولّا شف بقيّة الأنماط
+            أو استعرض بقيّة الأنماط
           </Link>
         </div>
       </div>
