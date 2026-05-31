@@ -124,7 +124,7 @@ function Hero() {
             className="text-balance font-black tracking-tight text-white"
             style={{ fontSize: 'clamp(32px, 5.5vw, 56px)', lineHeight: 1.15 }}
           >
-            نحن نُصمّم دعوتك،{' '}
+            حنا نُصمّم دعوتك،{' '}
             <span className="text-gradient-gold">وأنت تستقبل ضيوفك.</span>
           </h1>
         </div>

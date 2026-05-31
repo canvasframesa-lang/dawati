@@ -82,6 +82,7 @@ function SiteFooter() {
           <FooterLink href="/aqiqa">عقيقة</FooterLink>
           <FooterLink href="/pricing">الباقات</FooterLink>
           <FooterLink href="/how-it-works">آلية العمل</FooterLink>
+          <FooterLink href="/dashboard-demo">لوحة التحكم</FooterLink>
           <FooterLink href="/faq">الأسئلة الشائعة</FooterLink>
           <FooterLink href="/privacy">الخصوصية</FooterLink>
           <FooterLink href="/terms">الشروط</FooterLink>
