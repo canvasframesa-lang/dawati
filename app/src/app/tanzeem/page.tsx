@@ -3,14 +3,14 @@ import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 
 export const metadata = pageMetadata({
-  title: 'تنظيم دعوتي — إدارة حفلك من أوّل ضيف إلى آخر طاولة',
+  title: 'تنظيم دعوتي — إدارة حفلك بطاقم نسائي كامل',
   description:
-    'فريق تنظيم محترف لمناسبتك — مشرفي قاعة، استقبال، باركود الضيوف، تنسيق الضيافة، وشارات VIP. باقات من 1,990 ﷼.',
+    'فريق نسائي محترف لتنظيم مناسبتك — مشرفات قاعة، استقبال، باركود الضيوف، تنسيق الضيافة، وشارات VIP. باقات من 1,990 ﷼.',
   path: '/tanzeem',
   extraKeywords: [
     'تنظيم حفلات الرياض',
-    'مشرفين قاعة عرس',
-    'منسّق حفل زفاف',
+    'مشرفات قاعة عرس',
+    'منسّقة حفل زفاف نساء',
     'باركود ضيوف عرس',
     'شارات VIP حفلات',
     'إدارة استقبال ضيوف',
@@ -35,33 +35,38 @@ const T = {
   shadow: '0 14px 36px rgba(14, 29, 46, 0.10)',
 };
 
+// All photos are venues/setups/decor only — zero people. Any "people"
+// stock photo risks featuring women, which doesn't fit our audience.
+// Empty halls, table settings, chandeliers, centerpieces — these convey
+// the professionalism and craft without that risk.
+
 const HERO_IMG =
-  'https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&auto=format&fit=crop&q=80';
+  'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&auto=format&fit=crop&q=80';
 
 const GALLERY_PHOTOS = [
   {
-    url: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&auto=format&fit=crop&q=80',
-    alt: 'قاعة استقبال فاخرة',
+    url: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&auto=format&fit=crop&q=80',
+    alt: 'ديكور قاعة فاخر',
   },
   {
     url: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&auto=format&fit=crop&q=80',
     alt: 'تنسيق طاولات الحفل',
   },
   {
-    url: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&auto=format&fit=crop&q=80',
-    alt: 'ضيوف يستمتعون بالحفلة',
+    url: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&auto=format&fit=crop&q=80',
+    alt: 'قاعة جاهزة لاستقبال الضيوف',
   },
   {
-    url: 'https://images.unsplash.com/photo-1530023367847-a683933f4172?w=600&auto=format&fit=crop&q=80',
-    alt: 'استقبال الضيوف عند المدخل',
+    url: 'https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=600&auto=format&fit=crop&q=80',
+    alt: 'إضاءة قاعة فاخرة',
   },
   {
-    url: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&auto=format&fit=crop&q=80',
-    alt: 'ديكور قاعة فاخر',
+    url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&auto=format&fit=crop&q=80',
+    alt: 'منسّقة طاولة مع زهور',
   },
   {
-    url: 'https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=600&auto=format&fit=crop&q=80',
-    alt: 'منسّق الحفل في العمل',
+    url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&auto=format&fit=crop&q=80',
+    alt: 'مدخل قاعة فاخر',
   },
 ];
 
@@ -180,18 +185,31 @@ function Hero() {
     <section className="relative overflow-hidden">
       <div className="mx-auto max-w-6xl px-5 py-12 sm:py-20 grid grid-cols-1 lg:grid-cols-[1.05fr,1fr] gap-10 items-center">
         <div className="order-2 lg:order-1">
-          <div
-            className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full"
-            style={{
-              background: 'rgba(14, 29, 46, 0.05)',
-              border: `1px solid ${T.borderGold}`,
-              color: T.gold,
-            }}
-          >
-            <span aria-hidden="true">◆</span>
-            <span className="text-[11px] uppercase tracking-[3px] font-extrabold">
-              تنظيم · دعوتي
-            </span>
+          <div className="flex flex-wrap gap-2 mb-5">
+            <div
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
+              style={{
+                background: 'rgba(14, 29, 46, 0.05)',
+                border: `1px solid ${T.borderGold}`,
+                color: T.gold,
+              }}
+            >
+              <span aria-hidden="true">◆</span>
+              <span className="text-[11px] uppercase tracking-[3px] font-extrabold">
+                تنظيم · دعوتي
+              </span>
+            </div>
+            <div
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
+              style={{
+                background: T.primary,
+                color: T.goldLight,
+                border: `1px solid ${T.gold}`,
+              }}
+            >
+              <span aria-hidden="true">♀</span>
+              <span className="text-[11px] font-extrabold">فريق نسائي كامل</span>
+            </div>
           </div>
           <h1
             className="font-black mb-5"
@@ -211,8 +229,8 @@ function Hero() {
             className="text-base sm:text-lg leading-relaxed mb-7 max-w-xl"
             style={{ color: T.inkSoft }}
           >
-            فريق تنظيم متكامل — من استقبال الضيوف، إلى مسح الباركود، إلى تنسيق الضيافة والمداخل
-            والمواقف. أنت تشتغل على فرحتك، احنا نشتغل على التفاصيل.
+            فريق نسائي متكامل — من استقبال الضيفات، إلى مسح الباركود، إلى تنسيق الضيافة والمداخل.
+            مناسب تمامًا لحفلات النساء السعوديّة بكلّ خصوصيّة.
           </p>
           <div className="flex flex-wrap gap-3 items-center">
             <a
@@ -246,7 +264,7 @@ function Hero() {
           >
             <img
               src={HERO_IMG}
-              alt="قاعة فاخرة جاهزة لحفل زفاف"
+              alt="قاعة فاخرة جاهزة لاستقبال الحفل"
               className="w-full h-full object-cover"
             />
           </div>
@@ -287,34 +305,34 @@ function Hero() {
 function Services() {
   const services = [
     {
-      i: '👔',
-      t: 'مشرفي قاعة',
-      d: 'فريق مدرّب لإدارة الحفل من بدايته لنهايته — جدول الفقرات، انتقال الضيوف، الإشارات للجميع.',
+      i: '👜',
+      t: 'مشرفات قاعة',
+      d: 'فريق نسائي مدرّب لإدارة الحفل من بدايته لنهايته — جدول الفقرات، انتقال الضيفات، الإشارات للجميع.',
     },
     {
       i: '📷',
       t: 'مسح الباركود',
-      d: 'تسجيل حضور لحظي بمسح باركود الدعوة عند المدخل — رقم دقيق للحاضرين بدون لُبس.',
+      d: 'موظّفة تسجّل حضور الضيفات بمسح باركود الدعوة عند المدخل — رقم دقيق للحاضرات بدون لُبس.',
     },
     {
       i: '🍽️',
       t: 'تنسيق الضيافة',
-      d: 'متابعة الوجبات حسب تفضيلات الضيوف (لحم/دجاج/نباتي/حساسيات) — توصيلها للطاولة الصحيحة.',
+      d: 'منسّقات يتابعن الوجبات حسب تفضيلات الضيفات (لحم/دجاج/نباتي/حساسيات) — توصيلها للطاولة الصحيحة.',
     },
     {
       i: '🚪',
       t: 'إدارة المداخل',
-      d: 'فريق على كل مدخل (رجال/نساء/VIP) — توجيه الضيوف بأناقة وحفاظ على الخصوصيّة.',
+      d: 'موظّفات استقبال على كل مدخل — توجيه الضيفات بأناقة وحفاظ تامّ على خصوصيّة قسم النساء.',
     },
     {
       i: '🏷️',
-      t: 'شارات الضيوف',
-      d: 'شارات مطبوعة باسم كل ضيف ورقم طاولته — لمسة احترافيّة في الحفلات الفاخرة.',
+      t: 'شارات الضيفات',
+      d: 'شارات مطبوعة باسم كلّ ضيفة ورقم طاولتها — لمسة احترافيّة في الحفلات الفاخرة.',
     },
     {
-      i: '🚗',
-      t: 'تنظيم المواقف',
-      d: 'فريق Valet أو منسّقي مواقف — يستقبلون الضيوف من سيّاراتهم ويسلّمونهم للقاعة.',
+      i: '✨',
+      t: 'تنسيق الفقرات',
+      d: 'منسّقة حفل تدير الجدول كاملًا — وقت العشاء، وقت الزفّة، وقت التصوير، ولحظات المغادرة.',
     },
   ];
   return (
@@ -382,10 +400,10 @@ function Packages() {
       tagline: 'لحفلات حتى ١٠٠ ضيف · خدمة جوهريّة',
       price: 1990,
       features: [
-        'مشرفان للقاعة (٥ ساعات لكل واحد)',
-        'مسح باركود الضيوف عند المدخل',
+        'مشرفتان للقاعة (٥ ساعات لكلّ واحدة)',
+        'مسح باركود الضيفات عند المدخل',
         'تنسيق المداخل الرئيسيّة',
-        'فريق يصل قبل ساعة من بدء الحفل',
+        'فريق نسائي يصل قبل ساعة من بدء الحفل',
         'تقرير حضور لحظي يصلك على واتساب',
       ],
     },
@@ -396,11 +414,11 @@ function Packages() {
       recommended: true,
       features: [
         'كل ما في الأساسية — بالإضافة إلى:',
-        '٤ مشرفين + منسّق رئيسي',
+        '٤ مشرفات + منسّقة رئيسيّة',
         'تنسيق الضيافة (متابعة وجبات الطاولات)',
-        'إدارة المداخل (رجال/نساء/VIP)',
-        'فريق مواقف عند الدخول',
-        'صور توثيقيّة من سير الحفل',
+        'إدارة المداخل وقسم VIP النسائي',
+        'فريق استقبال متخصّص',
+        'صور توثيقيّة (للأغراض والمشاهد فقط)',
       ],
     },
     {
@@ -409,10 +427,10 @@ function Packages() {
       price: 8990,
       features: [
         'كل ما في المتكاملة — بالإضافة إلى:',
-        'مدير حفل مخصّص يدير الجدول كاملًا',
-        '٨ مشرفين موزّعين على الأقسام',
-        'شارات الضيوف الفاخرة (مطبوعة باسمائهم)',
-        'فريق Valet كامل (حتى ٧ مواقف لحظيّة)',
+        'مديرة حفل مخصّصة تدير الجدول كاملًا',
+        '٨ مشرفات موزّعات على الأقسام',
+        'شارات الضيفات الفاخرة (مطبوعة بأسمائهنّ)',
+        'فريق استقبال موسّع',
         'إدارة منطقة VIP منفصلة',
         'تقرير ما بعد الحفل (إحصاءات الحضور)',
       ],
@@ -605,11 +623,15 @@ function Faq() {
     },
     {
       q: 'الفريق هل يلبس زيًّا موحّدًا؟',
-      a: 'نعم. كل المشرفين بزيّ رسمي موحّد (أسود بشعار دعوتي الذهبي) — يضمن مظهرًا احترافيًّا متناسقًا مع فخامة حفلك.',
+      a: 'نعم. كل المشرفات بزيّ رسمي موحّد (أسود بشعار دعوتي الذهبي) — يضمن مظهرًا احترافيًّا متناسقًا مع فخامة حفلك.',
+    },
+    {
+      q: 'هل الفريق نسائي بالكامل؟',
+      a: 'نعم تمامًا — كلّ موظّفاتنا في تنظيم دعوتي نساء سعوديّات مدرّبات. مناسب تمامًا لحفلات النساء بكلّ خصوصيّة، ولا يحضر فريقنا في الأقسام الرجاليّة من الحفلات المختلطة.',
     },
     {
       q: 'كيف تتعاملون مع الطوارئ يوم الحفل؟',
-      a: 'مدير الفريق متواصل مع منسّق القاعة طوال الحفل. أيّ طارئ (تأخّر ضيف VIP، تغيير في الجدول، نقص في الكراسي) يُحلّ خلال دقائق بدون إزعاجك.',
+      a: 'مديرة الفريق متواصلة مع منسّقة القاعة طوال الحفل. أيّ طارئ (تأخّر ضيفة VIP، تغيير في الجدول، نقص في الكراسي) يُحلّ خلال دقائق بدون إزعاجك.',
     },
   ];
   return (

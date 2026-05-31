@@ -3,13 +3,13 @@ import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 
 export const metadata = pageMetadata({
-  title: 'مرح دعوتي — مهرّجين ورسم على الوجه وفقرات أطفال',
+  title: 'مرح دعوتي — مهرّجات ورسم على الوجه وفقرات أطفال (فريق نسائي)',
   description:
-    'فريق ترفيه أطفال متكامل — مهرّج محترف، رسم على الوجه، شخصيات كرتونية، بالونات، وألعاب تفاعلية. باقات من 1,490 ﷼.',
+    'فريق نسائي كامل لترفيه الأطفال — مهرّجة محترفة، رسم على الوجه، شخصيات كرتونيّة، بالونات، وألعاب تفاعليّة. باقات من 1,490 ﷼.',
   path: '/marah',
   extraKeywords: [
     'ترفيه أطفال حفلات',
-    'مهرّج للأعراس',
+    'مهرّجة للأعراس',
     'رسم على الوجه الرياض',
     'فقرات أطفال عرس',
     'شخصيات كرتونية حفلات',
@@ -34,33 +34,38 @@ const T = {
   shadow: '0 14px 36px rgba(197, 74, 20, 0.14)',
 };
 
+// All photos are objects/scenes only — no people. Cultural fit for the
+// Saudi market: any "people" stock photo risks featuring women, which
+// breaks the brand for our audience. Cakes, balloons, confetti, gifts,
+// and decor read as authentic party visuals without that risk.
+
 const HERO_IMG =
-  'https://images.unsplash.com/photo-1607430275000-3f48ee93b41a?w=1200&auto=format&fit=crop&q=80';
+  'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1200&auto=format&fit=crop&q=80';
 
 const GALLERY_PHOTOS = [
   {
+    url: 'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=600&auto=format&fit=crop&q=80',
+    alt: 'كعكة عيد ميلاد بالشموع',
+  },
+  {
     url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&auto=format&fit=crop&q=80',
-    alt: 'أطفال يلعبون في حفلة',
+    alt: 'بالونات ملوّنة جاهزة للحفلة',
   },
   {
-    url: 'https://images.unsplash.com/photo-1602331540312-89a17b27ad27?w=600&auto=format&fit=crop&q=80',
-    alt: 'رسم على الوجه للأطفال',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=600&auto=format&fit=crop&q=80',
-    alt: 'فرحة طفل بالبالونات',
+    url: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600&auto=format&fit=crop&q=80',
+    alt: 'هدايا تذكاريّة مرتّبة',
   },
   {
     url: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&auto=format&fit=crop&q=80',
     alt: 'كعكة حفلة ملوّنة',
   },
   {
-    url: 'https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&auto=format&fit=crop&q=80',
-    alt: 'مهرّج يحوّل البالونات',
+    url: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&auto=format&fit=crop&q=80',
+    alt: 'كونفيتي ومرح',
   },
   {
-    url: 'https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=600&auto=format&fit=crop&q=80',
-    alt: 'فقرة سحر للأطفال',
+    url: 'https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=600&auto=format&fit=crop&q=80',
+    alt: 'محطّة حلويات حفلة',
   },
 ];
 
@@ -177,16 +182,31 @@ function Hero() {
     <section className="relative overflow-hidden">
       <div className="mx-auto max-w-6xl px-5 py-12 sm:py-20 grid grid-cols-1 lg:grid-cols-[1.05fr,1fr] gap-10 items-center">
         <div className="order-2 lg:order-1">
-          <div
-            className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full"
-            style={{
-              background: 'rgba(255, 122, 60, 0.10)',
-              border: `1px solid ${T.border}`,
-              color: T.primaryDeep,
-            }}
-          >
-            <span style={{ fontSize: 14 }}>🎉</span>
-            <span className="text-[11px] uppercase tracking-[3px] font-extrabold">مرح · دعوتي</span>
+          <div className="flex flex-wrap gap-2 mb-5">
+            <div
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
+              style={{
+                background: 'rgba(255, 122, 60, 0.10)',
+                border: `1px solid ${T.border}`,
+                color: T.primaryDeep,
+              }}
+            >
+              <span style={{ fontSize: 14 }}>🎉</span>
+              <span className="text-[11px] uppercase tracking-[3px] font-extrabold">
+                مرح · دعوتي
+              </span>
+            </div>
+            <div
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
+              style={{
+                background: T.surface,
+                border: `1.5px solid ${T.primary}`,
+                color: T.primaryDeep,
+              }}
+            >
+              <span aria-hidden="true">♀</span>
+              <span className="text-[11px] font-extrabold">فريق نسائي كامل</span>
+            </div>
           </div>
           <h1
             className="font-black mb-5"
@@ -205,8 +225,8 @@ function Hero() {
             className="text-base sm:text-lg leading-relaxed mb-7 max-w-xl"
             style={{ color: T.inkSoft }}
           >
-            مهرّجين محترفين، رسم على الوجه، شخصيات كرتونية، بالونات، وفقرات سحر — ساعتان أو أربع،
-            نخلّي الأطفال في حفلتك يضحكون من القلب.
+            مهرّجات محترفات، رسم على الوجه، شخصيات كرتونيّة، بالونات، وفقرات سحر — ساعتان أو
+            أربع، فريق نسائي بالكامل يخلّي الأطفال في حفلتك يضحكون من القلب.
           </p>
           <div className="flex flex-wrap gap-3 items-center">
             <a
@@ -239,7 +259,7 @@ function Hero() {
           >
             <img
               src={HERO_IMG}
-              alt="حفلة أطفال مليئة بالمرح"
+              alt="حفلة أطفال مليئة بالألوان والبالونات"
               className="w-full h-full object-cover"
             />
           </div>
@@ -281,32 +301,32 @@ function Services() {
   const services = [
     {
       icon: '🤡',
-      t: 'مهرّج محترف',
-      d: 'مهرّج بخبرة طويلة في الحفلات السعودية — يأخذ الأطفال في رحلة مرح بفقرة تفاعلية كاملة.',
+      t: 'مهرّجة محترفة',
+      d: 'مهرّجة بخبرة طويلة في حفلات الأطفال السعودية — تأخذ الأطفال في رحلة مرح بفقرة تفاعلية كاملة.',
     },
     {
       icon: '🎨',
       t: 'رسم على الوجه',
-      d: 'رسّامة محترفة بألوان آمنة طبية، رسومات لكل طفل تختارها بنفسها — فراشة، أسد، أبطال خارقين.',
+      d: 'رسّامة محترفة بألوان آمنة طبيًّا، رسومات لكل طفل يختارها بنفسه — فراشة، أسد، أبطال خارقين.',
     },
     {
       icon: '🎭',
       t: 'شخصيات كرتونية',
-      d: 'شخصيات معروفة وأبطال محبّبين للأطفال — يتفاعلون ويلتقطون الصور التذكارية.',
+      d: 'شخصيات محبّبة للأطفال — تتفاعل معهم وتلتقط الصور التذكاريّة بحضور نسائي كامل.',
     },
     {
       icon: '🎈',
       t: 'فقرة بالونات',
-      d: 'فنّان بالونات يصنع الأشكال أمام عيون الأطفال — سيوف، حيوانات، أزهار. يأخذها كل طفل معه.',
+      d: 'فنّانة بالونات تصنع الأشكال أمام عيون الأطفال — سيوف، حيوانات، أزهار. يأخذها كل طفل معه.',
     },
     {
       icon: '🪄',
-      t: 'ساحر الأطفال',
+      t: 'ساحرة الأطفال',
       d: 'فقرة سحر مذهلة بعقد خفّة اليد — ٢٠ دقيقة من الانبهار، مناسبة لكل الأعمار.',
     },
     {
       icon: '🎁',
-      t: 'محطّة هدايا تذكارية',
+      t: 'محطّة هدايا تذكاريّة',
       d: 'كل طفل يذهب بهدية صغيرة من ذكرى المناسبة — كأنّها بطاقة شكر متحرّكة.',
     },
   ];
@@ -370,7 +390,7 @@ function Packages() {
       tagline: 'ساعتان · مناسب للحفلات الصغيرة',
       price: 1490,
       features: [
-        'مهرّج محترف + رسم على الوجه',
+        'مهرّجة محترفة + رسم على الوجه',
         'مدّة الفقرة: ٢ ساعات',
         'حتى ٢٥ طفلًا',
         'جميع الأدوات والمستلزمات',
@@ -584,6 +604,10 @@ function Faq() {
     {
       q: 'هل الفقرات مناسبة لكل الأعمار؟',
       a: 'الفقرات تتكيّف لأعمار ٣–١٢ سنة. لو أعمار أكبر أو أصغر، أخبرنا ونرتّب فقرات مناسبة.',
+    },
+    {
+      q: 'هل الفريق نسائي بالكامل؟',
+      a: 'نعم — كل موظّفاتنا في مرح دعوتي نساء (ومعهنّ أطفال صغار للفقرات). مناسب تمامًا لحفلات النساء والأطفال السعودية بكل خصوصيّة.',
     },
   ];
   return (
