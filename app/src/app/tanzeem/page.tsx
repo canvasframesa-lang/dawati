@@ -35,40 +35,9 @@ const T = {
   shadow: '0 14px 36px rgba(14, 29, 46, 0.10)',
 };
 
-// All photos are venues/setups/decor only — zero people. Any "people"
-// stock photo risks featuring women, which doesn't fit our audience.
-// Empty halls, table settings, chandeliers, centerpieces — these convey
-// the professionalism and craft without that risk.
-
-const HERO_IMG =
-  'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&auto=format&fit=crop&q=80';
-
-const GALLERY_PHOTOS = [
-  {
-    url: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&auto=format&fit=crop&q=80',
-    alt: 'ديكور قاعة فاخر',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&auto=format&fit=crop&q=80',
-    alt: 'تنسيق طاولات الحفل',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&auto=format&fit=crop&q=80',
-    alt: 'قاعة جاهزة لاستقبال الضيوف',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=600&auto=format&fit=crop&q=80',
-    alt: 'إضاءة قاعة فاخرة',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&auto=format&fit=crop&q=80',
-    alt: 'منسّقة طاولة مع زهور',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&auto=format&fit=crop&q=80',
-    alt: 'مدخل قاعة فاخر',
-  },
-];
+// Zero photographs anywhere — pure SVG + CSS visuals throughout. Both
+// the hero scene and what used to be the photo gallery are rendered
+// from vector art and feature blocks. Guarantees no human faces.
 
 /* ============ Page ============ */
 
@@ -178,6 +147,93 @@ function TanzeemMark() {
   );
 }
 
+/* ============ Hero scene (pure SVG — no photos) ============ */
+
+function TanzeemHeroScene() {
+  return (
+    <div
+      className="rounded-3xl relative overflow-hidden"
+      style={{
+        aspectRatio: '4/3',
+        background: `radial-gradient(ellipse 60% 50% at 50% 25%, ${T.goldLight}22 0%, transparent 60%), linear-gradient(180deg, #1a2840 0%, ${T.primary} 100%)`,
+        boxShadow: '0 28px 60px rgba(14, 29, 46, 0.32), 0 8px 20px rgba(15, 15, 30, 0.10)',
+        border: `1px solid ${T.gold}`,
+      }}
+    >
+      <svg viewBox="0 0 400 300" className="absolute inset-0 w-full h-full" aria-hidden="true">
+        <defs>
+          <linearGradient id="tz-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={T.goldLight} />
+            <stop offset="60%" stopColor={T.gold} />
+            <stop offset="100%" stopColor="#8a6817" />
+          </linearGradient>
+        </defs>
+
+        {/* Chandelier (top center) */}
+        <g transform="translate(200 30)">
+          {/* Chain */}
+          <line x1="0" y1="0" x2="0" y2="32" stroke="url(#tz-gold)" strokeWidth="1.3" />
+          {/* Central body */}
+          <ellipse cx="0" cy="40" rx="14" ry="6" fill="url(#tz-gold)" />
+          {/* Arms */}
+          {[-50, -25, 0, 25, 50].map((x) => (
+            <g key={x}>
+              <path d={`M 0 42 Q ${x * 0.6} 55 ${x} 70`} stroke="url(#tz-gold)" strokeWidth="1.3" fill="none" />
+              {/* Candle flames */}
+              <circle cx={x} cy="68" r="3.2" fill={T.goldLight} opacity="0.9" />
+              <circle cx={x} cy="68" r="6" fill={T.goldLight} opacity="0.25" />
+            </g>
+          ))}
+          {/* Crystal pendants */}
+          <path d="M -14 46 L -10 60 L -14 65 L -18 60 Z" fill={T.goldLight} opacity="0.65" />
+          <path d="M 14 46 L 18 60 L 14 65 L 10 60 Z" fill={T.goldLight} opacity="0.65" />
+          <path d="M 0 50 L 4 78 L 0 84 L -4 78 Z" fill={T.goldLight} opacity="0.8" />
+        </g>
+
+        {/* Table with centerpiece (bottom) */}
+        <g transform="translate(200 230)">
+          {/* Tablecloth */}
+          <ellipse cx="0" cy="0" rx="130" ry="14" fill={T.goldLight} opacity="0.18" />
+          <rect x="-115" y="-2" width="230" height="14" fill="url(#tz-gold)" opacity="0.35" />
+          {/* Centerpiece vase */}
+          <path d="M -14 -2 L -10 -22 L 10 -22 L 14 -2 Z" fill="url(#tz-gold)" opacity="0.6" />
+          {/* Roses (geometric, no faces) */}
+          <circle cx="-4" cy="-30" r="6" fill={T.goldLight} opacity="0.85" />
+          <circle cx="6" cy="-32" r="5" fill={T.goldLight} opacity="0.7" />
+          <circle cx="0" cy="-38" r="4" fill={T.goldLight} opacity="0.9" />
+          {/* Candles around */}
+          {[-80, -50, 50, 80].map((x) => (
+            <g key={x}>
+              <rect x={x - 2} y="-30" width="4" height="28" fill={T.goldLight} opacity="0.7" />
+              <ellipse cx={x} cy="-34" rx="2.5" ry="4.5" fill={T.goldLight} />
+              <ellipse cx={x} cy="-34" rx="6" ry="8" fill={T.goldLight} opacity="0.18" />
+            </g>
+          ))}
+        </g>
+
+        {/* Twinkling stars (ambient) */}
+        {[
+          { x: 50, y: 60, s: 10 },
+          { x: 340, y: 80, s: 12 },
+          { x: 70, y: 150, s: 8 },
+          { x: 330, y: 160, s: 9 },
+        ].map((s, i) => (
+          <text
+            key={i}
+            x={s.x}
+            y={s.y}
+            fontSize={s.s}
+            fill={T.goldLight}
+            opacity="0.5"
+          >
+            ✦
+          </text>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
 /* ============ Hero ============ */
 
 function Hero() {
@@ -255,19 +311,7 @@ function Hero() {
         </div>
 
         <div className="order-1 lg:order-2 relative">
-          <div
-            className="rounded-3xl overflow-hidden relative"
-            style={{
-              boxShadow: '0 28px 60px rgba(14, 29, 46, 0.22), 0 8px 20px rgba(15, 15, 30, 0.10)',
-              aspectRatio: '4/3',
-            }}
-          >
-            <img
-              src={HERO_IMG}
-              alt="قاعة فاخرة جاهزة لاستقبال الحفل"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <TanzeemHeroScene />
           {/* Floating proof chip */}
           <div
             className="absolute -bottom-4 -right-4 rounded-2xl px-4 py-3 hidden sm:block"
@@ -568,6 +612,16 @@ function HowItWorks() {
 /* ============ Gallery ============ */
 
 function Gallery() {
+  const stats: { big: string; small: string; glyph: string }[] = [
+    { big: '+120',   small: 'حفلًا نُظّم في 2026',          glyph: '◆' },
+    { big: '0',      small: 'حالات اعتذار أو شكاوى',         glyph: '✓' },
+    { big: '100%',   small: 'فريق نسائي · صفر رجال',          glyph: '♀' },
+  ];
+  const promises: { t: string; d: string; glyph: string }[] = [
+    { glyph: '⏰', t: 'الالتزام بالجدول',         d: 'كل فقرة في وقتها — العشاء، الزفّة، التصوير، المغادرة. صفر تأخير، صفر فوضى.' },
+    { glyph: '🔒', t: 'خصوصيّة تامّة لقسم النساء', d: 'لا يدخل أيّ موظّف ذكر في قسم النساء — حتى للتوصيل والتجهيز. أمان كامل لضيفاتك.' },
+    { glyph: '📊', t: 'تقرير ما بعد الحفل',         d: 'تستلمين خلال 24 ساعة: عدد الحاضرين، تفضيلات الوجبات الفعلية، ملاحظات منسّقة القاعة.' },
+  ];
   return (
     <section id="gallery" className="py-16 sm:py-24" style={{ background: T.bg }}>
       <div className="mx-auto max-w-6xl px-5">
@@ -576,7 +630,7 @@ function Gallery() {
             className="text-[10px] uppercase tracking-[3px] font-extrabold mb-2"
             style={{ color: T.gold }}
           >
-            من حفلاتنا
+            معاييرنا
           </div>
           <h2
             className="text-3xl sm:text-4xl font-black mb-3"
@@ -585,23 +639,55 @@ function Gallery() {
             تنظيم يحكي عن نفسه
           </h2>
           <p className="text-base leading-relaxed" style={{ color: T.inkSoft }}>
-            لقطات من قاعات نظّمناها — كل تفصيل في مكانه.
+            أرقامنا، وعودنا، وما لا نتنازل عنه — كلّه تحت ضمانة طاقم نسائي بالكامل.
           </p>
         </header>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-          {GALLERY_PHOTOS.map((p) => (
+        {/* Big stats */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-5 mb-8">
+          {stats.map((s) => (
             <div
-              key={p.url}
-              className="rounded-2xl overflow-hidden"
-              style={{ aspectRatio: '1/1', boxShadow: T.shadow }}
+              key={s.small}
+              className="rounded-2xl p-4 sm:p-6 text-center"
+              style={{ background: T.surface, border: `1px solid ${T.borderGold}`, boxShadow: T.shadow }}
             >
-              <img
-                src={p.url}
-                alt={p.alt}
-                className="w-full h-full object-cover transition hover:scale-105"
-              />
+              <div className="text-2xl mb-2" style={{ color: T.gold }} aria-hidden="true">{s.glyph}</div>
+              <div
+                className="font-black mb-1"
+                style={{
+                  fontSize: 'clamp(24px, 4vw, 36px)',
+                  color: T.ink,
+                  fontFamily: 'var(--font-latin)',
+                  letterSpacing: -1,
+                  lineHeight: 1,
+                }}
+              >
+                {s.big}
+              </div>
+              <div className="text-[11px] sm:text-xs font-bold" style={{ color: T.inkSoft }}>
+                {s.small}
+              </div>
             </div>
+          ))}
+        </div>
+
+        {/* Promise cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {promises.map((p) => (
+            <article
+              key={p.t}
+              className="rounded-3xl p-6 transition hover:-translate-y-1"
+              style={{ background: T.surface, border: `1px solid ${T.borderGold}`, boxShadow: T.shadow }}
+            >
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4"
+                style={{ background: T.primary, color: T.goldLight, border: `1px solid ${T.gold}` }}
+              >
+                {p.glyph}
+              </div>
+              <h3 className="text-base font-extrabold mb-2" style={{ color: T.ink }}>{p.t}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: T.inkSoft }}>{p.d}</p>
+            </article>
           ))}
         </div>
       </div>

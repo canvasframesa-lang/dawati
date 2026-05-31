@@ -34,40 +34,9 @@ const T = {
   shadow: '0 14px 36px rgba(197, 74, 20, 0.14)',
 };
 
-// All photos are objects/scenes only — no people. Cultural fit for the
-// Saudi market: any "people" stock photo risks featuring women, which
-// breaks the brand for our audience. Cakes, balloons, confetti, gifts,
-// and decor read as authentic party visuals without that risk.
-
-const HERO_IMG =
-  'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1200&auto=format&fit=crop&q=80';
-
-const GALLERY_PHOTOS = [
-  {
-    url: 'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=600&auto=format&fit=crop&q=80',
-    alt: 'كعكة عيد ميلاد بالشموع',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&auto=format&fit=crop&q=80',
-    alt: 'بالونات ملوّنة جاهزة للحفلة',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600&auto=format&fit=crop&q=80',
-    alt: 'هدايا تذكاريّة مرتّبة',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&auto=format&fit=crop&q=80',
-    alt: 'كعكة حفلة ملوّنة',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&auto=format&fit=crop&q=80',
-    alt: 'كونفيتي ومرح',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=600&auto=format&fit=crop&q=80',
-    alt: 'محطّة حلويات حفلة',
-  },
-];
+// Zero photographs anywhere on the page. All visuals are pure SVG +
+// CSS — guaranteed to never contain people. The hero block and the
+// "elements" showcase below replace what used to be Unsplash imagery.
 
 /* ============ Page ============ */
 
@@ -175,6 +144,107 @@ function MarahMark() {
   );
 }
 
+/* ============ Hero scene (pure SVG — no photos) ============ */
+
+function MarahHeroScene() {
+  // Decorative party-themed SVG arrangement: balloons, confetti,
+  // a stylized cake silhouette, stars. Pure vector — zero photos.
+  return (
+    <div
+      className="rounded-3xl relative overflow-hidden"
+      style={{
+        aspectRatio: '4/3',
+        background: `radial-gradient(ellipse 60% 50% at 30% 30%, ${T.accent}33 0%, transparent 60%), radial-gradient(ellipse 55% 45% at 75% 70%, ${T.secondary}22 0%, transparent 60%), linear-gradient(135deg, ${T.surfaceMute} 0%, #ffffff 100%)`,
+        boxShadow: '0 28px 60px rgba(197, 74, 20, 0.18), 0 8px 20px rgba(15, 15, 30, 0.06)',
+        border: `1px solid ${T.border}`,
+      }}
+    >
+      <svg
+        viewBox="0 0 400 300"
+        className="absolute inset-0 w-full h-full"
+        aria-hidden="true"
+      >
+        {/* Confetti scatter (top) */}
+        {[
+          { x: 40, y: 40, r: 6, c: T.primary, rot: 12 },
+          { x: 110, y: 25, r: 5, c: T.accent, rot: -20 },
+          { x: 180, y: 55, r: 4, c: T.secondary, rot: 30 },
+          { x: 260, y: 30, r: 6, c: T.primary, rot: -10 },
+          { x: 340, y: 50, r: 5, c: T.accent, rot: 45 },
+          { x: 60, y: 230, r: 5, c: T.secondary, rot: -25 },
+          { x: 320, y: 250, r: 6, c: T.primary, rot: 20 },
+          { x: 365, y: 200, r: 4, c: T.accent, rot: -30 },
+          { x: 30, y: 170, r: 4, c: T.primary, rot: 15 },
+        ].map((c, i) => (
+          <rect
+            key={i}
+            x={c.x}
+            y={c.y}
+            width={c.r * 2}
+            height={c.r * 2}
+            rx={c.r * 0.4}
+            fill={c.c}
+            opacity="0.85"
+            transform={`rotate(${c.rot} ${c.x + c.r} ${c.y + c.r})`}
+          />
+        ))}
+
+        {/* Balloons cluster (left) */}
+        <g transform="translate(85 120)">
+          {/* Strings */}
+          <path d="M 0 0 Q 5 30 15 50" stroke={T.inkMute} strokeWidth="1" fill="none" opacity="0.4" />
+          <path d="M 30 0 Q 25 25 15 50" stroke={T.inkMute} strokeWidth="1" fill="none" opacity="0.4" />
+          <path d="M 60 0 Q 50 30 15 50" stroke={T.inkMute} strokeWidth="1" fill="none" opacity="0.4" />
+          {/* Balloons */}
+          <ellipse cx="0" cy="-30" rx="22" ry="28" fill={T.primary} />
+          <ellipse cx="-6" cy="-40" rx="6" ry="5" fill="#ffffff" opacity="0.45" />
+          <ellipse cx="30" cy="-40" rx="22" ry="28" fill={T.accent} />
+          <ellipse cx="24" cy="-50" rx="6" ry="5" fill="#ffffff" opacity="0.55" />
+          <ellipse cx="60" cy="-30" rx="22" ry="28" fill={T.secondary} />
+          <ellipse cx="54" cy="-40" rx="6" ry="5" fill="#ffffff" opacity="0.45" />
+        </g>
+
+        {/* Stylized cake (right) */}
+        <g transform="translate(260 240)">
+          {/* Plate */}
+          <ellipse cx="0" cy="0" rx="60" ry="8" fill={T.inkMute} opacity="0.18" />
+          {/* Base tier */}
+          <rect x="-50" y="-50" width="100" height="50" rx="6" fill={T.surface} stroke={T.primary} strokeWidth="2" />
+          <rect x="-50" y="-20" width="100" height="6" fill={T.accent} opacity="0.6" />
+          {/* Top tier */}
+          <rect x="-30" y="-90" width="60" height="40" rx="5" fill={T.surface} stroke={T.primary} strokeWidth="2" />
+          <rect x="-30" y="-65" width="60" height="5" fill={T.secondary} opacity="0.6" />
+          {/* Candles */}
+          {[-15, 0, 15].map((x) => (
+            <g key={x}>
+              <rect x={x - 1} y="-105" width="2" height="14" fill={T.inkSoft} />
+              <ellipse cx={x} cy="-108" rx="2" ry="4" fill={T.accent} />
+            </g>
+          ))}
+        </g>
+
+        {/* Stars */}
+        {[
+          { x: 230, y: 80, s: 12 },
+          { x: 330, y: 130, s: 10 },
+          { x: 180, y: 200, s: 14 },
+        ].map((s, i) => (
+          <text
+            key={i}
+            x={s.x}
+            y={s.y}
+            fontSize={s.s}
+            fill={T.accent}
+            opacity="0.7"
+          >
+            ✦
+          </text>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
 /* ============ Hero ============ */
 
 function Hero() {
@@ -250,19 +320,7 @@ function Hero() {
         </div>
 
         <div className="order-1 lg:order-2 relative">
-          <div
-            className="rounded-3xl overflow-hidden relative"
-            style={{
-              boxShadow: '0 28px 60px rgba(197, 74, 20, 0.22), 0 8px 20px rgba(15, 15, 30, 0.10)',
-              aspectRatio: '4/3',
-            }}
-          >
-            <img
-              src={HERO_IMG}
-              alt="حفلة أطفال مليئة بالألوان والبالونات"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <MarahHeroScene />
           {/* Floating sticker */}
           <div
             className="absolute -bottom-4 -left-4 rounded-2xl px-4 py-3 hidden sm:block"
@@ -544,9 +602,19 @@ function HowItWorks() {
   );
 }
 
-/* ============ Gallery ============ */
+/* ============ Promise grid (replaces photo gallery — zero photos) ============ */
 
 function Gallery() {
+  const stats: { big: string; small: string; emoji: string }[] = [
+    { big: '+200',  small: 'حفلة نُفّذت في 2026',         emoji: '🎉' },
+    { big: '4.9/5', small: 'متوسط تقييم الأمّهات',         emoji: '⭐' },
+    { big: '100%',  small: 'فريق نسائي · صفر رجال',        emoji: '♀' },
+  ];
+  const promises: { t: string; d: string; icon: string }[] = [
+    { icon: '🛡️', t: 'ألوان آمنة طبيًّا',           d: 'كل ألوان رسم الوجه معتمدة FDA — تُزال بالماء والصابون. لو طفل عنده حساسية، نوفّر بدائل.' },
+    { icon: '⏱️', t: 'نصل قبل بساعة',                d: 'الفريق يدخل المكان قبل بدء الفقرة، يجهّز الأدوات، ويتأكّد من جاهزيّة كلّ تفصيل.' },
+    { icon: '🧹', t: 'نخرج والمكان نظيف',           d: 'لا تتركي وراءنا أيّ بقايا — البالونات تُجمع، الكونفيتي يُكنس، الأدوات تنزل معنا.' },
+  ];
   return (
     <section id="gallery" className="py-16 sm:py-24" style={{ background: T.bg }}>
       <div className="mx-auto max-w-6xl px-5">
@@ -555,29 +623,61 @@ function Gallery() {
             className="text-[10px] uppercase tracking-[3px] font-extrabold mb-2"
             style={{ color: T.primary }}
           >
-            من حفلاتنا
+            وعدنا لكِ
           </div>
           <h2 className="text-3xl sm:text-4xl font-black mb-3" style={{ color: T.ink }}>
-            لحظات من المرح الحقيقي
+            مرح بلا تردّد
           </h2>
           <p className="text-base leading-relaxed" style={{ color: T.inkSoft }}>
-            صور من حفلات نفّذناها — كل ابتسامة هنا من ضيف صغير سعيد.
+            أرقام نفتخر بها · معايير لا نتنازل عنها · فريق يضحك معك من القلب.
           </p>
         </header>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-          {GALLERY_PHOTOS.map((p) => (
+        {/* Big stats row */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-5 mb-8">
+          {stats.map((s) => (
             <div
-              key={p.url}
-              className="rounded-2xl overflow-hidden"
-              style={{ aspectRatio: '1/1', boxShadow: T.shadow }}
+              key={s.small}
+              className="rounded-2xl p-4 sm:p-6 text-center"
+              style={{ background: T.surface, border: `1px solid ${T.border}`, boxShadow: T.shadow }}
             >
-              <img
-                src={p.url}
-                alt={p.alt}
-                className="w-full h-full object-cover transition hover:scale-105"
-              />
+              <div className="text-2xl mb-2" aria-hidden="true">{s.emoji}</div>
+              <div
+                className="font-black mb-1"
+                style={{
+                  fontSize: 'clamp(24px, 4vw, 36px)',
+                  color: T.primaryDeep,
+                  fontFamily: 'var(--font-latin)',
+                  letterSpacing: -1,
+                  lineHeight: 1,
+                }}
+              >
+                {s.big}
+              </div>
+              <div className="text-[11px] sm:text-xs font-bold" style={{ color: T.inkSoft }}>
+                {s.small}
+              </div>
             </div>
+          ))}
+        </div>
+
+        {/* Promise cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {promises.map((p) => (
+            <article
+              key={p.t}
+              className="rounded-3xl p-6 transition hover:-translate-y-1"
+              style={{ background: T.surface, border: `1px solid ${T.border}`, boxShadow: T.shadow }}
+            >
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4"
+                style={{ background: `linear-gradient(135deg, ${T.primary}1f 0%, ${T.accent}1f 100%)` }}
+              >
+                {p.icon}
+              </div>
+              <h3 className="text-base font-extrabold mb-2" style={{ color: T.ink }}>{p.t}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: T.inkSoft }}>{p.d}</p>
+            </article>
           ))}
         </div>
       </div>
