@@ -7,6 +7,7 @@ import {
   LatestMessageCard,
 } from '@/components/LiveNotifications';
 import { BrandMark, BrandWordmark } from '@/components/Brand';
+import { SocialRow } from '@/components/PageShell';
 import { CategoryIcon, type CategoryName, type IconName } from '@/components/CategoryIcon';
 
 export default function HomePage() {
@@ -825,14 +826,18 @@ function SiteFooter() {
           />
         </div>
 
-        <div className="border-t border-[var(--color-line)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex gap-5 text-xs text-[var(--color-ink-faint)]">
-            <Link href="/privacy" className="hover:text-[var(--color-ink-mute)] transition">الخصوصية</Link>
-            <Link href="/terms" className="hover:text-[var(--color-ink-mute)] transition">الشروط</Link>
+        <div className="border-t border-[var(--color-line)] pt-6 flex flex-col gap-5 items-center">
+          <SocialRow />
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
+            <div className="flex gap-5 text-xs text-[var(--color-ink-faint)]">
+              <Link href="/privacy" className="hover:text-[var(--color-ink-mute)] transition">الخصوصية</Link>
+              <Link href="/terms" className="hover:text-[var(--color-ink-mute)] transition">الشروط</Link>
+              <Link href="/brand-kit" className="hover:text-[var(--color-ink-mute)] transition">الهوية البصرية</Link>
+            </div>
+            <p className="text-xs text-[var(--color-ink-faint)]">
+              © {new Date().getFullYear()} دعوتي · صُنع بشغفٍ في الرياض
+            </p>
           </div>
-          <p className="text-xs text-[var(--color-ink-faint)]">
-            © {new Date().getFullYear()} دعوتي · صُنع بشغفٍ في الرياض
-          </p>
         </div>
       </div>
     </footer>

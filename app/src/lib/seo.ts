@@ -177,6 +177,13 @@ export const organizationLd = {
     email: 'hello@da3wati.com',
     availableLanguage: ['Arabic', 'English'],
   },
+  // Social profiles — keep in sync with SOCIAL_LINKS in PageShell.tsx
+  sameAs: [
+    'https://instagram.com/dawati',
+    'https://tiktok.com/@dawati',
+    'https://snapchat.com/add/dawati',
+    'https://x.com/dawati',
+  ],
 };
 
 export const websiteLd = {
