@@ -2,7 +2,9 @@
 
 import { useReducer, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { TIERS, ADD_ONS, formatPrice } from '@/lib/tiers';
+import { TIERS, ADD_ONS } from '@/lib/tiers';
+import { PackageCard } from '@/components/PackageCard';
+import { Price } from '@/components/Riyal';
 import type { Tier } from '@/lib/types';
 
 /**
@@ -419,60 +421,30 @@ export function OrderClient() {
             {/* Tier */}
             <Section number={1} title="اختر باقتك">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {TIERS.map((t) => (
-                  <label key={t.id} className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="tier"
-                      checked={data.tier === t.id}
-                      onChange={() => {
-                        dispatch({ type: 'set', patch: { tier: t.id } });
-                        // strip add-ons that don't apply to new tier
-                        dispatch({
-                          type: 'set',
-                          patch: {
-                            addons: data.addons.filter((id) => {
-                              const a = ADD_ONS.find((x) => x.id === id);
-                              return a?.availableFor.includes(t.id);
-                            }),
-                          },
-                        });
-                      }}
-                      className="sr-only peer"
-                    />
-                    <div
-                      className="p-4 rounded-2xl text-center transition peer-checked:scale-[1.02]"
-                      style={{
-                        background:
-                          data.tier === t.id
-                            ? 'linear-gradient(180deg, rgba(244,208,107,0.20) 0%, rgba(184,138,30,0.10) 100%)'
-                            : 'rgba(20, 14, 39, 0.55)',
-                        border:
-                          data.tier === t.id
-                            ? '2px solid rgba(244, 208, 107, 0.7)'
-                            : '1px solid rgba(184, 138, 30, 0.3)',
-                      }}
-                    >
-                      <div
-                        className="text-gold-grad font-bold mb-1"
-                        style={{ fontFamily: 'var(--font-display)', fontSize: 22 }}
-                      >
-                        {t.name}
-                      </div>
-                      <div
-                        className="text-gold-shim font-bold"
-                        style={{ fontFamily: 'var(--font-display)', fontSize: 26 }}
-                      >
-                        {formatPrice(t.price)}
-                      </div>
-                      <div
-                        className="text-xs mt-1"
-                        style={{ color: 'var(--color-ink-dim)', fontFamily: 'var(--font-ui)' }}
-                      >
-                        تسليم {t.deliveryHours} ساعة
-                      </div>
-                    </div>
-                  </label>
+                {TIERS.map((t, i) => (
+                  <PackageCard
+                    key={t.id}
+                    name={t.name}
+                    price={t.price}
+                    deliveryText={`تسليم ${t.deliveryHours} ساعة`}
+                    variant="selector"
+                    selected={data.tier === t.id}
+                    recommended={!!t.recommended}
+                    index={i}
+                    onSelect={() => {
+                      dispatch({ type: 'set', patch: { tier: t.id } });
+                      // strip add-ons that don't apply to new tier
+                      dispatch({
+                        type: 'set',
+                        patch: {
+                          addons: data.addons.filter((id) => {
+                            const a = ADD_ONS.find((x) => x.id === id);
+                            return a?.availableFor.includes(t.id);
+                          }),
+                        },
+                      });
+                    }}
+                  />
                 ))}
               </div>
             </Section>
@@ -942,10 +914,10 @@ export function OrderClient() {
                               {a.name}
                             </span>
                             <span
-                              className="text-gold-shim font-bold whitespace-nowrap"
+                              className="text-gold-shim font-bold whitespace-nowrap inline-flex items-baseline gap-1"
                               style={{ fontFamily: 'var(--font-display)', fontSize: 18 }}
                             >
-                              + {formatPrice(a.price)}
+                              + <Price amount={a.price} size={16} />
                             </span>
                           </div>
                           <p
@@ -1029,25 +1001,19 @@ export function OrderClient() {
 
               <div className="flex justify-between items-baseline mb-2">
                 <span className="text-sm font-bold text-[var(--color-ink)]">{tier.name}</span>
-                <span className="font-extrabold text-[var(--color-ink)] text-lg">
-                  {formatPrice(tier.price)}
-                </span>
+                <Price amount={tier.price} size={18} color="var(--color-ink)" className="font-extrabold" />
               </div>
 
               {selectedAddons.map((a) => (
                 <div key={a.id} className="flex justify-between items-baseline mb-2 text-sm">
                   <span className="text-[var(--color-ink-mute)]">+ {a.name}</span>
-                  <span className="text-[var(--color-ink-soft)] font-semibold">
-                    {formatPrice(a.price)}
-                  </span>
+                  <Price amount={a.price} size={14} color="var(--color-ink-soft)" className="font-semibold" />
                 </div>
               ))}
 
               <div className="mt-4 pt-4 border-t border-[var(--color-line)] flex justify-between items-baseline">
                 <span className="text-base font-extrabold text-[var(--color-ink)]">الإجمالي</span>
-                <span className="font-black text-2xl text-gradient-gold">
-                  {formatPrice(total)}
-                </span>
+                <Price amount={total} size={22} color="var(--color-gold-3)" className="font-black text-2xl" />
               </div>
 
               <div className="text-[11px] mt-1 text-center text-[var(--color-ink-faint)]">

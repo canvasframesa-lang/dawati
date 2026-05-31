@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { pageMetadata } from '@/lib/seo';
 import { PageShell } from '@/components/PageShell';
+import { PackageCard } from '@/components/PackageCard';
+import { Riyal } from '@/components/Riyal';
 import {
   TIERS,
   ADD_ONS,
@@ -98,145 +100,21 @@ function TierGrid() {
     <section className="relative -mt-12 sm:-mt-16 mb-20">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
         {TIERS.map((tier, i) => (
-          <TierCard key={tier.id} tier={tier} index={i} />
+          <PackageCard
+            key={tier.id}
+            name={tier.name}
+            tagline={tier.tagline}
+            price={tier.price}
+            deliveryText={`تسليم خلال ${tier.deliveryHours} ساعة · شامل الضريبة`}
+            features={tier.features}
+            recommended={!!tier.recommended}
+            ctaHref={`/order?tier=${tier.id}`}
+            ctaLabel={`اطلب باقة ${tier.name} ←`}
+            index={i}
+          />
         ))}
       </div>
     </section>
-  );
-}
-
-function TierCard({ tier, index }: { tier: (typeof TIERS)[number]; index: number }) {
-  const recommended = !!tier.recommended;
-  return (
-    <article
-      className="relative bg-white rounded-3xl flex flex-col overflow-hidden ai-rise"
-      style={{
-        border: recommended ? '1.5px solid #f4d56e' : '1px solid var(--color-line)',
-        boxShadow: recommended
-          ? '0 24px 48px rgba(184, 138, 30, 0.22), 0 4px 12px rgba(15, 15, 30, 0.05)'
-          : '0 12px 32px rgba(15, 15, 30, 0.08)',
-        animationDelay: `${0.05 + index * 0.08}s`,
-      }}
-    >
-      {recommended && (
-        <div
-          className="text-center py-2 text-[11px] font-bold uppercase tracking-[4px]"
-          style={{
-            background: 'linear-gradient(180deg, #f4d56e 0%, #d4a93a 100%)',
-            color: '#2a1505',
-            fontFamily: 'var(--font-latin)',
-          }}
-        >
-          الأكثر طلبًا
-        </div>
-      )}
-
-      <div className="p-6 sm:p-8 flex flex-col flex-1">
-        <h3
-          className="text-center text-[var(--color-ink)] mb-1"
-          style={{ fontSize: 26, fontWeight: 800, letterSpacing: -0.5 }}
-        >
-          {tier.name}
-        </h3>
-
-        <p className="text-center mb-6 text-sm leading-relaxed text-[var(--color-ink-mute)] min-h-[42px]">
-          {tier.tagline}
-        </p>
-
-        {/* Price block */}
-        <div className="text-center mb-1">
-          <div
-            className="inline-flex items-baseline gap-2"
-            dir="ltr"
-            style={{ fontFamily: 'var(--font-latin)' }}
-          >
-            <span
-              className="text-gradient-gold font-black"
-              style={{
-                fontSize: 'clamp(44px, 7vw, 60px)',
-                lineHeight: 1,
-                letterSpacing: -1,
-              }}
-            >
-              {formatPriceNumber(tier.price)}
-            </span>
-            <span className="font-extrabold text-[var(--color-gold-3)]" style={{ fontSize: 26 }}>
-              ﷼
-            </span>
-          </div>
-        </div>
-        <div className="text-center mb-6 text-[11px] text-[var(--color-ink-mute)] uppercase tracking-[3px] font-semibold">
-          تسليم خلال {tier.deliveryHours} ساعة · شامل الضريبة
-        </div>
-
-        <div className="border-t border-[var(--color-line)] mb-5" />
-
-        <ul className="space-y-2.5 mb-7 flex-1 text-sm">
-          {tier.features.map((f) => {
-            const isHeader = f.startsWith('كل ما في');
-            return (
-              <li
-                key={f}
-                className="flex gap-2.5 items-start leading-relaxed"
-                style={
-                  isHeader
-                    ? { color: 'var(--color-gold-4)', fontWeight: 700, marginBottom: 4 }
-                    : { color: 'var(--color-ink-soft)' }
-                }
-              >
-                {isHeader ? (
-                  <span
-                    className="shrink-0 mt-0.5 text-[var(--color-gold-3)]"
-                    aria-hidden="true"
-                  >
-                    ⇡
-                  </span>
-                ) : (
-                  <CheckIcon />
-                )}
-                <span>{f}</span>
-              </li>
-            );
-          })}
-        </ul>
-
-        <Link
-          href={`/order?tier=${tier.id}`}
-          className={recommended ? 'btn-gold' : 'btn-ghost'}
-          style={{ width: '100%' }}
-        >
-          اطلب باقة {tier.name} ←
-        </Link>
-      </div>
-    </article>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
-      className="shrink-0 mt-0.5"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="pchk" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#f4d56e" />
-          <stop offset="100%" stopColor="#8a6817" />
-        </linearGradient>
-      </defs>
-      <circle cx="9" cy="9" r="8" fill="url(#pchk)" opacity="0.18" />
-      <path
-        d="M5 9.2 L8 12 L13.5 6"
-        fill="none"
-        stroke="url(#pchk)"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }
 
@@ -891,13 +769,13 @@ function AddOnRow({ addon }: { addon: AddOn }) {
         </h4>
         {addon.price > 0 ? (
           <div
-            className="text-base font-extrabold text-[var(--color-ink)] whitespace-nowrap shrink-0"
+            className="inline-flex items-baseline gap-1.5 text-base font-extrabold text-[var(--color-ink)] whitespace-nowrap shrink-0"
             dir="ltr"
             style={{ fontFamily: 'var(--font-latin)' }}
           >
-            <span className="text-[var(--color-gold-3)] ml-1">+</span>
-            {formatPriceNumber(addon.price)}{' '}
-            <span className="text-[var(--color-gold-3)] text-sm">﷼</span>
+            <span className="text-[var(--color-gold-3)]">+</span>
+            <span>{formatPriceNumber(addon.price)}</span>
+            <Riyal size={16} color="var(--color-gold-3)" />
           </div>
         ) : (
           <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-gold-3)] bg-[var(--color-gold-bg)] px-2 py-1 rounded-full shrink-0">

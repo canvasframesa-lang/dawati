@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Tajawal, Amiri, Aref_Ruqaa, Reem_Kufi, El_Messiri, Cairo, Inter } from 'next/font/google';
 import { baseMetadata, organizationLd, websiteLd } from '@/lib/seo';
+import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 import './globals.css';
 
 /**
@@ -91,6 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <div className="page-backdrop" aria-hidden="true" />
         {children}
+        <WhatsAppFloat />
       </body>
     </html>
   );
