@@ -30,8 +30,12 @@ export default function PricingPage() {
       <PricingHero />
       <main className="mx-auto max-w-6xl px-5">
         <TierGrid />
+        <GuestExperience />
+        <ComparisonTable />
         <TrustBar />
+        <HowItWorks />
         <AddOnsSection />
+        <PricingFaq />
         <FinalCta />
       </main>
     </PageShell>
@@ -236,13 +240,477 @@ function CheckIcon() {
   );
 }
 
+/* ============ Guest experience showcase ============ */
+
+function GuestExperience() {
+  return (
+    <section className="mb-24">
+      <div className="text-center mb-10 max-w-2xl mx-auto">
+        <div
+          className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full"
+          style={{
+            background: 'var(--color-gold-bg)',
+            border: '1px solid rgba(212, 169, 58, 0.30)',
+          }}
+        >
+          <span className="text-[var(--color-gold-3)] text-sm">✦</span>
+          <span className="text-[var(--color-gold-4)] text-[11px] uppercase tracking-[3px] font-bold">
+            تجربة الضيف
+          </span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-3">
+          ما يراه ضيوفك بالضبط
+        </h2>
+        <p className="text-[var(--color-ink-mute)] leading-relaxed">
+          ليست بطاقة دعوة فقط — تجربة كاملة على جوّال الضيف، بأزرار واضحة وخيارات تليق بمناسبتك.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <PreviewRsvp />
+        <PreviewMeal />
+        <PreviewGuestCount />
+        <PreviewMaps />
+        <PreviewDietary />
+        <PreviewPhotoPolicy />
+      </div>
+    </section>
+  );
+}
+
+function PreviewShell({
+  title,
+  caption,
+  children,
+}: {
+  title: string;
+  caption: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className="bg-white rounded-3xl p-6 border border-[var(--color-line)] flex flex-col hover:border-[var(--color-gold-2)] transition-colors"
+      style={{ boxShadow: 'var(--shadow-sm)' }}
+    >
+      <div className="text-[10px] uppercase tracking-[3px] font-bold text-[var(--color-gold-3)] mb-1">
+        {title}
+      </div>
+      <div className="my-5 flex-1 flex items-center justify-center">{children}</div>
+      <p className="text-xs leading-relaxed text-[var(--color-ink-mute)] text-center">{caption}</p>
+    </div>
+  );
+}
+
+function PreviewRsvp() {
+  return (
+    <PreviewShell
+      title="تأكيد الحضور"
+      caption="زرّان واضحان — والإشعار يصلك لحظيًّا في لوحتك"
+    >
+      <div className="w-full max-w-[240px] flex flex-col gap-2.5">
+        <button
+          type="button"
+          tabIndex={-1}
+          className="w-full py-3 rounded-2xl text-sm font-extrabold"
+          style={{
+            background: 'linear-gradient(180deg, #f4d56e 0%, #d4a93a 100%)',
+            color: '#2a1505',
+            boxShadow: '0 6px 16px rgba(184, 138, 30, 0.28)',
+            border: '1px solid rgba(138, 104, 23, 0.20)',
+          }}
+        >
+          سأحضر بفخر ✦
+        </button>
+        <button
+          type="button"
+          tabIndex={-1}
+          className="w-full py-3 rounded-2xl text-sm font-bold"
+          style={{
+            background: '#ffffff',
+            color: 'var(--color-ink-soft)',
+            border: '1.5px solid var(--color-line)',
+          }}
+        >
+          أعتذر مع رسالة
+        </button>
+      </div>
+    </PreviewShell>
+  );
+}
+
+function PreviewMeal() {
+  const meals: { label: string; selected?: boolean }[] = [
+    { label: 'لحم' },
+    { label: 'دجاج', selected: true },
+    { label: 'سمك' },
+    { label: 'نباتي' },
+  ];
+  return (
+    <PreviewShell
+      title="تفضيل الوجبة"
+      caption="كل ضيف يختار وجبته — تراها مجمّعة لمنسّق الحفل"
+    >
+      <div className="flex flex-wrap gap-2 justify-center max-w-[260px]">
+        {meals.map((m) => (
+          <span
+            key={m.label}
+            className="px-4 py-2 rounded-full text-sm font-bold"
+            style={
+              m.selected
+                ? {
+                    background: 'linear-gradient(135deg, #f4d56e 0%, #d4a93a 100%)',
+                    color: '#2a1505',
+                    boxShadow: '0 4px 10px rgba(184, 138, 30, 0.25)',
+                  }
+                : {
+                    background: '#ffffff',
+                    color: 'var(--color-ink-soft)',
+                    border: '1.5px solid var(--color-line)',
+                  }
+            }
+          >
+            {m.label}
+          </span>
+        ))}
+      </div>
+    </PreviewShell>
+  );
+}
+
+function PreviewGuestCount() {
+  const Row = ({ label, value }: { label: string; value: number }) => (
+    <div className="flex items-center justify-between gap-3 w-full">
+      <span className="text-sm font-bold text-[var(--color-ink-soft)]">{label}</span>
+      <div
+        className="flex items-center rounded-full overflow-hidden"
+        style={{ border: '1.5px solid var(--color-line)' }}
+      >
+        <Stepper symbol="−" />
+        <span
+          className="w-10 text-center text-sm font-extrabold text-[var(--color-ink)]"
+          style={{ fontFamily: 'var(--font-latin)' }}
+        >
+          {value}
+        </span>
+        <Stepper symbol="+" />
+      </div>
+    </div>
+  );
+  return (
+    <PreviewShell
+      title="عدد المرافقين"
+      caption="حساب دقيق للوجبات وخدمات الأطفال"
+    >
+      <div className="w-full max-w-[240px] flex flex-col gap-3">
+        <Row label="البالغون" value={2} />
+        <Row label="الأطفال" value={1} />
+      </div>
+    </PreviewShell>
+  );
+}
+
+function Stepper({ symbol }: { symbol: string }) {
+  return (
+    <span
+      className="w-9 h-9 flex items-center justify-center text-base font-extrabold text-[var(--color-gold-4)]"
+      style={{ background: 'var(--color-gold-bg)' }}
+    >
+      {symbol}
+    </span>
+  );
+}
+
+function PreviewMaps() {
+  const apps = [
+    { label: 'Google Maps' },
+    { label: 'Apple Maps' },
+    { label: 'Waze' },
+  ];
+  return (
+    <PreviewShell
+      title="الموقع الجغرافي"
+      caption="اختصار لموقع القاعة في أيّ تطبيق خرائط"
+    >
+      <div className="flex flex-col gap-2 w-full max-w-[240px]">
+        {apps.map((a) => (
+          <div
+            key={a.label}
+            className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white"
+            style={{ border: '1.5px solid var(--color-line)' }}
+          >
+            <span
+              className="w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{
+                background: 'var(--color-gold-bg)',
+                color: 'var(--color-gold-4)',
+              }}
+              aria-hidden="true"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path
+                  d="M8 14s5-4.5 5-8.5a5 5 0 1 0-10 0C3 9.5 8 14 8 14Z"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinejoin="round"
+                />
+                <circle cx="8" cy="5.5" r="1.7" fill="currentColor" />
+              </svg>
+            </span>
+            <span
+              className="text-sm font-bold text-[var(--color-ink-soft)]"
+              style={{ fontFamily: 'var(--font-latin)' }}
+              dir="ltr"
+            >
+              {a.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </PreviewShell>
+  );
+}
+
+function PreviewDietary() {
+  const chips: { label: string; on?: boolean }[] = [
+    { label: 'مكسرات', on: true },
+    { label: 'غلوتين' },
+    { label: 'ألبان', on: true },
+    { label: 'مأكولات بحرية' },
+  ];
+  return (
+    <PreviewShell
+      title="الحساسيات الغذائية"
+      caption="تنبيهات للمطبخ — يتجنّب فريق القاعة أيّ مفاجآت"
+    >
+      <div className="flex flex-wrap gap-2 justify-center max-w-[260px]">
+        {chips.map((c) => (
+          <span
+            key={c.label}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
+            style={
+              c.on
+                ? {
+                    background: 'var(--color-gold-bg)',
+                    color: 'var(--color-gold-4)',
+                    border: '1.5px solid var(--color-gold-2)',
+                  }
+                : {
+                    background: '#ffffff',
+                    color: 'var(--color-ink-mute)',
+                    border: '1.5px solid var(--color-line)',
+                  }
+            }
+          >
+            {c.on && <span aria-hidden="true">✓</span>}
+            {c.label}
+          </span>
+        ))}
+      </div>
+    </PreviewShell>
+  );
+}
+
+function PreviewPhotoPolicy() {
+  const policies: { label: string; tone: 'on' | 'off' | 'mid' }[] = [
+    { label: 'مسموح', tone: 'off' },
+    { label: 'منطقة مخصّصة', tone: 'on' },
+    { label: 'ممنوع', tone: 'off' },
+  ];
+  return (
+    <PreviewShell
+      title="سياسة التصوير"
+      caption="وضوح لضيوفك من البداية — لا حرج ولا التباس"
+    >
+      <div className="flex flex-col gap-2 w-full max-w-[240px]">
+        {policies.map((p) => (
+          <div
+            key={p.label}
+            className="flex items-center justify-between px-4 py-2.5 rounded-2xl"
+            style={
+              p.tone === 'on'
+                ? {
+                    background: 'linear-gradient(135deg, rgba(244,213,110,0.18) 0%, rgba(212,169,58,0.10) 100%)',
+                    border: '1.5px solid var(--color-gold-2)',
+                  }
+                : {
+                    background: '#ffffff',
+                    border: '1.5px solid var(--color-line)',
+                  }
+            }
+          >
+            <span
+              className={
+                p.tone === 'on'
+                  ? 'text-sm font-extrabold text-[var(--color-gold-4)]'
+                  : 'text-sm font-bold text-[var(--color-ink-mute)]'
+              }
+            >
+              {p.label}
+            </span>
+            {p.tone === 'on' && (
+              <span
+                className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black"
+                style={{
+                  background: 'linear-gradient(135deg, #f4d56e 0%, #d4a93a 100%)',
+                  color: '#2a1505',
+                }}
+                aria-label="مختارة"
+              >
+                ✓
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+    </PreviewShell>
+  );
+}
+
+/* ============ Comparison table ============ */
+
+type CompareValue = string | boolean;
+
+function ComparisonTable() {
+  const tierLabels = ['المُمَيَّزَة', 'الفاخِرَة', 'المَلَكِيَّة'] as const;
+  const recommendedIndex = 1;
+
+  const rows: { label: string; values: [CompareValue, CompareValue, CompareValue] }[] = [
+    { label: 'نمط التصميم',              values: ['احترافي جاهز', 'مخصّص بألوانك', 'هويّة بصرية كاملة'] },
+    { label: 'وقت التسليم',              values: ['٤٨ ساعة', '٢٤ ساعة', '١٢ ساعة'] },
+    { label: 'صلاحية الرابط',            values: ['٩٠ يومًا', '٦ أشهر', 'سنتان + أرشيف'] },
+    { label: 'التعديلات المجانية',        values: ['تعديل واحد', '٣ تعديلات', 'غير محدودة'] },
+    { label: 'لغات الدعوة',               values: ['عربي', 'عربي + إنجليزي', 'حتى ٤ لغات'] },
+    { label: 'باركود فردي لكل ضيف',       values: [false, true, true] },
+    { label: 'تفضيلات طعام الضيوف',       values: [false, true, true] },
+    { label: 'رسالة واتساب باسم الضيف',   values: [false, true, true] },
+    { label: 'شعار / مونوغرام مخصّص',    values: [false, false, true] },
+    { label: 'شارات دخول للطباعة',        values: [false, false, true] },
+    { label: 'صفحة قائمة هدايا',          values: [false, false, true] },
+    { label: 'مدير حساب مخصّص',           values: [false, false, true] },
+  ];
+
+  return (
+    <section className="mb-24">
+      <div className="text-center mb-10 max-w-2xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-3">
+          مقارنة سريعة بين الباقات
+        </h2>
+        <p className="text-[var(--color-ink-mute)] leading-relaxed">
+          أهمّ الفروقات التي تساعدك على الاختيار — وكل ما عداها مذكور في تفاصيل كل باقة في الأعلى.
+        </p>
+      </div>
+
+      <div
+        className="rounded-3xl overflow-hidden bg-white border border-[var(--color-line)]"
+        style={{ boxShadow: 'var(--shadow-sm)' }}
+      >
+        <div className="overflow-x-auto">
+          <table
+            className="w-full text-sm"
+            style={{ minWidth: 640, borderCollapse: 'collapse' }}
+          >
+            <thead>
+              <tr style={{ background: 'var(--color-bg-alt)' }}>
+                <th className="text-right p-4 font-bold text-[var(--color-ink-mute)] text-xs uppercase tracking-widest">
+                  الميزة
+                </th>
+                {tierLabels.map((name, i) => (
+                  <th
+                    key={name}
+                    className="p-4 text-center font-extrabold text-base"
+                    style={
+                      i === recommendedIndex
+                        ? {
+                            background: 'var(--color-gold-bg)',
+                            color: 'var(--color-gold-4)',
+                          }
+                        : { color: 'var(--color-ink)' }
+                    }
+                  >
+                    {name}
+                    {i === recommendedIndex && (
+                      <div className="text-[9px] uppercase tracking-[3px] text-[var(--color-gold-3)] font-bold mt-1">
+                        الأكثر طلبًا
+                      </div>
+                    )}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr key={row.label} style={{ borderTop: '1px solid var(--color-line-soft)' }}>
+                  <td className="text-right p-4 font-semibold text-[var(--color-ink-soft)] whitespace-nowrap">
+                    {row.label}
+                  </td>
+                  {tierLabels.map((tier, ci) => {
+                    const v = row.values[ci];
+                    return (
+                      <td
+                        key={tier}
+                        className="p-4 text-center text-[var(--color-ink-soft)]"
+                        style={
+                          ci === recommendedIndex
+                            ? { background: 'rgba(244, 213, 110, 0.06)' }
+                            : undefined
+                        }
+                      >
+                        {typeof v === 'boolean' ? (
+                          v ? <ComparisonCheck /> : <ComparisonDash />
+                        ) : (
+                          <span className="text-sm font-semibold">{v}</span>
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ComparisonCheck() {
+  return (
+    <span
+      className="inline-flex items-center justify-center w-7 h-7 rounded-full"
+      style={{
+        background: 'linear-gradient(135deg, #f4d56e 0%, #d4a93a 100%)',
+        boxShadow: '0 2px 6px rgba(184, 138, 30, 0.25)',
+      }}
+      aria-label="مشمول"
+    >
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path
+          d="M3 7.2 L6 10 L11 4.5"
+          stroke="#2a1505"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
+function ComparisonDash() {
+  return (
+    <span className="inline-block text-[var(--color-ink-faint)] text-xl" aria-label="غير مشمول">
+      —
+    </span>
+  );
+}
+
 /* ============ Trust bar ============ */
 
 function TrustBar() {
   const items = [
     { t: 'بوّابة دفع آمنة معتمدة',  d: 'مدى · Apple Pay · فيزا · ماستركارد' },
     { t: 'دفعة واحدة، لا اشتراك',     d: 'تدفع مرّة وتمتلك كل ما في الباقة' },
-    { t: 'استرداد قبل بدء التصميم',  d: '١٠٠٪ — قبل ما يلمس فريقنا التصميم' },
+    { t: 'استرداد قبل بدء التصميم',  d: 'كاملة ١٠٠٪ — بلا أيّ شروط أو خصومات' },
     { t: 'فاتورة ضريبية رسمية',      d: 'تصلك بالبريد خلال يوم من الدفع' },
   ];
   return (
@@ -259,6 +727,84 @@ function TrustBar() {
           <div key={it.t} className="text-center sm:text-right">
             <div className="text-sm font-extrabold text-[var(--color-ink)] mb-1">{it.t}</div>
             <div className="text-xs text-[var(--color-ink-mute)] leading-relaxed">{it.d}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ============ How it works ============ */
+
+function HowItWorks() {
+  const steps = [
+    {
+      n: '١',
+      title: 'اطلب وادفع',
+      time: 'دقيقتان',
+      desc: 'املأ نموذج طلبك بتفاصيل المناسبة، اختر باقتك، وادفع دفعة واحدة آمنة عبر مدى أو Apple Pay.',
+    },
+    {
+      n: '٢',
+      title: 'فريقنا يصمّم',
+      time: '١٢ – ٤٨ ساعة',
+      desc: 'مصمّم محترف يصنع دعوتك حسب تفاصيلك، ويعرضها عليك للاعتماد قبل الإرسال للضيوف.',
+    },
+    {
+      n: '٣',
+      title: 'شارك وتابع',
+      time: 'فوريًّا',
+      desc: 'رابط فاخر جاهز للواتساب، ولوحة تحكم لحظية تعرض لك الحاضرين والمعتذرين وتفضيلاتهم.',
+    },
+  ];
+
+  return (
+    <section className="mb-24">
+      <div className="text-center mb-10 max-w-2xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-3">
+          كيف تعمل دعوتي؟
+        </h2>
+        <p className="text-[var(--color-ink-mute)] leading-relaxed">
+          ثلاث خطوات بسيطة — تطلب اليوم، يصلك تصميمك جاهزًا للمشاركة.
+        </p>
+      </div>
+
+      <div className="relative grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+        <div
+          aria-hidden="true"
+          className="hidden md:block absolute top-12 right-[16.67%] left-[16.67%] h-px"
+          style={{
+            background:
+              'linear-gradient(90deg, transparent 0%, var(--color-gold-2) 50%, transparent 100%)',
+            opacity: 0.35,
+          }}
+        />
+
+        {steps.map((s) => (
+          <div
+            key={s.title}
+            className="relative bg-white rounded-3xl p-6 sm:p-7 text-center"
+            style={{
+              border: '1px solid var(--color-line)',
+              boxShadow: 'var(--shadow-sm)',
+            }}
+          >
+            <div
+              className="relative mx-auto mb-5 w-14 h-14 rounded-full flex items-center justify-center text-2xl font-black"
+              style={{
+                background: 'linear-gradient(135deg, #f4d56e 0%, #d4a93a 100%)',
+                color: '#2a1505',
+                boxShadow: '0 6px 18px rgba(184, 138, 30, 0.30)',
+              }}
+            >
+              {s.n}
+            </div>
+
+            <h3 className="text-lg font-extrabold text-[var(--color-ink)] mb-1">{s.title}</h3>
+            <div className="text-[10px] uppercase tracking-[3px] font-bold text-[var(--color-gold-3)] mb-3">
+              {s.time}
+            </div>
+            <p className="text-sm leading-relaxed text-[var(--color-ink-mute)]">{s.desc}</p>
           </div>
         ))}
       </div>
@@ -372,6 +918,70 @@ function AddOnRow({ addon }: { addon: AddOn }) {
         ))}
       </div>
     </div>
+  );
+}
+
+/* ============ Pricing FAQ ============ */
+
+function PricingFaq() {
+  const items: { q: string; a: string }[] = [
+    {
+      q: 'هل أحتاج للدفع أكثر من مرّة؟',
+      a: 'لا، دفعة واحدة فقط — لا اشتراك ولا تجديد. السعر شامل ضريبة القيمة المضافة ١٥٪ وكلّ ما تتضمّنه باقتك.',
+    },
+    {
+      q: 'هل يمكنني الترقية لباقة أعلى لاحقًا؟',
+      a: 'نعم. تدفع الفرق فقط بين الباقتين، ونضيف ميزات الباقة الأعلى لدعوتك خلال نفس مدّة تسليم الباقة الجديدة.',
+    },
+    {
+      q: 'هل المطبوعات الفيزيائية مشمولة في السعر؟',
+      a: 'لا. كل الباقات رقمية بالكامل. المطبوعات (بطاقات ورقية، شارات VIP، قوائم طعام، بطاقات شكر) إضافات مستقلّة تختارها من قسم الإضافات أعلاه، وتُحسب حسب الكمية والمقاس وجودة الطباعة.',
+    },
+    {
+      q: 'ماذا لو لم أعجب بالتصميم؟',
+      a: 'استرداد كامل ١٠٠٪ قبل بدء التصميم. بعد البدء، يحقّ لك تعديلات مجانية حسب الباقة (واحدة في المميّزة، ٣ في الفاخرة، غير محدودة في الملكية) — وفريقنا يعدّل حتّى تصل للنتيجة التي تتخيّلها.',
+    },
+  ];
+
+  return (
+    <section className="mb-24">
+      <div className="text-center mb-10 max-w-2xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)] mb-3">
+          أسئلة قبل الطلب
+        </h2>
+        <p className="text-[var(--color-ink-mute)] leading-relaxed">
+          أهمّ الأسئلة في لحظة الشراء — والقائمة الكاملة في{' '}
+          <Link
+            href="/faq"
+            className="text-[var(--color-gold-3)] font-semibold underline underline-offset-4 hover:text-[var(--color-gold-4)] transition-colors"
+          >
+            صفحة الأسئلة الشائعة
+          </Link>
+          .
+        </p>
+      </div>
+
+      <div className="max-w-3xl mx-auto space-y-3">
+        {items.map(({ q, a }) => (
+          <details
+            key={q}
+            className="group rounded-2xl p-5 bg-white border border-[var(--color-line)] hover:border-[var(--color-gold-2)] cursor-pointer transition"
+            style={{ boxShadow: 'var(--shadow-xs)' }}
+          >
+            <summary className="flex items-center justify-between gap-3 list-none text-sm sm:text-base font-bold text-[var(--color-ink)]">
+              <span className="flex-1 min-w-0 break-words leading-snug">{q}</span>
+              <span
+                className="text-2xl shrink-0 transition-transform group-open:rotate-45 text-[var(--color-gold-3)]"
+                aria-hidden="true"
+              >
+                +
+              </span>
+            </summary>
+            <p className="mt-4 leading-relaxed text-[var(--color-ink-soft)] text-sm">{a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
   );
 }
 

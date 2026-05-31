@@ -20,7 +20,7 @@ export default function ContactPage() {
         <Method
           title="واتساب"
           subtitle="الأسرع — نردّ خلال ٣٠ دقيقة في ساعات العمل"
-          href="https://wa.me/966500000000"
+          href={`https://wa.me/966550047481?text=${encodeURIComponent('السلام عليكم، عندي استفسار عن دعوتي')}`}
           cta="افتح واتساب"
           icon="💬"
         />
