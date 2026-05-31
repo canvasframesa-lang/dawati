@@ -56,6 +56,8 @@ function SiteFooter() {
           <FooterLink href="/contact">تواصل</FooterLink>
         </div>
 
+        <SisterServicesRow />
+
         <SocialRow />
 
         <p className="text-xs text-[var(--color-ink-faint)] text-center mt-6">
@@ -150,6 +152,52 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
     <Link href={href} className="text-[var(--color-ink-mute)] hover:text-[var(--color-ink)] transition">
       {children}
     </Link>
+  );
+}
+
+/* Sister-service callouts. Small + tasteful — no pressure to bundle. */
+function SisterServicesRow() {
+  return (
+    <div className="mt-6 mb-6 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl mx-auto">
+      <Link
+        href="/marah"
+        className="group flex items-center gap-3 p-4 rounded-2xl bg-white border border-[var(--color-line)] hover:border-[var(--color-gold-2)] transition"
+      >
+        <span
+          aria-hidden="true"
+          className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+          style={{ background: 'linear-gradient(135deg, #ff7a3c 0%, #ffd400 100%)', color: '#ffffff' }}
+        >
+          🎉
+        </span>
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-extrabold text-[var(--color-ink)]">مرح دعوتي</div>
+          <div className="text-[11px] text-[var(--color-ink-mute)] leading-tight">
+            مهرّجين ورسم على الوجه وفقرات أطفال
+          </div>
+        </div>
+        <span className="text-[var(--color-gold-3)] text-xs font-bold group-hover:translate-x-[-2px] transition">←</span>
+      </Link>
+      <Link
+        href="/tanzeem"
+        className="group flex items-center gap-3 p-4 rounded-2xl bg-white border border-[var(--color-line)] hover:border-[var(--color-gold-2)] transition"
+      >
+        <span
+          aria-hidden="true"
+          className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+          style={{ background: '#0e1d2e', color: '#f4d56e', border: '1px solid #c9a23d' }}
+        >
+          ◆
+        </span>
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-extrabold text-[var(--color-ink)]">تنظيم دعوتي</div>
+          <div className="text-[11px] text-[var(--color-ink-mute)] leading-tight">
+            مشرفي قاعة وباركود وتنسيق ضيافة
+          </div>
+        </div>
+        <span className="text-[var(--color-gold-3)] text-xs font-bold group-hover:translate-x-[-2px] transition">←</span>
+      </Link>
+    </div>
   );
 }
 

@@ -130,12 +130,8 @@ export function PackageCard({
   const showHighlight = recommended || selected;
 
   const cardStyle: CSSProperties = {
-    border: showHighlight
-      ? `1.5px solid ${theme.selectedBorder}`
-      : '1px solid var(--color-line)',
-    boxShadow: showHighlight
-      ? theme.recommendedShadow
-      : '0 12px 32px rgba(15, 15, 30, 0.08)',
+    border: showHighlight ? `1.5px solid ${theme.selectedBorder}` : '1px solid var(--color-line)',
+    boxShadow: showHighlight ? theme.recommendedShadow : '0 12px 32px rgba(15, 15, 30, 0.08)',
     background: selected ? theme.selectedBg : '#ffffff',
     animationDelay: `${0.05 + index * 0.08}s`,
   };
@@ -206,7 +202,11 @@ export function PackageCard({
                     }
                   >
                     {isHeader ? (
-                      <span className="shrink-0 mt-0.5" style={{ color: theme.accentDeep }} aria-hidden="true">
+                      <span
+                        className="shrink-0 mt-0.5"
+                        style={{ color: theme.accentDeep }}
+                        aria-hidden="true"
+                      >
                         ⇡
                       </span>
                     ) : (

@@ -145,6 +145,8 @@ const OG_BY_PATH: Record<string, string> = {
   '/brand-kit':       '/og/brand-kit.png',
   '/dashboard-demo':  '/og/dashboard-demo.png',
   '/preview':         '/og/preview.png',
+  '/marah':           '/og/marah.png',
+  '/tanzeem':         '/og/tanzeem.png',
 };
 
 function ogImageFor(path: string): string {

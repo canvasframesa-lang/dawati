@@ -44,6 +44,8 @@ const ROUTES = [
   { slug: 'brand-kit',       eyebrow: 'Brand Kit',     title: 'Logo. Palette. Typography.',     subtitle: 'Ready-to-download brand assets for press and partners.' },
   { slug: 'dashboard-demo',  eyebrow: 'Host Dashboard', title: 'Every Guest. Every Choice.',    subtitle: 'Live RSVPs, meal prefs, barcode check-in, one-click exports.' },
   { slug: 'preview',         eyebrow: 'Live Preview',  title: 'Type Your Names. See Your Card.', subtitle: 'Interactive sandbox — six styles, your details, instant render.' },
+  { slug: 'marah',           eyebrow: 'Marah · Dawati', title: 'Kids Entertainment. Real Joy.',   subtitle: 'Clowns, face painting, characters, balloons — packages from 1,490 ﷼.' },
+  { slug: 'tanzeem',         eyebrow: 'Tanzeem · Dawati', title: 'Your Event, Professionally Run.', subtitle: 'Hall supervisors, QR check-in, hospitality, badges — packages from 1,990 ﷼.' },
 ];
 
 /* ============ SVG template ============ */

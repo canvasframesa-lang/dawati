@@ -826,6 +826,48 @@ function SiteFooter() {
           />
         </div>
 
+        {/* Sister services — discoverable, not pushy */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+          <Link
+            href="/marah"
+            className="group flex items-center gap-3 p-4 rounded-2xl bg-white border border-[var(--color-line)] hover:border-[var(--color-gold-2)] transition"
+          >
+            <span
+              aria-hidden="true"
+              className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+              style={{ background: 'linear-gradient(135deg, #ff7a3c 0%, #ffd400 100%)', color: '#ffffff' }}
+            >
+              🎉
+            </span>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-extrabold text-[var(--color-ink)]">مرح دعوتي</div>
+              <div className="text-[11px] text-[var(--color-ink-mute)] leading-tight">
+                مهرّجين ورسم على الوجه وفقرات أطفال
+              </div>
+            </div>
+            <span className="text-[var(--color-gold-3)] text-xs font-bold">←</span>
+          </Link>
+          <Link
+            href="/tanzeem"
+            className="group flex items-center gap-3 p-4 rounded-2xl bg-white border border-[var(--color-line)] hover:border-[var(--color-gold-2)] transition"
+          >
+            <span
+              aria-hidden="true"
+              className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+              style={{ background: '#0e1d2e', color: '#f4d56e', border: '1px solid #c9a23d' }}
+            >
+              ◆
+            </span>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-extrabold text-[var(--color-ink)]">تنظيم دعوتي</div>
+              <div className="text-[11px] text-[var(--color-ink-mute)] leading-tight">
+                مشرفي قاعة وباركود وتنسيق ضيافة
+              </div>
+            </div>
+            <span className="text-[var(--color-gold-3)] text-xs font-bold">←</span>
+          </Link>
+        </div>
+
         <div className="border-t border-[var(--color-line)] pt-6 flex flex-col gap-5 items-center">
           <SocialRow />
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full">

@@ -27,6 +27,10 @@ const STATIC_PAGES: Entry[] = [
   { path: '/how-it-works',   changeFrequency: 'monthly', priority: 0.7 },
   { path: '/faq',            changeFrequency: 'monthly', priority: 0.6 },
   { path: '/contact',        changeFrequency: 'yearly',  priority: 0.5 },
+  { path: '/marah',          changeFrequency: 'monthly', priority: 0.7 },
+  { path: '/tanzeem',        changeFrequency: 'monthly', priority: 0.7 },
+  { path: '/dashboard-demo', changeFrequency: 'monthly', priority: 0.5 },
+  { path: '/brand-kit',      changeFrequency: 'yearly',  priority: 0.3 },
   { path: '/privacy',        changeFrequency: 'yearly',  priority: 0.3 },
   { path: '/terms',          changeFrequency: 'yearly',  priority: 0.3 },
 ];
