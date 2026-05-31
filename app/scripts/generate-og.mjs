@@ -36,7 +36,7 @@ const OUT_DIR = resolve(__dirname, '..', 'public', 'og');
 /** @type {OgEntry[]} */
 const ROUTES = [
   { slug: 'default',         eyebrow: 'Saudi Arabia', title: 'Luxury Arabic E-Invitations',  subtitle: 'Designed for you. Delivered to WhatsApp. Confirmed in real time.' },
-  { slug: 'pricing',         eyebrow: 'Pricing',       title: 'Three Tiers. One-Time Payment.', subtitle: 'From 700 to 2,000 SAR · 15% VAT included · no subscription.' },
+  { slug: 'pricing',         eyebrow: 'Pricing',       title: 'Three Tiers. One-Time Payment.', subtitle: 'From 690 to 1,990 SAR · 15% VAT included · no subscription.' },
   { slug: 'examples',        eyebrow: 'Examples',      title: 'Six House Styles. Six Voices.',  subtitle: 'Royal · Modern · Andalusian · Manuscript · Botanical · Kufic.' },
   { slug: 'faq',             eyebrow: 'FAQ',           title: 'Everything You Need to Know.',   subtitle: 'Pricing, delivery, design, revisions, privacy — in plain Arabic.' },
   { slug: 'contact',         eyebrow: 'Contact',       title: 'Talk to the Team.',              subtitle: 'WhatsApp · Email · Order form — we reply within 30 minutes.' },

@@ -16,7 +16,7 @@ export const TIERS: TierDef[] = [
     id: 'mumayyaza',
     name: 'المُمَيَّزَة',
     tagline: 'دعوة فاخرة جاهزة — يصمّمها فريقنا حسب تفاصيلك',
-    price: 700,
+    price: 690,
     currency: 'SAR',
     deliveryHours: 48,
     features: [
@@ -39,7 +39,7 @@ export const TIERS: TierDef[] = [
     id: 'fakhira',
     name: 'الفاخِرَة',
     tagline: 'الأكثر طلبًا — تصميم مخصّص + باركود + استعلامات الضيوف',
-    price: 1200,
+    price: 1190,
     currency: 'SAR',
     recommended: true,
     deliveryHours: 24,
@@ -67,7 +67,7 @@ export const TIERS: TierDef[] = [
     id: 'malakiyya',
     name: 'المَلَكِيَّة',
     tagline: 'الدعوة تصبح هويّة بصرية وتجربة متكاملة لمناسبتك',
-    price: 2000,
+    price: 1990,
     currency: 'SAR',
     deliveryHours: 12,
     features: [

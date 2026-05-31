@@ -223,8 +223,8 @@ export const serviceLd = {
   serviceType: 'بطاقات دعوة إلكترونية',
   offers: {
     '@type': 'AggregateOffer',
-    lowPrice: '700',
-    highPrice: '2000',
+    lowPrice: '690',
+    highPrice: '1990',
     priceCurrency: 'SAR',
     offerCount: '3',
   },
