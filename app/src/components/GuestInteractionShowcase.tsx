@@ -19,7 +19,6 @@
  */
 
 import type { SampleStyle } from '@/components/SampleCardTile';
-import { STYLE_DETAILS } from '@/lib/style-details';
 import type { CSSProperties, ReactNode } from 'react';
 
 /* ============ Per-style theme map =============================== */
@@ -210,11 +209,63 @@ const THEMES: Record<SampleStyle, StyleTheme> = {
   },
 };
 
+/* ============ Per-style notification scripts ===================== */
+
+interface Notif {
+  title: string;
+  body: string;
+}
+
+/**
+ * Each style's preview gets its own four-notification script — names and
+ * tone tuned to the occasion (wedding vs engagement vs aqiqa vs women's
+ * reception vs graduation). Keeps the showcase feeling authentic to the
+ * style's character, not a generic copy-paste.
+ */
+const NOTIFICATIONS: Record<SampleStyle, Notif[]> = {
+  'royal-cosmos': [
+    { title: 'تأكيد حضور', body: 'د. ناصر الراجحي أكّد حضوره' },
+    { title: 'تأكيد عائلة', body: 'آل الفوزان · ٥ مقاعد للعائلة' },
+    { title: 'تفضيل وجبة', body: 'عبدالعزيز التويجري اختار: لحم' },
+    { title: 'رسالة جديدة', body: 'أم عبدالله: «ما شاء الله، مبارك لكم»' },
+  ],
+  'modern-minimal': [
+    { title: 'تأكيد حضور', body: 'سارة الراشد أكّدت حضورها' },
+    { title: 'باركود مفعّل', body: '٤٢ ضيفًا جاهزون للدخول' },
+    { title: 'تفضيل وجبة', body: 'محمد القاسم: نباتي + بدون غلوتين' },
+    { title: 'رسالة جديدة', body: 'لميس الشهري: «من أجمل دعوة شفناها»' },
+  ],
+  'andalusian-arch': [
+    { title: 'تأكيد حضور', body: 'سلطان البابطين أكّد حضوره' },
+    { title: 'تأكيد عائلة', body: 'آل الزامل · ٤ من العائلة' },
+    { title: 'تفضيل وصول', body: 'د. هدى البسّام: مدخل النساء' },
+    { title: 'رسالة جديدة', body: 'الشيخ ماجد: «خطوة مباركة، نشرّفكم»' },
+  ],
+  'classical-manuscript': [
+    { title: 'تأكيد حضور', body: 'أم محمد + ٣ من الأقارب' },
+    { title: 'بُشرى', body: '١٥ عائلة شاركت المباركة' },
+    { title: 'دعاء', body: 'أحمد المهنا: «بارك الله فيه وفي والديه»' },
+    { title: 'تأكيد حضور', body: 'الشيخ سعد العمري + الأبناء' },
+  ],
+  'botanical-rose': [
+    { title: 'تأكيد حضور', body: 'لطيفة الراشد أكّدت حضورها' },
+    { title: 'مجموعة', body: 'صديقات العروس · ١٢ أكّدن الحضور' },
+    { title: 'تفضيل وجبة', body: 'ندى السعد اختارت: سمك' },
+    { title: 'رسالة جديدة', body: 'نور الصبيحي: «أشواقي للقاء يا قمر»' },
+  ],
+  'geometric-kufic': [
+    { title: 'تأكيد حضور', body: 'أ. عبدالرحمن الفهد أكّد حضوره' },
+    { title: 'باركود مفعّل', body: '٨٧ من ١٢٠ زميلًا جاهزون' },
+    { title: 'تفضيل', body: 'د. مها العتيبي اختارت: نباتي' },
+    { title: 'رسالة جديدة', body: 'م. خالد الدوسري: «مبارك التخرّج يا بطل»' },
+  ],
+};
+
 /* ============ Public component =================================== */
 
 export function GuestInteractionShowcase({ style }: { style: SampleStyle }) {
   const theme = THEMES[style];
-  const detail = STYLE_DETAILS[style];
+  const notifs = NOTIFICATIONS[style];
 
   return (
     <section className="mb-24">
@@ -265,7 +316,7 @@ export function GuestInteractionShowcase({ style }: { style: SampleStyle }) {
 
         <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           <GuestPanel theme={theme} />
-          <HostPanel theme={theme} detail={detail} />
+          <HostPanel theme={theme} notifs={notifs} />
         </div>
 
         {/* En-label as cinematic footer chip */}
@@ -423,21 +474,15 @@ function PreviewButton({
 
 function HostPanel({
   theme,
-  detail,
+  notifs,
 }: {
   theme: StyleTheme;
-  detail: (typeof STYLE_DETAILS)[keyof typeof STYLE_DETAILS];
+  notifs: Notif[];
 }) {
-  // Personalize one notif name from the style's sample data — gives the
-  // showcase a sense of the actual mood (royal Najdi names vs. modern, etc.).
-  const sampleName = detail.sampleGroom.split(' ')[0] ?? 'أحمد';
-
-  const notifs = [
-    { title: 'تأكيد حضور', body: `${sampleName} أكّد حضوره`, delay: 0.65 },
-    { title: 'تأكيد حضور', body: 'فيصل القحطاني + ٢ مرافقين', delay: 0.95 },
-    { title: 'تفضيل وجبة', body: 'سارة الراشد اختارت: نباتي', delay: 1.25 },
-    { title: 'رسالة جديدة', body: 'كريمة الفوزان: «ألف مبروك يا غالي»', delay: 1.55 },
-  ];
+  // First notif lands at 0.65s; each one trails the previous by 0.30s
+  // so the stack reveals as a choreographed cascade.
+  const baseDelay = 0.65;
+  const step = 0.3;
 
   return (
     <div>
@@ -454,8 +499,14 @@ function HostPanel({
       </div>
 
       <div className="flex flex-col gap-2.5">
-        {notifs.map((n) => (
-          <NotifCard key={n.body} theme={theme} title={n.title} body={n.body} delay={n.delay} />
+        {notifs.map((n, i) => (
+          <NotifCard
+            key={n.body}
+            theme={theme}
+            title={n.title}
+            body={n.body}
+            delay={baseDelay + i * step}
+          />
         ))}
       </div>
     </div>
