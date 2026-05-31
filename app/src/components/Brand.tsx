@@ -7,9 +7,11 @@
  *                       favicon size (16×16) and presidential at hero
  *                       size (200×200). Defaults to 28×28.
  *
- *   <BrandWordmark />   The Arabic wordmark "دعوتي" set in Aref Ruqaa
- *                       in luxury deep-ink black with a single gold
- *                       diamond accent dot — confidence over decoration.
+ *   <BrandWordmark />   The Arabic wordmark "دعوتي" set in Reem Kufi
+ *                       — modern geometric Kufic that echoes the najmah
+ *                       inside the seal. Solid deep-ink black with a
+ *                       single gold diamond accent — confidence over
+ *                       decoration.
  *
  *   <BrandLockup />     Mark + wordmark side by side (RTL: mark on the
  *                       right, wordmark on the left). Default used in
@@ -109,12 +111,12 @@ export function BrandWordmark({
         display: 'inline-flex',
         alignItems: 'baseline',
         gap: Math.max(2, fontSize * 0.1),
-        fontFamily: 'var(--font-aref-ruqaa), serif',
+        fontFamily: 'var(--font-reem-kufi), sans-serif',
         fontSize,
         fontWeight: 700,
         lineHeight: 1,
         color: '#0e0e14',
-        letterSpacing: '-0.01em',
+        letterSpacing: '0.01em',
       }}
     >
       دعوتي
